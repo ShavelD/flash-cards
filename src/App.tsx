@@ -1,26 +1,44 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes, Navigate} from "react-router-dom";
+import {Test} from "./components/Test/Test";
+import {Registration} from "./features/registration/Registration";
+import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
+import {Login} from "./components/Login/Login";
+import {Main} from "./components/Main/Main";
+import {Profile} from "./components/Profile/Profile";
+import {PassRecovery} from "./features/pass-recovery/PassRecovery";
+
+
+export enum ROUTS {
+    DEFAULT = '/',
+    LOGIN = 'login',
+    REGISTRATION = 'registration',
+    PROFILE = 'profile',
+    NOT_FOUND = '404',
+    PASS_RECOVERY = 'password_recovery',
+    NEW_PASS = 'createNewPassword',
+    TEST_PAGE = 'test',
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            {/*<Container fixed>*/}
+            <Routes>
+                <Route path={ROUTS.DEFAULT} element={<Main/>}/>
+                <Route path={ROUTS.LOGIN} element={<Login/>}/>
+                <Route path={ROUTS.REGISTRATION} element={<Registration/>}/>
+                <Route path={ROUTS.PROFILE} element={<Profile/>}/>
+                <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
+                <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>
+                <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
+                <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
+                <Route path={'*'} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
+            </Routes>
+            {/*</Container>*/}
+        </div>
+    );
 }
 
 export default App;
