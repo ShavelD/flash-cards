@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route, Routes, Navigate} from "react-router-dom";
+import {Route, Routes, Navigate, BrowserRouter} from "react-router-dom";
 import {Test} from "./components/Test/Test";
 import {Registration} from "./features/registration/Registration";
 import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
@@ -8,6 +8,7 @@ import {Login} from "./components/Login/Login";
 import {Main} from "./components/Main/Main";
 import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
+import {RoutesNavLink} from "./routes/RoutesNavLink";
 
 
 export enum ROUTS {
@@ -23,7 +24,9 @@ export enum ROUTS {
 
 function App() {
     return (
+        <BrowserRouter>
         <div className="App">
+            <RoutesNavLink />
             {/*<Container fixed>*/}
             <Routes>
                 <Route path={ROUTS.DEFAULT} element={<Main/>}/>
@@ -38,6 +41,7 @@ function App() {
             </Routes>
             {/*</Container>*/}
         </div>
+        </BrowserRouter>
     );
 }
 

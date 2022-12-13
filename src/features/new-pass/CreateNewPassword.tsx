@@ -4,6 +4,7 @@ export const CreateNewPassword = () => {
 
     return (
         <>
+            Новый пароль
         </>
     )
 }

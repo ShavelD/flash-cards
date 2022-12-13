@@ -1,6 +1,6 @@
 
 
-export const authReducer = (state: any, action: any): any => {
+export const authReducer = (state: any, action: any): null => {
     switch (action.type) {
         default:
             return state

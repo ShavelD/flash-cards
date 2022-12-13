@@ -1,17 +1,17 @@
 import {NavLink} from "react-router-dom";
-import s from "./routes.module.css"
+import s from "./RoutesNavLink.module.css"
 import {ROUTS} from "../App";
 
-export const Routes = () => {
+export const RoutesNavLink = () => {
     return (
         <nav className={s.nav}>
+            <div>
+                <NavLink to={ROUTS.PROFILE}
+                         className={(navData) => navData.isActive ? s.active : s.item}>Profile</NavLink></div>
             <div>
                 <NavLink to={ROUTS.TEST_PAGE}
                          className={(navData) => navData.isActive ? s.active : s.item}>Test</NavLink>
             </div>
-            <div>
-                <NavLink to={ROUTS.PROFILE}
-                          className={(navData) => navData.isActive ? s.active : s.item}>Test</NavLink></div>
             <div>
                 <NavLink to={ROUTS.DEFAULT}
                           className={(navData) => navData.isActive ? s.active : s.item}>Main</NavLink></div>

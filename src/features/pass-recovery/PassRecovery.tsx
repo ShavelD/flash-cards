@@ -5,6 +5,7 @@ export const PassRecovery = () => {
 
     return (
         <>
+            Восстановить пароль
         </>
     )
 }

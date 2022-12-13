@@ -1,9 +1,9 @@
 
 
-export const appReducer = (state: any, action: any): any => {
+export const appReducer = (state: null, action: any): null => {
     switch (action.type) {
         default:
-            return {...state}
+            return state
     }
 }
 
