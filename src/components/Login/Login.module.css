@@ -1,4 +1,24 @@
-.input{
+.wrapper {
+    /*text-align: center;*/
+    /*padding-top: 20px;*/
+    display: flex;
+    justify-content: center;
+}
+
+.form {
+    width: 413px;
+    min-height: 552px;
+    display: inline-block;
+    background-color: #eaeaea;
+    border-radius: 25px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 26px;
+}
+
+.input {
     border-bottom: 1px black solid;
     border-top: 1px;
     border-left: 1px;
@@ -7,39 +27,28 @@
     width: 347px;
 }
 
-.wrapperInput{
-    padding-bottom: 70px;
+.wrapperInput {
+    padding-bottom: 50px;
+
 }
 
-.wrapperRememberMe{
+.wrapperRememberMe {
     display: flex;
     padding-top: 24px;
     padding-bottom: 29px;
 }
 
-.wrapperRememberMe input{
+.wrapperRememberMe input {
     margin-left: 30px;
 }
 
-.form{
-    width: 413px;
-    display: inline-block;
-    background-color: #eaeaea;
-    border-radius: 25px;
-}
-
-.wrapper{
-    text-align: center;
-    padding-top: 20px;
-}
-
-.wrapperTextPassword{
+.wrapperTextPassword {
     text-align: right;
     margin-right: 38px;
     padding-bottom: 69px;
 }
 
-.button{
+.button {
     width: 347px;
     height: 36px;
     border-radius: 30px;
@@ -48,18 +57,15 @@
     color: white;
 }
 
-.wrapperButton{
+.wrapperButton {
     padding-bottom: 31px;
 }
 
-.wrapperTextAccount{
+.wrapperTextAccount {
     padding-bottom: 11px;
 }
 
-.wrapperTextSignUp{
+.wrapperTextSignUp {
     color: #366EFF;
 }
 
-input{
-    background: url(../../assets/images/Shape.png) no-repeat center right;
-}

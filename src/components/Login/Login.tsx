@@ -1,6 +1,9 @@
 import React from 'react';
 import style from './Login.module.css'
 import {useFormik} from "formik";
+import FormControl from '@mui/material/FormControl';
+import {Box, IconButton, Input, InputAdornment, InputLabel, TextField} from "@mui/material";
+import {AccountCircle, Visibility, VisibilityOff} from "@mui/icons-material";
 
 
 type FormikErrorType = {
@@ -29,7 +32,6 @@ const validate = (values: any) => {
 
 export const Login = () => {
 
-
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -43,26 +45,48 @@ export const Login = () => {
         },
     })
 
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
 
     return (
         <div className={style.wrapper}>
             <form className={style.form} onSubmit={formik.handleSubmit}>
                 <h1>Sign in</h1>
                 <div className={style.wrapperInput}>
-                    <input className={style.input}
-                           placeholder="Email"
-                           {...formik.getFieldProps('email')}
-                    />
-                    {formik.touched.email && formik.errors.email ?
-                        <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    <Box>
+                        <TextField id="input-with-sx" label="Email" variant="standard"
+                                   {...formik.getFieldProps('email')}/>
+                     {formik.touched.email && formik.errors.email ?
+                            <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    </Box>
                 </div>
                 <div>
-                    <input className={style.input}
-                           placeholder="Password"
-                           {...formik.getFieldProps('password')}
-                    />
-                    {formik.touched.password && formik.errors.password ?
-                        <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    <FormControl sx={{m: 1, width: '25ch'}} variant="standard">
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                        <Input
+                            id="standard-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            {...formik.getFieldProps('password')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                        {formik.touched.password && formik.errors.password ?
+                            <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    </FormControl>
                 </div>
                 <div className={style.wrapperRememberMe}>
                     <input
