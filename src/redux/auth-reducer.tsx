@@ -1,5 +1,7 @@
-import {authAPI} from "../api/cards-api";
-import {AppDispatch} from "./store";
+import {AppThunk} from "./store";
+import {handleServerNetworkError} from "../utils/error-utils";
+import {AxiosError} from "axios";
+import {authAPI} from "../api/auth-api";
 
 
 type InitialStateType = {
@@ -29,17 +31,28 @@ export const setIsLoggedInAC = (isLoggedIn: boolean) => {
     } as const
 }
 
-//thunk
-
-export const authMeTC = () => async (dispatch: AppDispatch) => {
-    // debugger
-    try {
-        const res = await authAPI.me()
-        dispatch(setIsLoggedInAC(true))
-    }catch (err){
-
-    }
+export const setIsFetchingAC = (isLoggedIn: boolean) => {
+    return {
+        type: 'auth/SET-IS-LOGGED-IN',
+         isLoggedIn
+    } as const
 }
+
+//thunk
+export const registrationTC =
+    (email: string, password: string): AppThunk =>
+        async dispatch => {
+            try {
+                dispatch(setIsFetchingAC(true))
+                await authAPI.registration({ email, password })
+                // dispatch(setSuccessAC('Registration successfully completed'))
+            } catch (error) {
+                handleServerNetworkError(error as AxiosError | Error, dispatch)
+            } finally {
+                dispatch(setIsFetchingAC(false))
+            }
+        }
+
 
 
 

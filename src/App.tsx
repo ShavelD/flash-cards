@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route, Routes, Navigate, BrowserRouter} from "react-router-dom";
+import {Route, Routes, Navigate} from "react-router-dom";
 import {Test} from "./components/Test/Test";
 import {Registration} from "./features/registration/Registration";
 import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
@@ -10,6 +10,7 @@ import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
 import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
+import {Container} from "@mui/material";
 
 
 export enum ROUTS {
@@ -28,7 +29,7 @@ function App() {
         <div className="App">
             <Header />
             <RoutesNavLink />
-            {/*<Container fixed>*/}
+            <Container fixed>
             <Routes>
                 <Route path={ROUTS.DEFAULT} element={<Main/>}/>
                 <Route path={ROUTS.LOGIN} element={<Login/>}/>
@@ -40,7 +41,7 @@ function App() {
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={'*'} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
             </Routes>
-            {/*</Container>*/}
+            </Container>
         </div>
     );
 }

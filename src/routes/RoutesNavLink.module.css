@@ -1,0 +1,19 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 45px;
+}
+
+a {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    text-decoration: none;
+    color: blue;
+}
+
+@media (min-width: 376px) and (max-width: 687px) {
+    .nav {
+        display: inline-block;
+}
+}
