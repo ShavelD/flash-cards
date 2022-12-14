@@ -1,0 +1,18 @@
+.wrapper{
+    display: flex;
+    justify-content: space-around;
+    height: 60px;
+    align-items: center;
+    background-color: #FCFCFC;
+    box-shadow: 1px 5px 2px 2px rgb(28 46 23 / 5%);
+}
+
+.button{
+width: 113px;
+    height: 36px;
+    border-radius: 30px;
+    background-color: #366EFF;
+    border: 1px solid #366EFF;
+    color: white;
+}
+

@@ -9,6 +9,7 @@ import {Main} from "./components/Main/Main";
 import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
 import {RoutesNavLink} from "./routes/RoutesNavLink";
+import {Header} from "./components/Header/Header";
 
 
 export enum ROUTS {
@@ -24,8 +25,8 @@ export enum ROUTS {
 
 function App() {
     return (
-        <BrowserRouter>
         <div className="App">
+            <Header />
             <RoutesNavLink />
             {/*<Container fixed>*/}
             <Routes>
@@ -41,7 +42,6 @@ function App() {
             </Routes>
             {/*</Container>*/}
         </div>
-        </BrowserRouter>
     );
 }
 
