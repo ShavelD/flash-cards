@@ -1,21 +1,23 @@
-import {AppThunk} from "./store";
+import {AppDispatch, AppThunk} from "./store";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 
 
 type InitialStateType = {
-    isLoggedIn: boolean
+    isLoggedIh: boolean
 }
 
 const initialState: InitialStateType = {
-    isLoggedIn: false,
+    isLoggedIh: false,
 }
+
+export type AuthActionType = ReturnType<typeof setIsFetchingAC>
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
         case 'auth/SET-IS-LOGGED-IN': {
-            return {...state, isLoggedIn: action.isLoggedIn}
+            return {...state, isLoggedIh: action.isLoggedIh}
         }
         default:
             return {...state}
@@ -24,38 +26,39 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
 
 //action
-export const setIsLoggedInAC = (isLoggedIn: boolean) => {
+export const setIsFetchingAC = (isLoggedIh: boolean) => {
     return {
         type: 'auth/SET-IS-LOGGED-IN',
-         isLoggedIn
-    } as const
-}
-
-export const setIsFetchingAC = (isLoggedIn: boolean) => {
-    return {
-        type: 'auth/SET-IS-LOGGED-IN',
-         isLoggedIn
+        isLoggedIh
     } as const
 }
 
 //thunk
-export const registrationTC =
-    (email: string, password: string): AppThunk =>
-        async dispatch => {
-            try {
+// export const loginTC = (model: ResponseType): AppRootStateType => {
+//     return async (dispatch: AppDispatch) => {
+//         try {
+//             dispatch(setIsFetchingAC(true))
+//             await authAPI.login({email, password, data})
+//             // dispatch(setSuccessAC('Registration successfully completed'))
+//         } catch (error) {
+//             handleServerNetworkError(error as AxiosError | Error, dispatch)
+//         } finally {
+//             dispatch(setIsFetchingAC(false))
+//         }
+//     }
+// }
+
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+    return async (dispatch: AppDispatch) => {
+        try {
+            authAPI.login(email, password, rememberMe).then((res) => {
+                console.log(res)
+                if(res.data.error) throw new Error('Error')
                 dispatch(setIsFetchingAC(true))
-                await authAPI.registration({ email, password })
-                // dispatch(setSuccessAC('Registration successfully completed'))
-            } catch (error) {
-                handleServerNetworkError(error as AxiosError | Error, dispatch)
-            } finally {
-                dispatch(setIsFetchingAC(false))
-            }
+            })
+        } catch (error) {
+            console.log(error)
         }
+    }
+}
 
-
-
-
-//type
-
-export type AuthActionType = ReturnType<typeof setIsLoggedInAC>

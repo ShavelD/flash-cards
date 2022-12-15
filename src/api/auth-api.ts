@@ -15,6 +15,9 @@ export const authAPI = {
     me() {
         return instance.post<ProfileType>('/auth/me', {})
     },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<ProfileType>('/auth/login', {email, password, rememberMe})
+    },
 
 }
 

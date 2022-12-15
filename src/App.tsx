@@ -4,24 +4,26 @@ import {Route, Routes, Navigate} from "react-router-dom";
 import {Test} from "./components/Test/Test";
 import {Registration} from "./features/registration/Registration";
 import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
-import {Login} from "./components/Login/Login";
 import {Main} from "./components/Main/Main";
 import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
 import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
 import {Container} from "@mui/material";
+import {Login} from "./components/Login/LoginMain";
+
+
 
 
 export enum ROUTS {
     DEFAULT = '/',
-    LOGIN = 'login',
-    REGISTRATION = 'registration',
-    PROFILE = 'profile',
+    LOGIN = '/login',
+    REGISTRATION = '/registration',
+    PROFILE = '/profile',
     NOT_FOUND = '404',
-    PASS_RECOVERY = 'password_recovery',
-    NEW_PASS = 'createNewPassword',
-    TEST_PAGE = 'test',
+    PASS_RECOVERY = '/password_recovery',
+    NEW_PASS = '/createNewPassword',
+    TEST_PAGE = '/test',
 }
 
 function App() {

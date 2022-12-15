@@ -7,6 +7,11 @@ export const Profile = () => {
     const [name, setName] = useState<string>('')
 
 
+    // const onClickLogout = () => {
+    //     dispatch(logOutTC())
+    // }
+    // onClickLogout={onClickLogout}
+
     return (
         <div className={s.container}>
             <div><a href="">Back to Packs List</a></div>

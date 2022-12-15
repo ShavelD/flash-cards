@@ -11,7 +11,7 @@ import {appReducer} from "./app-reducer";
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     // app: appReducer,
-    // auth: authReducer,
+    auth: authReducer,
     // main: mainReducer,
     // test: testReducer
 })
