@@ -37,7 +37,7 @@ export type ProfileType = {
     name: string;
     avatar?: string;
     publicCardPacksCount: number; // количество колод
-    created: Date;
+    created?: Date;
     rememberMe: boolean;
     error?: string;
 }
