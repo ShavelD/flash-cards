@@ -13,9 +13,6 @@ import {Container} from "@mui/material";
 import {Login} from "./components/Login/LoginMain";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 
-
-
-
 export enum ROUTS {
     DEFAULT = '/',
     LOGIN = '/login',
