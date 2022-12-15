@@ -11,6 +11,9 @@ export const instance = axios.create({
 export const authAPI = {
     registration(model: RegisterPopsType) {
         return instance.post('/auth/register', model)
+            .then((res)=>{
+                return res.data
+            })
     },
     me() {
         return instance.post<ProfileType>('/auth/me', {})

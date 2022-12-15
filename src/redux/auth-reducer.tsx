@@ -6,18 +6,23 @@ import {authAPI} from "../api/auth-api";
 
 type InitialStateType = {
     isLoggedIh: boolean
+    email: string
 }
 
 const initialState: InitialStateType = {
     isLoggedIh: false,
+    email: ""
 }
 
-export type AuthActionType = ReturnType<typeof setIsFetchingAC>
+export type AuthActionType = ReturnType<typeof setIsFetchingAC> | ReturnType<typeof setEmailAC>
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
         case 'auth/SET-IS-LOGGED-IN': {
             return {...state, isLoggedIh: action.isLoggedIh}
+        }
+        case 'auth/SET-EMAIL': {
+            return {...state, email: action.email}
         }
         default:
             return {...state}
@@ -30,6 +35,12 @@ export const setIsFetchingAC = (isLoggedIh: boolean) => {
     return {
         type: 'auth/SET-IS-LOGGED-IN',
         isLoggedIh
+    } as const
+}
+export const setEmailAC = (email: string) => {
+    return {
+        type: 'auth/SET-EMAIL',
+        email
     } as const
 }
 
@@ -58,6 +69,19 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
             })
         } catch (error) {
             console.log(error)
+        }
+    }
+}
+
+export const registrationTC = (email: string, password: string): AppThunk => {
+    return async (dispatch: AppDispatch) => {
+        try {
+            await authAPI.registration({email, password}).then((res)=>{
+                if(res.error) throw new Error('Error')
+                dispatch(setEmailAC(email))
+            })
+        } catch (e){
+            console.log(e)
         }
     }
 }

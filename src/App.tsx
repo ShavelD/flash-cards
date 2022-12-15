@@ -11,6 +11,7 @@ import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
 import {Container} from "@mui/material";
 import {Login} from "./components/Login/LoginMain";
+import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 
 
 
@@ -19,6 +20,7 @@ export enum ROUTS {
     DEFAULT = '/',
     LOGIN = '/login',
     REGISTRATION = '/registration',
+    EMAIL_CONFIRMATION = 'email_confirmation',
     PROFILE = '/profile',
     NOT_FOUND = '404',
     PASS_RECOVERY = '/password_recovery',
@@ -36,6 +38,7 @@ function App() {
                 <Route path={ROUTS.DEFAULT} element={<Main/>}/>
                 <Route path={ROUTS.LOGIN} element={<Login/>}/>
                 <Route path={ROUTS.REGISTRATION} element={<Registration/>}/>
+                <Route path={ROUTS.EMAIL_CONFIRMATION} element={<EmailConfirmation/>}/>
                 <Route path={ROUTS.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
                 <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>

@@ -33,3 +33,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 // а это, чтобы можно было в консоли браузера обращаться к store в любой момент
 // @ts-ignore
 window.store = store;
+
+export type DispatchType = ReturnType<typeof createStore>['dispatch']
