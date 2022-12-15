@@ -1,40 +1,41 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
 type EditableSpanPropsType = {
     name: string
-    onChange: (any: any) => void
+    updateUserName: (name: any) => void
 }
 
-export const EditableSpan = ({name, onChange}: EditableSpanPropsType) => {
+export const EditableSpan = ({name, updateUserName}: EditableSpanPropsType) => {
 
-    let [editMode, setEditMode] = useState(true);
-    let [title, setTitle] = useState(name);
+    let [title, setTitle] = useState<string>(name);
+    let [editMode, setEditMode] = useState(true)
+
+    const onEditMode = () => setEditMode(true)
+
     console.log(name)
 
-    const activateEditMode = () => {
-            setEditMode(true);
-            setTitle(name);
-    }
-    const activateViewMode = () => {
-        setEditMode(false);
-        onChange(title);
-    }
-    const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
+
+    useEffect(() => {
+        setTitle(name)
+    }, [name])
+
+    const offEditMode = () => {
+        updateUserName(title)
+        setEditMode(false)
     }
 
+    const changeNameTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
     return (
         <div>
-            { editMode
+            {editMode
                 ?
                 <div>
-                    <input value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode} />
-                    <button onClick={activateEditMode}>save</button>
+                    <input value={title} onChange={changeNameTitle} autoFocus onBlur={offEditMode}/>
+                    <button onClick={onEditMode}>save</button>
                 </div>
-                :
-                <span onDoubleClick={activateEditMode}>{name}</span>}
+                : <span onDoubleClick={onEditMode}>{name || 'no name'}</span>
+            }
         </div>
     );
 };
-

@@ -29,35 +29,19 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
     }
 }
 
-
-//action
 export const setIsFetchingAC = (isLoggedIh: boolean) => {
     return {
         type: 'auth/SET-IS-LOGGED-IN',
         isLoggedIh
     } as const
 }
+
 export const setEmailAC = (email: string) => {
     return {
         type: 'auth/SET-EMAIL',
         email
     } as const
 }
-
-//thunk
-// export const loginTC = (model: ResponseType): AppRootStateType => {
-//     return async (dispatch: AppDispatch) => {
-//         try {
-//             dispatch(setIsFetchingAC(true))
-//             await authAPI.login({email, password, data})
-//             // dispatch(setSuccessAC('Registration successfully completed'))
-//         } catch (error) {
-//             handleServerNetworkError(error as AxiosError | Error, dispatch)
-//         } finally {
-//             dispatch(setIsFetchingAC(false))
-//         }
-//     }
-// }
 
 export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
     return async (dispatch: AppDispatch) => {

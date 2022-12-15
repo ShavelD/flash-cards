@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import {AxiosResponse} from "axios/index";
 
 
 export const instance = axios.create({
@@ -11,19 +11,21 @@ export const instance = axios.create({
 export const authAPI = {
     registration(model: RegisterPopsType) {
         return instance.post('/auth/register', model)
-            .then((res)=>{
+            .then((res) => {
                 return res.data
             })
     },
     me() {
-        return instance.post<ProfileType>('/auth/me')
+        return instance.post<MePropsType>('/auth/me')
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<ProfileType>('/auth/login', {email, password, rememberMe})
+        return instance.post<MePropsType>('/auth/login', {email, password, rememberMe})
+    },
+    userUpdate(data: UpdateUserType) {
+        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`auth/me`, data)
     },
 
 }
-
 
 
 type RegisterPopsType = {
@@ -31,13 +33,22 @@ type RegisterPopsType = {
     password: string
 }
 
-export type ProfileType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number; // количество колод
-    created?: Date;
-    rememberMe: boolean;
-    error?: string;
+export type UpdateUserType = {
+    name: string
+    avatar: string
+}
+
+type ResponseType = {
+    updatedUser: MePropsType
+    error?: string
+}
+
+export type MePropsType = {
+    _id: string
+    email: string
+    name: string
+    avatar: string
+    publicCardPacksCount: number
+    rememberMe: boolean
+    error?: string
 }

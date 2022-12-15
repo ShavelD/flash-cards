@@ -1,6 +1,5 @@
 import React from "react";
-import {ProfileType} from "../api/auth-api";
-import {profileApi, UpdateUserType} from "../api/profile-api";
+import {authAPI, MePropsType, UpdateUserType,} from "../api/auth-api";
 import {AppThunk} from "./store";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
@@ -25,7 +24,7 @@ export const registrationAC = () => {
     return {type: '',} as const
 }
 
-export const setProfileAC = (profile:ProfileType) => {
+export const setProfileAC = (profile: MePropsType) => {
     debugger
   return{
       type:'set/PROFILE',
@@ -35,10 +34,10 @@ export const setProfileAC = (profile:ProfileType) => {
 
 
 //thunk
-export const updateUserTC = (data:UpdateUserType):AppThunk => async dispatch=>{
+export const updateUserTC = (data: UpdateUserType):AppThunk => async dispatch=>{
    // debugger
     try {
-        const res = await profileApi.userUpdate(data)
+        const res = await authAPI.userUpdate(data)
         dispatch(setProfileAC(res.data.updatedUser))
     }
     catch (error) {
@@ -53,7 +52,7 @@ export type ActionType = ReturnType<typeof registrationAC> | ReturnType<typeof s
 
 type initialStateType = {
    // isLoggedIh: boolean
-    user:ProfileType
+    user: MePropsType
 }
 
 const initialState: initialStateType = {

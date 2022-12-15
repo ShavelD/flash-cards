@@ -1,6 +1,11 @@
+import {AppDispatch, AppThunk} from "./store";
+import {authAPI} from "../api/auth-api";
+import {handleServerNetworkError} from "../utils/error-utils";
+import {AxiosError} from "axios";
+import {setIsFetchingAC} from "./auth-reducer";
 
 
-export const appReducer = (state: null, action: any): null => {
+export const appReducer = (state: any, action: any): any => {
     switch (action.type) {
         default:
             return state
@@ -16,3 +21,15 @@ export const setIsInitializedAC = (isInitialized: boolean) => ({type: 'APP/SET-I
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 export type SetAppIsInitializeActionType = ReturnType<typeof setIsInitializedAC>
+
+// export const setIsInitializedTC = (): AppThunk => async dispatch => {
+//         try {
+//             dispatch(setIsFetchingAC(true))
+//             await authAPI.me()
+//             let {email, login, avatar, _id} = res.data
+//         }
+//        finally {
+//             dispatch(setIsFetchingAC(false))
+//         }
+//     }
+// }
