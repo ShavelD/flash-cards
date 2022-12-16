@@ -8,8 +8,7 @@
 }
 
 .button{
-width: 113px;
-    height: 36px;
+    padding: 8px 28px;
     border-radius: 30px;
     background-color: #366EFF;
     border: 1px solid #366EFF;

@@ -16,7 +16,6 @@ import {Packs} from "./components/Packs/Packs";
 import {Cards} from "./components/Cards/Cards";
 import {setIsInitializedTC} from "./redux/app-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hook";
-import {logOutTC} from "./redux/auth-reducer";
 
 export enum ROUTS {
     DEFAULT = '/',

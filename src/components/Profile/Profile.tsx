@@ -45,22 +45,25 @@ export const Profile = () => {
                 <div className={style.text}>Back to Packs List</div>
             </NavLink>
             </div>
-            <form className={style.form} onSubmit={formik.handleSubmit}>
-                <h2>Personal Information</h2>
-                <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
-                <div className={style.wrapperInput}>
-                    <Box>
-                        <EditableSpan updateUserName={updateUserHandler} name={user.name}/>
-                    </Box>
-                </div>
-                <div className={style.wrapperButton}>
-                    <button type="submit" className={style.button} onClick={logOut}>
-                        <div className={style.logout}><img src={logout} alt={'logout'}/>
-                            Log out
-                        </div>
-                    </button>
-                </div>
-            </form>
+            <div className={style.flex}>
+                <form className={style.form} onSubmit={formik.handleSubmit}>
+                    <h2>Personal Information</h2>
+                    <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
+                    <div className={style.wrapperInput}>
+                        <Box>
+                            <EditableSpan updateUserName={updateUserHandler} name={user.name}/>
+                        </Box>
+                    </div>
+                    <div className={style.wrapperButton}>
+                        <button type="submit" className={style.button} onClick={logOut}>
+                            <div className={style.logout}><img src={logout} alt={'logout'}/>
+                                Log out
+                            </div>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     )
 }
