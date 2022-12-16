@@ -1,0 +1,56 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+.form {
+    width: 413px;
+    height: 408px;
+    display: inline-block;
+    background-color: #eaeaea;
+    border-radius: 25px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+p {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    opacity: 50%;
+}
+
+.wrapperButton button{
+    width: 347px;
+    height: 36px;
+    border-radius: 30px;
+    background-color: #366EFF;
+    border: 1px solid #366EFF;
+    color: white;
+}
+
+.wrapperButton {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 31px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 60px;
+}
