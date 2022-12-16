@@ -1,4 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
+import style from "./EditableSpan.module.css"
+import {BorderColorOutlined} from "@mui/icons-material";
 
 type EditableSpanPropsType = {
     name: string
@@ -27,14 +29,17 @@ export const EditableSpan = ({name, updateUserName}: EditableSpanPropsType) => {
     const changeNameTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
 
     return (
-        <div>
+        <div className={style.wrapper}>
             {editMode
                 ?
                 <div>
-                    <input value={title} onChange={changeNameTitle} autoFocus onBlur={offEditMode}/>
-                    <button onClick={onEditMode}>save</button>
+                    <div className={style.nickname}>Nickname</div>
+                    <input className={style.input} value={title} onChange={changeNameTitle} autoFocus onBlur={offEditMode}/>
+                    <button className={style.button} onClick={onEditMode}>save</button>
                 </div>
-                : <span onDoubleClick={onEditMode}>{name || 'no name'}</span>
+                : <div><span className={style.span} onDoubleClick={onEditMode}>{name || 'no name'}
+                    <span className={style.borderColor}><BorderColorOutlined/></span>
+                </span></div>
             }
         </div>
     );

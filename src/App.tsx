@@ -12,6 +12,8 @@ import {Header} from "./components/Header/Header";
 import {Container} from "@mui/material";
 import {Login} from "./components/Login/LoginMain";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
+import {Packs} from "./components/Packs/Packs";
+import {Cards} from "./components/Cards/Cards";
 
 export enum ROUTS {
     DEFAULT = '/',
@@ -22,6 +24,8 @@ export enum ROUTS {
     NOT_FOUND = '404',
     PASS_RECOVERY = '/password_recovery',
     NEW_PASS = '/createNewPassword',
+    PACKS = '/packs',
+    CARDS = '/cards',
     TEST_PAGE = '/test',
 }
 
@@ -40,6 +44,8 @@ function App() {
                 <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
                 <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
+                <Route path={ROUTS.PACKS} element={<Packs/>}/>
+                <Route path={ROUTS.CARDS} element={<Cards/>}/>
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={'*'} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
             </Routes>

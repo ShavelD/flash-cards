@@ -1,11 +1,18 @@
-import React, {useState} from 'react'
-import s from './Profile.module.css'
+import React from 'react'
+import style from "./Profile.module.css";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {useAppDispatch} from "../../hooks/hook";
 import {updateUserTC} from "../../redux/profile-reducer";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
 import {MePropsType, UpdateUserType} from "../../api/auth-api";
+import {NavLink} from "react-router-dom";
+import {KeyboardBackspace} from "@mui/icons-material";
+import {ROUTS} from "../../App";
+import logout from "../../../../flash-cards/src/assets/images/logout.jpg"
+import shibaImg from "../../../../flash-cards/src/assets/images/1559640002_08f026.jpg"
+import {Box} from "@mui/material";
+import {useFormik} from "formik";
 
 
 export const Profile = () => {
@@ -17,23 +24,43 @@ export const Profile = () => {
         dispatch(updateUserTC(data))
     }
 
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+        },
+        onSubmit: values => {
+            console.log(values)
+            formik.resetForm()
+        },
+    })
+
     // const onClickLogout = () => {
     //     dispatch(logOutTC())
     // }
     // onClickLogout={onClickLogout}
 
     return (
-        <div className={s.container}>
-            <div><a href="">Back to Packs List</a></div>
-            <div className={s.profile}>
-                <h2>Personal Information</h2>
-                <div><img src="" alt=""/></div>
-
-                {/*<input/>*/}
-                <EditableSpan updateUserName={updateUserHandler} name={user.name}/>
-
-                <button className={s.button}>Log out</button>
+        <div className={style.wrapper}>
+            <div><NavLink to={ROUTS.PACKS} className={style.navlink}><KeyboardBackspace/>
+                <div className={style.text}>Back to Packs List</div>
+            </NavLink>
             </div>
+            <form className={style.form} onSubmit={formik.handleSubmit}>
+                <h2>Personal Information</h2>
+                <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
+                <div className={style.wrapperInput}>
+                    <Box>
+                        <EditableSpan updateUserName={updateUserHandler} name={user.name}/>
+                    </Box>
+                </div>
+                <div className={style.wrapperButton}>
+                    <button type="submit" className={style.button}>
+                        <div className={style.logout}><img src={logout} alt={'logout'}/>
+                            Log out
+                        </div>
+                    </button>
+                </div>
+            </form>
         </div>
     )
 }
