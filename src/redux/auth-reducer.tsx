@@ -5,12 +5,12 @@ import {authAPI} from "../api/auth-api";
 
 
 type InitialStateType = {
-    isLoggedIh: boolean
+    isLoggedIn: boolean
     email: string
 }
 
 const initialState: InitialStateType = {
-    isLoggedIh: false,
+    isLoggedIn: false,
     email: ""
 }
 
@@ -19,7 +19,7 @@ export type AuthActionType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typ
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
         case 'auth/SET-IS-LOGGED-IN': {
-            return {...state, isLoggedIh: action.isLoggedIh}
+            return {...state, isLoggedIn: action.isLoggedIn}
         }
         case 'auth/SET-EMAIL': {
             return {...state, email: action.email}
@@ -29,10 +29,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
     }
 }
 
-export const setIsLoggedInAC = (isLoggedIh: boolean) => {
+export const setIsLoggedInAC = (isLoggedIn: boolean) => {
     return {
         type: 'auth/SET-IS-LOGGED-IN',
-        isLoggedIh
+        isLoggedIn
     } as const
 }
 

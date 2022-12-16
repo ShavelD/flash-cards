@@ -1,7 +1,7 @@
 import React from 'react'
 import style from "./Profile.module.css";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
-import {useAppDispatch} from "../../hooks/hook";
+import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {updateUserTC} from "../../redux/profile-reducer";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
@@ -38,11 +38,6 @@ export const Profile = () => {
             formik.resetForm()
         },
     })
-
-    // const onClickLogout = () => {
-    //     dispatch(logOutTC())
-    // }
-    // onClickLogout={onClickLogout}
 
     return (
         <div className={style.wrapper}>

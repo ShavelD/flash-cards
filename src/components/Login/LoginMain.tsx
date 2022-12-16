@@ -15,18 +15,17 @@ export type FormDataType = {
 
 export const Login = () => {
 
-    const isLoggedIh = useAppSelector((state: AppRootStateType) => state.auth.isLoggedIh)
+    const isLoggedIn = useAppSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
     const dispatch = useAppDispatch()
 
     const onHandlerSubmit = (formData: FormDataType) => {
         dispatch(loginTC(formData.email, formData.password, formData.rememberMe));
-
     }
         return (
 
             <div className={style.login}>
-                {isLoggedIh ? <Navigate to={"/profile/"}/>
+                {isLoggedIn ? <Navigate to={"/profile/"}/>
                     : <>
                         <LoginForm onHandlerSubmit={onHandlerSubmit}/>
                     </>
