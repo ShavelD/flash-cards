@@ -19,7 +19,7 @@ export enum ROUTS {
     DEFAULT = '/',
     LOGIN = '/login',
     REGISTRATION = '/registration',
-    EMAIL_CONFIRMATION = 'email_confirmation',
+    EMAIL_CONFIRMATION = '/email_confirmation',
     PROFILE = '/profile',
     NOT_FOUND = '404',
     PASS_RECOVERY = '/password_recovery',

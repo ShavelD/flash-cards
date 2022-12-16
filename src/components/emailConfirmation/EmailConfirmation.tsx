@@ -2,18 +2,20 @@ import React from 'react';
 //import {useAppSelector} from "../hooks/useAppDispatch";
 import {useNavigate} from "react-router-dom";
 import {useAppSelector} from "../../hooks/hook";
+import style from "./EmailConfirmation.module.css"
+import Group from "../../assets/images/Group 281.png"
 
 const EmailConfirmation = () => {
     const navigate = useNavigate()
     const storeEmail = useAppSelector(state => state.auth.email)
     return (
-        <div style={{display: "flex", justifyContent: "center"}}>
-            <div style={{flexDirection: "column", marginTop: '100px', width: '350px', height: '350px', border: '1px solid black', borderRadius: '2px', display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+        <div className={style.wrapper}>
+            <div className={style.form}>
                 <h2>Check Email</h2>
-                <img/>
-                <p style={{color: "gray", fontSize: 14}}>We have sent an Email with instructions to {storeEmail}</p>
-                <button onClick={()=>navigate('/login')} style={{backgroundColor: "blue", color: "white", borderRadius: '20px',
-                    width: '80%', height: '40px'}}>Back to login</button>
+                <div className={style.group}><img src={Group} alt={''}/> </div>
+                <p>We have sent an Email with instructions to {storeEmail}</p>
+                <div className={style.wrapperButton}><button onClick={()=>navigate('/login')}
+                   >Back to login</button> </div>
             </div>
         </div>
     );

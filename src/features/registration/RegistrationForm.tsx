@@ -1,27 +1,27 @@
-import React from 'react';
-import style from './LoginForm.module.css'
+import React from "react";
 import {useFormik} from "formik";
-import FormControl from '@mui/material/FormControl';
+import style from "../../components/Login/LoginForm.module.css";
 import {Box, IconButton, Input, InputAdornment, InputLabel, TextField} from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {NavLink} from "react-router-dom";
 import {ROUTS} from "../../App";
 
+
 interface Values {
     email: string
     password: string
-    rememberMe: boolean
+    passwordConfirm?: string
 }
 
 type PropsType = {
-    onHandlerSubmit: (data: Values) => void
-
+    onClickHandler: (data: Values) => void
 }
 
 type FormikErrorType = {
     email?: string,
     password?: string,
-    rememberMe?: boolean
+    passwordConfirm?: string,
 }
 
 const validate = (values: any) => {
@@ -39,20 +39,26 @@ const validate = (values: any) => {
         errors.password = 'некорректный пароль';
     }
 
+    if (values.passwordConfirm !== values.password) {
+        errors.passwordConfirm = 'пароль не совпадает';
+    } else if (values.passwordConfirm.length < 3) {
+        errors.passwordConfirm = 'некорректный пароль';
+    }
+
     return errors;
 };
 
-export const LoginForm: React.FC<PropsType> = (props) => {
+export const RegistrationForm: React.FC<PropsType> = (props) => {
 
     const formik = useFormik({
         initialValues: {
             email: '',
             password: '',
-            rememberMe: false
+            passwordConfirm: ''
         },
         validate,
         onSubmit: values => {
-            props.onHandlerSubmit(values)
+            props.onClickHandler(values)
             formik.resetForm()
         },
     })
@@ -60,6 +66,7 @@ export const LoginForm: React.FC<PropsType> = (props) => {
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -101,30 +108,39 @@ export const LoginForm: React.FC<PropsType> = (props) => {
                             <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     </FormControl>
                 </div>
-                <div className={style.wrapperRememberMe}>
-                    <input
-                        type={'checkbox'}
-                        checked={formik.values.rememberMe}
-                        // name="rememberMe"
-                        // onChange={formik.handleChange}
-                        {...formik.getFieldProps('rememberMe')}
-                    />
-                    <div>Remember me</div>
-                </div>
-                <div className={style.wrapperTextPassword}>
-                    <NavLink to={ROUTS.PASS_RECOVERY} className={style.navlink}> Forgot your password?</NavLink>
+                <div className={style.wrapperInput}>
+                    <FormControl sx={{width: '30ch'}} variant="standard">
+                        <InputLabel htmlFor="standard-adornment-passwordConfirm">Confirm password</InputLabel>
+                        <Input
+                            id="standard-adornment-passwordConfirm"
+                            type={showPassword ? 'text' : 'password'}
+                            {...formik.getFieldProps('passwordConfirm')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                        {formik.touched.passwordConfirm && formik.errors.passwordConfirm ?
+                            <div style={{color: 'red'}}>{formik.errors.passwordConfirm}</div> : null}
+                    </FormControl>
                 </div>
                 <div className={style.wrapperButton}>
                     <button type="submit" className={style.button}>Sign in</button>
                 </div>
                 <div className={style.wrapperTextAccount}>
-                    Still don't have an account?
+                    Already have an account?
                 </div>
                 <div className={style.wrapperTextSignUp}>
-                    <NavLink to={ROUTS.REGISTRATION} className={style.navlink}>Sign Up</NavLink>
+                    <NavLink to={ROUTS.LOGIN} className={style.navlink}>Sign In</NavLink>
                 </div>
             </form>
         </div>
     );
 };
-
