@@ -29,12 +29,12 @@ export const RoutesNavLink = () => {
                     Profile
                 </NavLink></div>
             <div>
-                <NavLink to={ROUTS.PROFILE}
+                <NavLink to={ROUTS.PACKS}
                          className={(navData) => navData.isActive ? s.active : s.item}>
                     Packs
                 </NavLink></div>
             <div>
-                <NavLink to={ROUTS.PROFILE}
+                <NavLink to={ROUTS.CARDS}
                          className={(navData) => navData.isActive ? s.active : s.item}>
                     Cards
                 </NavLink></div>
