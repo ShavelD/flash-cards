@@ -4,17 +4,16 @@ import {AxiosError} from "axios";
 import {authAPI} from "../api/auth-api";
 
 
-type InitialStateType = {
-    isLoggedIn: boolean
-    email: string
-}
-
-const initialState: InitialStateType = {
+const initialState = {
     isLoggedIn: false,
-    email: ""
+    isFetching: false,
+    email: '',
+
 }
 
-export type AuthActionType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setEmailAC>
+type InitialStateType = typeof initialState
+
+export type AuthActionType = ReturnType<typeof setIsLoggedInAC> | ReturnType<typeof setEmailAC> | ReturnType<typeof setIsFetchingAC>
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
@@ -24,6 +23,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
         case 'auth/SET-EMAIL': {
             return {...state, email: action.email}
         }
+        case 'AUTH/SET-IS-FETCHING':
+            return {...state, isFetching: action.value}
         default:
             return {...state}
     }
@@ -43,21 +44,38 @@ export const setEmailAC = (email: string) => {
     } as const
 }
 
+export const setIsFetchingAC = (value: boolean) =>
+    ({type: 'AUTH/SET-IS-FETCHING', value} as const)
 
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
-    return async (dispatch: AppDispatch) => {
-        try {
-            authAPI.login(email, password, rememberMe).then((res) => {
-                console.log(res)
-                if(res.data.error) throw new Error('Error')
+// export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+//     return async (dispatch: AppDispatch) => {
+//         try {
+//             authAPI.login(email, password, rememberMe).then((res) => {
+//                 console.log(res)
+//                 if (res.data.error) throw new Error('Error')
+//                 dispatch(setIsLoggedInAC(true))
+//             })
+//         } catch (error) {
+//             console.log(error)
+//         }
+//     }
+// }
+export const loginTC =
+    (email: string, password: string, rememberMe: boolean): AppThunk =>
+        async dispatch => {
+            try {
+                dispatch(setIsFetchingAC(true))
+                await authAPI.login(email, password,rememberMe)
                 dispatch(setIsLoggedInAC(true))
-            })
-        } catch (error) {
-            console.log(error)
+            } catch (error) {
+                // handleServerNetworkError(error as AxiosError | Error, dispatch)
+                console.log(error)
+            } finally {
+                dispatch(setIsFetchingAC(false))
+            }
         }
-    }
-}
+
 
 export const logOutTC = (): AppThunk => async dispatch => {
     try {
@@ -71,11 +89,11 @@ export const logOutTC = (): AppThunk => async dispatch => {
 export const registrationTC = (email: string, password: string): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
-            await authAPI.registration({email, password}).then((res)=>{
-                if(res.error) throw new Error('Error')
+            await authAPI.registration({email, password}).then((res) => {
+                if (res.error) throw new Error('Error')
                 dispatch(setEmailAC(email))
             })
-        } catch (e){
+        } catch (e) {
             console.log(e)
         }
     }
