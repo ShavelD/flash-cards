@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import {Route, Routes, Navigate} from "react-router-dom";
 import {Test} from "./components/Test/Test";
@@ -14,6 +14,8 @@ import {Login} from "./components/Login/LoginMain";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 import {Packs} from "./components/Packs/Packs";
 import {Cards} from "./components/Cards/Cards";
+import {setIsInitializedTC} from "./redux/app-reducer";
+import {useAppDispatch, useAppSelector} from "./hooks/hook";
 
 export enum ROUTS {
     DEFAULT = '/',
@@ -30,6 +32,22 @@ export enum ROUTS {
 }
 
 function App() {
+
+    const isFetching = useAppSelector(state => state.app.isFetching)
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(setIsInitializedTC())
+    }, [])
+
+    if (isFetching) {
+        return (
+            <div>
+                Loading...
+            </div>
+        )
+    }
     return (
         <div className="App">
             <Header />

@@ -3,7 +3,7 @@ import {authAPI, MePropsType, UpdateUserType,} from "../api/auth-api";
 import {AppThunk} from "./store";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
-import {setIsFetchingAC} from "./auth-reducer";
+import {setIsLoggedInAC} from "./auth-reducer";
 
 
 export const profileReducer = (state = initialState, action: ActionType): initialStateType => {
@@ -41,7 +41,7 @@ export const updateUserTC = (data: UpdateUserType): AppThunk => async dispatch =
     } catch (error) {
         handleServerNetworkError(error as AxiosError | Error, dispatch)
     } finally {
-        dispatch(setIsFetchingAC(false))
+        dispatch(setIsLoggedInAC(false))
     }
 }
 
