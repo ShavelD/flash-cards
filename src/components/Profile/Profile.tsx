@@ -13,6 +13,7 @@ import logout from "../../../../flash-cards/src/assets/images/logout.jpg"
 import shibaImg from "../../../../flash-cards/src/assets/images/1559640002_08f026.jpg"
 import {Box} from "@mui/material";
 import {useFormik} from "formik";
+import {logOutTC} from "../../redux/auth-reducer";
 
 
 export const Profile = () => {
@@ -22,6 +23,10 @@ export const Profile = () => {
     const updateUserHandler = (data: UpdateUserType) => {
         //debugger
         dispatch(updateUserTC(data))
+    }
+
+    const logOut = () => {
+        dispatch(logOutTC())
     }
 
     const formik = useFormik({
@@ -54,7 +59,7 @@ export const Profile = () => {
                     </Box>
                 </div>
                 <div className={style.wrapperButton}>
-                    <button type="submit" className={style.button}>
+                    <button type="submit" className={style.button} onClick={logOut}>
                         <div className={style.logout}><img src={logout} alt={'logout'}/>
                             Log out
                         </div>

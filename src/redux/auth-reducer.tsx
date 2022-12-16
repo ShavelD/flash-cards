@@ -59,6 +59,15 @@ export const loginTC = (email: string, password: string, rememberMe: boolean): A
     }
 }
 
+export const logOutTC = (): AppThunk => async dispatch => {
+    try {
+        await authAPI.logOut()
+        dispatch(setIsLoggedInAC(false))
+    } catch (error) {
+        handleServerNetworkError(error as AxiosError | Error, dispatch)
+    }
+}
+
 export const registrationTC = (email: string, password: string): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
