@@ -9,16 +9,16 @@ import FormControl from "@mui/material/FormControl";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
 type FormikErrorType = {
-    email?: string,
+    password?: string,
 }
 
 const validate = (values: any) => {
     const errors: FormikErrorType = {};
 
-    if (!values.email) {
-        errors.email = 'заполните поле';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'некорректный email';
+    if (!values.password) {
+        errors.password = 'введите пароль';
+    } else if (values.password.length < 3) {
+        errors.password = 'некорректный пароль';
     }
 
     return errors;
@@ -79,7 +79,7 @@ export const CreateNewPassword = () => {
                     </div>
 
                     <div className={style.wrapperButton}>
-                        <button type="submit" className={style.button}>Send instructions</button>
+                        <button type="submit" className={style.button}>Create new password</button>
                     </div>
                     <div className={style.wrapperTextAccount}>
                         Create new password and we will send you further <br/> instructions to email
