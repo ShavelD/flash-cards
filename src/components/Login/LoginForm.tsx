@@ -53,7 +53,6 @@ export const LoginForm: React.FC<PropsType> = (props) => {
         validate,
         onSubmit: values => {
             props.onHandlerSubmit(values)
-            formik.resetForm()
         },
     })
 
@@ -105,8 +104,6 @@ export const LoginForm: React.FC<PropsType> = (props) => {
                     <input
                         type={'checkbox'}
                         checked={formik.values.rememberMe}
-                        // name="rememberMe"
-                        // onChange={formik.handleChange}
                         {...formik.getFieldProps('rememberMe')}
                     />
                     <div>Remember me</div>

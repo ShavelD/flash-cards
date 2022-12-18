@@ -4,26 +4,24 @@ import {BorderColorOutlined} from "@mui/icons-material";
 
 type EditableSpanPropsType = {
     name: string
-    updateUserName: (name: any) => void
+    updateUserName: (name: string) => void
 }
 
 export const EditableSpan = ({name, updateUserName}: EditableSpanPropsType) => {
 
     let [title, setTitle] = useState<string>(name);
-    let [editMode, setEditMode] = useState(true)
+    let [editMode, setEditMode] = useState(false)
 
-    const onEditMode = () => setEditMode(true)
-
-    console.log(name)
-
+    const onEditMode = () => setEditMode(!editMode)
 
     useEffect(() => {
         setTitle(name)
     }, [name])
 
     const offEditMode = () => {
+        setTitle(title)
+        setEditMode(!editMode)
         updateUserName(title)
-        setEditMode(false)
     }
 
     const changeNameTitle = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
@@ -35,7 +33,7 @@ export const EditableSpan = ({name, updateUserName}: EditableSpanPropsType) => {
                 <div>
                     <div className={style.nickname}>Nickname</div>
                     <input className={style.input} value={title} onChange={changeNameTitle} autoFocus onBlur={offEditMode}/>
-                    <button className={style.button} onClick={onEditMode}>save</button>
+                    <button className={style.button}>save</button>
                 </div>
                 : <div><span className={style.span} onDoubleClick={onEditMode}>{name || 'no name'}
                     <span className={style.borderColor}><BorderColorOutlined/></span>

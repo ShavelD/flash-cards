@@ -83,9 +83,10 @@ h2 {
 .wrapperButton {
     display: flex;
     justify-content: center;
-    padding-bottom: 31px;
+    /*padding-bottom: 31px;*/
     font-size: 16px;
     font-weight: 500;
+    margin-top: 20px;
 }
 
 .logout{
