@@ -48,33 +48,19 @@ export const setIsFetchingAC = (value: boolean) =>
     ({type: 'AUTH/SET-IS-FETCHING', value} as const)
 
 
-// export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
-//     return async (dispatch: AppDispatch) => {
-//         try {
-//             authAPI.login(email, password, rememberMe).then((res) => {
-//                 console.log(res)
-//                 if (res.data.error) throw new Error('Error')
-//                 dispatch(setIsLoggedInAC(true))
-//             })
-//         } catch (error) {
-//             console.log(error)
-//         }
-//     }
-// }
-export const loginTC =
-    (email: string, password: string, rememberMe: boolean): AppThunk =>
-        async dispatch => {
-            try {
-                dispatch(setIsFetchingAC(true))
-                await authAPI.login(email, password,rememberMe)
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+    return async (dispatch: AppDispatch) => {
+        try {
+            authAPI.login(email, password, rememberMe).then((res) => {
+                console.log(res)
+                if (res.data.error) throw new Error('Error')
                 dispatch(setIsLoggedInAC(true))
-            } catch (error) {
-                // handleServerNetworkError(error as AxiosError | Error, dispatch)
-                console.log(error)
-            } finally {
-                dispatch(setIsFetchingAC(false))
-            }
+            })
+        } catch (error) {
+            console.log(error)
         }
+    }
+}
 
 
 export const logOutTC = (): AppThunk => async dispatch => {

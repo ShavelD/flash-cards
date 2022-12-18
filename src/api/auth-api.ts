@@ -30,8 +30,6 @@ export const authAPI = {
 
 }
 
-
-
 type RegisterPopsType = {
     email: string,
     password: string
