@@ -1,4 +1,4 @@
-import {AppThunk} from "./store";
+import {AppDispatch, AppThunk} from "./store";
 import {authAPI} from "../api/auth-api";
 import { setIsLoggedInAC} from "./auth-reducer";
 
@@ -40,12 +40,11 @@ export const setAppErrorAC = (error: string) => ({ type: 'APP/SET-ERROR', error 
 export const setSuccessAC = (success: string) => ({ type: 'APP/SET-SUCCESS', success } as const)
 export const isFetchingAppAC = (value: boolean) => ({ type: 'APP/SET-INITIALIZED', value } as const)
 
-export const setIsInitializedTC = (): AppThunk => async dispatch => {
+export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) => {
     try {
         dispatch(isFetchingAppAC(true))
         const res = await authAPI.me()
         console.log(res)
-        // let { name, avatar, email, _id } = res.data
         dispatch(setIsLoggedInAC(true))
     }
     finally {

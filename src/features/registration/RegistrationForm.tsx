@@ -64,8 +64,10 @@ export const RegistrationForm: React.FC<PropsType> = (props) => {
     })
 
     const [showPassword, setShowPassword] = React.useState(false);
+    const [showPasswordConfirm, setShowPasswordConfirm] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPasswordConfirm = () => setShowPasswordConfirm((show) => !show);
 
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -119,10 +121,10 @@ export const RegistrationForm: React.FC<PropsType> = (props) => {
                                 <InputAdornment position="end">
                                     <IconButton
                                         aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
+                                        onClick={handleClickShowPasswordConfirm}
                                         onMouseDown={handleMouseDownPassword}
                                     >
-                                        {showPassword ? <VisibilityOff/> : <Visibility/>}
+                                        {showPasswordConfirm ? <VisibilityOff/> : <Visibility/>}
                                     </IconButton>
                                 </InputAdornment>
                             }

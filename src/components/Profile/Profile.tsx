@@ -2,10 +2,6 @@ import React from 'react'
 import style from "./Profile.module.css";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
-import {updateUserTC} from "../../redux/profile-reducer";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../redux/store";
-import {MePropsType, UpdateUserType} from "../../api/auth-api";
 import {NavLink} from "react-router-dom";
 import {KeyboardBackspace} from "@mui/icons-material";
 import {ROUTS} from "../../App";
@@ -14,15 +10,21 @@ import shibaImg from "../../../../flash-cards/src/assets/images/1559640002_08f02
 import {Box} from "@mui/material";
 import {useFormik} from "formik";
 import {logOutTC} from "../../redux/auth-reducer";
+import {changeProfileTC} from "../../redux/profile-reducer";
 
+interface Values {
+    name: string
+
+}
 
 export const Profile = () => {
-    const user = useSelector<AppRootStateType, MePropsType>(state => state.profile.user)
+    const user = useAppSelector(state => state.profile.name)
+    const showEmail = useAppSelector(state => state.profile.email)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
-    const updateUserHandler = (data: UpdateUserType) => {
-        //debugger
-        dispatch(updateUserTC(data))
+    const updateUserHandler = (name: string) => {
+        dispatch(changeProfileTC({name}))
     }
 
     const logOut = () => {
@@ -33,9 +35,8 @@ export const Profile = () => {
         initialValues: {
             name: '',
         },
-        onSubmit: values => {
-            console.log(values)
-            formik.resetForm()
+        onSubmit: () => {
+           logOut()
         },
     })
 
@@ -51,9 +52,10 @@ export const Profile = () => {
                     <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
                     <div className={style.wrapperInput}>
                         <Box>
-                            <EditableSpan updateUserName={updateUserHandler} name={user.name}/>
+                            <EditableSpan updateUserName={updateUserHandler} name={user}/>
                         </Box>
                     </div>
+                    <div className={style.email}>{showEmail}</div>
                     <div className={style.wrapperButton}>
                         <button type="submit" className={style.button} onClick={logOut}>
                             <div className={style.logout}><img src={logout} alt={'logout'}/>

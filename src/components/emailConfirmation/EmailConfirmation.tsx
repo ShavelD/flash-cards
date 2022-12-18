@@ -7,7 +7,7 @@ import Group from "../../assets/images/Group 281.png"
 
 const EmailConfirmation = () => {
     const navigate = useNavigate()
-    const storeEmail = useAppSelector(state => state.auth.email)
+    const storeEmail = useAppSelector(state => state.auth.isMessageSent)
     return (
         <div className={style.wrapper}>
             <div className={style.form}>

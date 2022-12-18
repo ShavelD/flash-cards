@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {registrationTC} from "../../redux/auth-reducer";
 import {RegistrationForm} from "./RegistrationForm";
 import style from "../../components/Login/LoginForm.module.css";
+import {RegisterPopsType} from "../../api/auth-api";
 //import {useAppDispatch, useAppSelector} from "../hooks/useAppDispatch";
 //import {registrationThunk} from "../store/thunk/thunk";
 
@@ -19,15 +20,15 @@ export const Registration = () => {
     // let [password, setPassword] = useState("")
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const storeEmail = useAppSelector(state => state.auth.email)
+    const storeEmail = useAppSelector(state => state.auth.registration)
 
-    const onClickHandler = async (formData: FormDataType) => {
-        dispatch(registrationTC(formData.email, formData.password))
+    const onClickHandler = (model: RegisterPopsType) => {
+        dispatch(registrationTC(model))
     }
 
     useEffect(()=>{
         if(storeEmail)
-            navigate('/email_confirmation')
+            navigate('/login')
     }, [storeEmail])
 
 
