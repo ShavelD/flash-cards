@@ -1,4 +1,3 @@
-import React from "react";
 import {authAPI, MePropsType, UpdateUserType,} from "../api/auth-api";
 import {AppThunk} from "./store";
 import {handleServerNetworkError} from "../utils/error-utils";
@@ -53,6 +52,5 @@ type initialStateType = {
 }
 
 const initialState: initialStateType = {
-    //?????????
     user: {name: '', _id: '', avatar: '', email: '', error: '', publicCardPacksCount: 0, rememberMe: false}
 }
