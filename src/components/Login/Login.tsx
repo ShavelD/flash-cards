@@ -17,19 +17,13 @@ export const Login = () => {
 
     const isLoggedIn = useAppSelector((state: AppRootStateType) => state.auth.isLoggedIn)
 
-    const dispatch = useAppDispatch()
-
-    const onHandlerSubmit = (formData: FormDataType) => {
-        dispatch(loginTC(formData.email, formData.password, formData.rememberMe));
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'}/>
     }
-        return (
 
-            <div className={style.login}>
-                {isLoggedIn ? <Navigate to={"/profile/"}/>
-                    : <>
-                        <LoginForm onHandlerSubmit={onHandlerSubmit}/>
-                    </>
-                }
-            </div>
-)
+    return (
+        <div className={style.login}>
+            <LoginForm  />
+        </div>
+    )
 }

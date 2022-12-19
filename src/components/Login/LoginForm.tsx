@@ -6,26 +6,29 @@ import {Box, IconButton, Input, InputAdornment, InputLabel, TextField} from "@mu
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {NavLink} from "react-router-dom";
 import {ROUTS} from "../../App";
+import {loginTC} from "../../redux/auth-reducer";
+import {useAppDispatch} from "../../hooks/hook";
+import {LoginParamsType} from "../../api/auth-api";
 
-interface Values {
-    email: string
-    password: string
-    rememberMe: boolean
-}
+// interface Values {
+//     email: string
+//     password: string
+//     rememberMe: boolean
+// }
 
-type PropsType = {
-    onHandlerSubmit: (data: Values) => void
+// type PropsType = {
+//     onHandlerSubmit: (data: Values) => void
+//
+// }
 
-}
-
-type FormikErrorType = {
+type errorsType = {
     email?: string,
     password?: string,
     rememberMe?: boolean
 }
 
-const validate = (values: any) => {
-    const errors: FormikErrorType = {};
+const validate = (values: LoginParamsType) => {
+    const errors: errorsType = {};
 
     if (!values.email) {
         errors.email = 'заполните поле';
@@ -42,7 +45,9 @@ const validate = (values: any) => {
     return errors;
 };
 
-export const LoginForm: React.FC<PropsType> = (props) => {
+export const LoginForm = (props: LoginParamsType) => {
+
+    const dispatch = useAppDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -51,8 +56,9 @@ export const LoginForm: React.FC<PropsType> = (props) => {
             rememberMe: false
         },
         validate,
-        onSubmit: values => {
-            props.onHandlerSubmit(values)
+        onSubmit: (values: LoginParamsType) => {
+            dispatch(loginTC(values))
+            formik.resetForm()
         },
     })
 

@@ -25,19 +25,6 @@ export const showEmailAC = (email: string) => {
     return {type: 'profile/SHOW-PROFILE-EMAIL', email} as const
 }
 
-
-//thunk
-// export const updateUserTC = (data: UpdateUserType): AppThunk => async dispatch => {
-//     try {
-//         const res = await authAPI.userUpdate(data)
-//         dispatch(setProfileAC(res.data.updatedUser))
-//     } catch (error) {
-//         handleServerNetworkError(error as AxiosError | Error, dispatch)
-//     } finally {
-//         dispatch(setIsLoggedInAC(false))
-//     }
-// }
-
 export const changeProfileTC = (model: ChangeProfileType): AppThunk => {
     return async (dispatch, getState: () => AppRootStateType) => {
         const ProfileState = getState().profile

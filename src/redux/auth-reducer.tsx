@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk} from "./store";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
-import {authAPI, RegisterPopsType} from "../api/auth-api";
+import {authAPI, LoginParamsType, RegisterPopsType} from "../api/auth-api";
 import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
 
 
@@ -55,11 +55,11 @@ export const setIsRegistrationAC = (value: boolean) => {
 }
 
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+export const loginTC = (data: LoginParamsType): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
             // dispatch(setIsFetchingAC(true))
-           const res = await authAPI.login(email, password, rememberMe)
+           const res = await authAPI.login(data)
             console.log(res.data)
             dispatch(setIsLoggedInAC(true))
         } catch (error) {

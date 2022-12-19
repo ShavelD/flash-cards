@@ -11,7 +11,7 @@ import {appReducer} from "./app-reducer";
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
-    profile:profileReducer
+    profile: profileReducer
 })
 
 // непосредственно создаём store

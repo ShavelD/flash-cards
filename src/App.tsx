@@ -10,7 +10,7 @@ import {PassRecovery} from "./features/pass-recovery/PassRecovery";
 import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
 import {Container} from "@mui/material";
-import {Login} from "./components/Login/LoginMain";
+import {Login} from "./components/Login/Login";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 import {Packs} from "./components/Packs/Packs";
 import {Cards} from "./components/Cards/Cards";
@@ -29,6 +29,7 @@ export enum ROUTS {
     PACKS = '/packs',
     CARDS = '/cards',
     TEST_PAGE = '/test',
+
 }
 
 function App() {
@@ -57,17 +58,17 @@ function App() {
             <Container fixed>
             <Routes>
                 <Route path={ROUTS.DEFAULT} element={<Main/>}/>
+                <Route path={ROUTS.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTS.LOGIN} element={<Login/>}/>
                 <Route path={ROUTS.REGISTRATION} element={<Registration/>}/>
                 <Route path={ROUTS.EMAIL_CONFIRMATION} element={<EmailConfirmation/>}/>
-                <Route path={ROUTS.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
                 <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
-                <Route path={'*'} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
+                <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
             </Routes>
             </Container>
         </div>

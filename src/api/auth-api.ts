@@ -16,8 +16,8 @@ export const authAPI = {
     me() {
         return instance.post<MePropsType>('/auth/me')
     },
-    login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<MePropsType>('/auth/login', {email, password, rememberMe})
+    login(data: LoginParamsType) {
+        return instance.post<MePropsType>('/auth/login', data)
     },
     logOut() {
         return instance.delete<DeleteForgotType>('/auth/me');
@@ -34,6 +34,9 @@ export const authAPI = {
 
 }
 
+export type LoginParamsType = {
+    email?: string, password?: string, rememberMe?: boolean
+}
 
 export type RegisterPopsType = {
     email: string,

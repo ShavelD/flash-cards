@@ -11,6 +11,9 @@ import {Box} from "@mui/material";
 import {useFormik} from "formik";
 import {logOutTC} from "../../redux/auth-reducer";
 import {changeProfileTC} from "../../redux/profile-reducer";
+import { Navigate } from 'react-router-dom'
+import {AppRootStateType} from "../../redux/store";
+
 
 interface Values {
     name: string
@@ -22,6 +25,8 @@ export const Profile = () => {
     const showEmail = useAppSelector(state => state.profile.email)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
+
+
 
     const updateUserHandler = (name: string) => {
         dispatch(changeProfileTC({name}))
@@ -39,6 +44,10 @@ export const Profile = () => {
            logOut()
         },
     })
+
+    if (!isLoggedIn) {
+        return <Navigate to={ROUTS.LOGIN} />
+    }
 
     return (
         <div className={style.wrapper}>
