@@ -30,7 +30,7 @@ export const CreateNewPassword = () => {
 
     const dispatch = useAppDispatch()
 
-    const { resetToken } = useParams<{ resetToken: string }>()
+    const {resetToken} = useParams<{ resetToken: string }>()
 
     const formik = useFormik({
         initialValues: {
@@ -87,9 +87,6 @@ export const CreateNewPassword = () => {
                     </div>
                     <div className={style.wrapperTextAccount}>
                         Create new password and we will send you further <br/> instructions to email
-                    </div>
-                    <div className={styles.wrapperTextSignUp}>
-                        <NavLink to={ROUTS.LOGIN} className={styles.navlink}>Create new password</NavLink>
                     </div>
                 </form>
             </div>

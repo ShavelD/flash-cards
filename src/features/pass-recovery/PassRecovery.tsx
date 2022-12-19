@@ -58,6 +58,7 @@ export const PassRecovery = () => {
                             <TextField sx={{width: '30ch'}}
                                        id="input-with-sx" label="Email" variant="standard"
                                        {...formik.getFieldProps('email')}
+                                       onBlur={formik.handleBlur}
                             />
                             {formik.touched.email && formik.errors.email ?
                                 <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
