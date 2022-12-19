@@ -5,9 +5,11 @@ import {useAppSelector} from "../../hooks/hook";
 import style from "./EmailConfirmation.module.css"
 import Group from "../../assets/images/Group 281.png"
 
+
+
 const EmailConfirmation = () => {
     const navigate = useNavigate()
-    const storeEmail = useAppSelector(state => state.auth.isMessageSent)
+    const storeEmail = useAppSelector(state => state.auth.email)
     return (
         <div className={style.wrapper}>
             <div className={style.form}>

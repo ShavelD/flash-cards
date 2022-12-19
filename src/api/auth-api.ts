@@ -23,13 +23,17 @@ export const authAPI = {
         return instance.delete<DeleteForgotType>('/auth/login');
     },
     userUpdate(data: UpdateUserType) {
-        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`auth/me`, data)
+        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`/auth/me`, data)
     },
-    forgotPass(email: string, from: string, message: string) {
-        return instance.post<DeleteForgotType>(`auth/forgot`, {email, from, message})
+    forgotPass(email: string) {
+        return instance.post<DeleteForgotType>(`/auth/forgot`, {
+            email,
+            form: 'test-front-admin <ai73a@yandex.by>',
+            message: `<div style="background-color: limegreen; padding: 15px">password recovery link: <a href="http://localhost:3000/#/new-password/$token$">link</> </div>`,
+        })
     },
-    setNewPass(password: string, resetPasswordToken: string | undefined) {
-        return instance.post<DeleteForgotType>(`auth//set-new-password`, {password, resetPasswordToken})
+    setNewPass(payload: NewPasswordType) {
+        return instance.post<DeleteForgotType>(`/auth/set-new-password`, payload)
     },
 
 }
@@ -63,4 +67,9 @@ export type MePropsType = {
     publicCardPacksCount: number
     rememberMe: boolean
     error?: string
+}
+
+export type NewPasswordType = {
+    password: string
+    resetPasswordToken: string
 }
