@@ -20,7 +20,7 @@ export const authAPI = {
         return instance.post<MePropsType>('/auth/login', {email, password, rememberMe})
     },
     logOut() {
-        return instance.delete<DeleteForgotType>('/auth/login');
+        return instance.delete<DeleteForgotType>('/auth/me');
     },
     userUpdate(data: UpdateUserType) {
         return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`auth/me`, data)
