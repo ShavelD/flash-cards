@@ -5,6 +5,9 @@ import {Box, TextField} from "@mui/material";
 import {NavLink} from "react-router-dom";
 import {ROUTS} from "../../App";
 import {useFormik} from "formik";
+import {useAppDispatch} from '../../hooks/hook';
+import {redirectToEmailTC} from "../../redux/auth-reducer";
+
 
 
 type FormikErrorType = {
@@ -24,6 +27,7 @@ const validate = (values: any) => {
 };
 
 export const PassRecovery = () => {
+    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {
@@ -32,9 +36,9 @@ export const PassRecovery = () => {
         },
         validate,
         onSubmit: values => {
-            // props.onHandlerSubmit(values)
             alert(JSON.stringify(values));
             formik.resetForm()
+            dispatch(redirectToEmailTC(values.email))
         },
     })
 
@@ -42,7 +46,7 @@ export const PassRecovery = () => {
         <>
             <div className={style.wrapper}>
                 <form className={styles.form}
-                       onSubmit={formik.handleSubmit}
+                      onSubmit={formik.handleSubmit}
                 >
                     <h1>Forgot your password?</h1>
                     <div className={style.wrapperInput}>
