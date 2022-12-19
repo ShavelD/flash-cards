@@ -45,7 +45,7 @@ const validate = (values: LoginParamsType) => {
     return errors;
 };
 
-export const LoginForm = (props: LoginParamsType) => {
+export const LoginForm = () => {
 
     const dispatch = useAppDispatch();
 

@@ -4,14 +4,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {AppRootStateType} from "../../redux/store";
 import {Navigate} from "react-router-dom";
 import {LoginForm} from "./LoginForm";
-import {loginTC} from "../../redux/auth-reducer";
 
-
-export type FormDataType = {
-    email: string
-    password: string
-    rememberMe: boolean
-}
 
 export const Login = () => {
 
