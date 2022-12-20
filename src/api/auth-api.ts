@@ -32,6 +32,9 @@ export const authAPI = {
         return instance.post<DeleteForgotType>(`auth//set-new-password`, {password, resetPasswordToken})
     },
 
+    forgotPassword(data:ForgotPasswordType){
+        return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
+    }
 }
 
 export type LoginParamsType = {
@@ -66,4 +69,26 @@ export type MePropsType = {
     publicCardPacksCount: number
     rememberMe: boolean
     error?: string
+}
+
+// export type ForgotPasswordType={
+//     email: "nya@nya.nya", // кому восстанавливать пароль
+//     from: "test-front-admin <ai73a@yandex.by>",
+//     // можно указать разработчика фронта)
+//     message: `<div style="background-color: lime; padding: 15px">
+// password recovery link:
+// <a href='http://localhost:3000/#/set-new-password/$token$'>
+// link</a>
+// </div>`
+// }
+
+export type ForgotPasswordType={
+    email:string
+    from: string
+    message:string
+}
+
+type ForgotPasswordResponseType = {
+    info: string
+    error: string;
 }
