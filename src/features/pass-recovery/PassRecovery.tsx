@@ -2,11 +2,11 @@ import React from 'react'
 import style from "../../components/Login/LoginForm.module.css"
 import styles from "./PassRecovery.module.css"
 import {Box, TextField} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {ROUTS} from "../../App";
 import {useFormik} from "formik";
-import {useAppDispatch} from '../../hooks/hook';
-import {redirectToEmailTC} from "../../redux/auth-reducer";
+import {useAppDispatch, useAppSelector} from '../../hooks/hook';
+import {forgoPassTC} from "../../redux/auth-reducer";
 
 
 
@@ -22,11 +22,13 @@ const validate = (values: any) => {
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
         errors.email = 'некорректный email';
     }
-
     return errors;
 };
 
 export const PassRecovery = () => {
+    const isMessageSent = useAppSelector(state => state.auth.isMessageSent)
+
+
     const dispatch = useAppDispatch()
 
     const formik = useFormik({
@@ -36,11 +38,13 @@ export const PassRecovery = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values));
-            formik.resetForm()
-            dispatch(redirectToEmailTC(values.email))
+            dispatch(forgoPassTC(values.email))
         },
     })
+
+    if (isMessageSent) {
+        <Navigate to={"/email_confirmation/"}/>
+    }
 
     return (
         <>
@@ -54,6 +58,7 @@ export const PassRecovery = () => {
                             <TextField sx={{width: '30ch'}}
                                        id="input-with-sx" label="Email" variant="standard"
                                        {...formik.getFieldProps('email')}
+                                       onBlur={formik.handleBlur}
                             />
                             {formik.touched.email && formik.errors.email ?
                                 <div style={{color: 'red'}}>{formik.errors.email}</div> : null}

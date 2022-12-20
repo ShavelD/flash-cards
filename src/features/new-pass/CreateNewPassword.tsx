@@ -2,11 +2,13 @@ import React from 'react'
 import style from "../../components/Login/LoginForm.module.css"
 import styles from "../pass-recovery/PassRecovery.module.css"
 import {IconButton, Input, InputAdornment, InputLabel} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {ROUTS} from "../../App";
 import {useFormik} from "formik";
 import FormControl from "@mui/material/FormControl";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {setNewPassTC} from "../../redux/auth-reducer";
+import {useAppDispatch} from "../../hooks/hook";
 
 type FormikErrorType = {
     password?: string,
@@ -26,6 +28,10 @@ const validate = (values: any) => {
 
 export const CreateNewPassword = () => {
 
+    const dispatch = useAppDispatch()
+
+    const {resetToken} = useParams<{ resetToken: string }>()
+
     const formik = useFormik({
         initialValues: {
             password: '',
@@ -33,9 +39,7 @@ export const CreateNewPassword = () => {
         },
         validate,
         onSubmit: values => {
-            // props.onHandlerSubmit(values)
-            alert(JSON.stringify(values));
-            formik.resetForm()
+            resetToken && dispatch(setNewPassTC(values.password, resetToken))
         },
     })
 
@@ -84,12 +88,8 @@ export const CreateNewPassword = () => {
                     <div className={style.wrapperTextAccount}>
                         Create new password and we will send you further <br/> instructions to email
                     </div>
-                    <div className={styles.wrapperTextSignUp}>
-                        <NavLink to={ROUTS.LOGIN} className={styles.navlink}>Create new password</NavLink>
-                    </div>
                 </form>
             </div>
         </>
     )
 }
-

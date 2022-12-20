@@ -16,30 +16,28 @@ export const authAPI = {
     me() {
         return instance.post<MePropsType>('/auth/me')
     },
-    login(data: LoginParamsType) {
-        return instance.post<MePropsType>('/auth/login', data)
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<MePropsType>('/auth/login', {email, password, rememberMe})
     },
     logOut() {
-        return instance.delete<DeleteForgotType>('/auth/me');
+        return instance.delete<DeleteForgotType>('/auth/login');
     },
     userUpdate(data: UpdateUserType) {
-        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`auth/me`, data)
+        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`/auth/me`, data)
     },
-    forgotPass(email: string, from: string, message: string) {
-        return instance.post<DeleteForgotType>(`auth/forgot`, {email, from, message})
+    forgotPass(email: string) {
+        return instance.post<DeleteForgotType>(`/auth/forgot`, {
+            email,
+            form: 'test-front-admin <ai73a@yandex.by>',
+            message: `<div style="background-color: limegreen; padding: 15px">password recovery link: <a href="http://localhost:3000/#/new-password/$token$">link</> </div>`,
+        })
     },
-    setNewPass(password: string, resetPasswordToken: string | undefined) {
-        return instance.post<DeleteForgotType>(`auth//set-new-password`, {password, resetPasswordToken})
+    setNewPass(payload: NewPasswordType) {
+        return instance.post<DeleteForgotType>(`/auth/set-new-password`, payload)
     },
 
-    forgotPassword(data:ForgotPasswordType){
-        return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
-    }
 }
 
-export type LoginParamsType = {
-    email?: string, password?: string, rememberMe?: boolean
-}
 
 export type RegisterPopsType = {
     email: string,
@@ -71,24 +69,7 @@ export type MePropsType = {
     error?: string
 }
 
-// export type ForgotPasswordType={
-//     email: "nya@nya.nya", // кому восстанавливать пароль
-//     from: "test-front-admin <ai73a@yandex.by>",
-//     // можно указать разработчика фронта)
-//     message: `<div style="background-color: lime; padding: 15px">
-// password recovery link:
-// <a href='http://localhost:3000/#/set-new-password/$token$'>
-// link</a>
-// </div>`
-// }
-
-export type ForgotPasswordType={
-    email:string
-    from: string
-    message:string
-}
-
-type ForgotPasswordResponseType = {
-    info: string
-    error: string;
+export type NewPasswordType = {
+    password: string
+    resetPasswordToken: string
 }
