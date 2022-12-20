@@ -2,11 +2,12 @@ import React from 'react'
 import style from "../../components/Login/LoginForm.module.css"
 import styles from "../pass-recovery/PassRecovery.module.css"
 import {IconButton, Input, InputAdornment, InputLabel} from "@mui/material";
-import {NavLink} from "react-router-dom";
-import {ROUTS} from "../../App";
+import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
 import FormControl from "@mui/material/FormControl";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {useAppDispatch} from "../../hooks/hook";
+import {createNewPasswordTC} from "../../redux/auth-reducer";
 
 type FormikErrorType = {
     password?: string,
@@ -14,17 +15,19 @@ type FormikErrorType = {
 
 const validate = (values: any) => {
     const errors: FormikErrorType = {};
-
     if (!values.password) {
         errors.password = 'введите пароль';
     } else if (values.password.length < 3) {
         errors.password = 'некорректный пароль';
     }
-
     return errors;
 };
 
 export const CreateNewPassword = () => {
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const params = useParams()
+    const resetPassword = params.token
 
     const formik = useFormik({
         initialValues: {
@@ -33,9 +36,12 @@ export const CreateNewPassword = () => {
         },
         validate,
         onSubmit: values => {
-            // props.onHandlerSubmit(values)
-            alert(JSON.stringify(values));
+            if (resetPassword) {
+                dispatch(createNewPasswordTC(values.password, resetPassword))
+            }
             formik.resetForm()
+            navigate('/login')
+            // alert(JSON.stringify(values));
         },
     })
 
@@ -83,9 +89,6 @@ export const CreateNewPassword = () => {
                     </div>
                     <div className={style.wrapperTextAccount}>
                         Create new password and we will send you further <br/> instructions to email
-                    </div>
-                    <div className={styles.wrapperTextSignUp}>
-                        <NavLink to={ROUTS.LOGIN} className={styles.navlink}>Create new password</NavLink>
                     </div>
                 </form>
             </div>

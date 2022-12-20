@@ -1,8 +1,9 @@
 import {AppDispatch, AppThunk} from "./store";
-import {handleServerNetworkError} from "../utils/error-utils";
+import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {authAPI, ForgotPasswordType} from "../api/auth-api";
 import {Dispatch} from "redux";
+import {setAppErrorAC, setSuccessAC} from "./app-reducer";
 
 
 const initialState = {
@@ -54,6 +55,7 @@ export const setEmailAC = (email: string) => {
 
 export const setIsFetchingAC = (value: boolean) =>
     ({type: 'AUTH/SET-IS-FETCHING', value} as const)
+
 
 export const setRecoveryStatusAC = (sentEmail:boolean) => {
   return{
@@ -118,7 +120,7 @@ export const redirectToEmailTC = (email:string):AppThunk =>async dispatch =>{
     debugger
     try {
         const forgotData = {
-            email: email,
+            email: 'nya@nya.nya',
             from: 'test-front-admin <angor78@gmail.com>',
             message: `<div style="background-color: whitesmoke;text-align: center ">
                   <h2>Password recovery</h2><div>
@@ -140,6 +142,22 @@ export const redirectToEmailTC = (email:string):AppThunk =>async dispatch =>{
     } catch (error) {
         handleServerNetworkError(error as AxiosError | Error, dispatch)
     }
+}
+
+
+export const createNewPasswordTC = (password: string, resetPasswordToken: string):AppThunk => async dispatch => {
+  try {
+      const data = {
+          password,
+          resetPasswordToken
+      }
+    let res = await authAPI.newPassword(data)
+      dispatch(setRecoveryStatusAC(true))
+  }
+  catch (error) {
+     // debugger
+      handleServerNetworkError(error as AxiosError | Error, dispatch)
+  }
 }
 
 

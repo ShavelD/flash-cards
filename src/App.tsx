@@ -25,7 +25,7 @@ export enum ROUTS {
     PROFILE = '/profile',
     NOT_FOUND = '404',
     PASS_RECOVERY = '/password_recovery',
-    NEW_PASS = '/createNewPassword',
+    NEW_PASS = '/createNewPassword/:token',
     PACKS = '/packs',
     CARDS = '/cards',
     TEST_PAGE = '/test',

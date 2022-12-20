@@ -2,7 +2,7 @@ import React from 'react'
 import style from "../../components/Login/LoginForm.module.css"
 import styles from "./PassRecovery.module.css"
 import {Box, TextField} from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {ROUTS} from "../../App";
 import {useFormik} from "formik";
 import {useAppDispatch} from '../../hooks/hook';
@@ -27,7 +27,9 @@ const validate = (values: any) => {
 };
 
 export const PassRecovery = () => {
+
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -39,6 +41,7 @@ export const PassRecovery = () => {
             alert(JSON.stringify(values));
             formik.resetForm()
             dispatch(redirectToEmailTC(values.email))
+            navigate('/email_confirmation')
         },
     })
 
