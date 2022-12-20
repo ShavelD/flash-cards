@@ -32,10 +32,11 @@ export const EditableSpan = ({name, updateUserName}: EditableSpanPropsType) => {
                 ?
                 <div>
                     <div className={style.nickname}>Nickname</div>
-                    <input className={style.input} value={title} onChange={changeNameTitle} autoFocus onBlur={offEditMode}/>
+                    <input className={style.input} value={title} onChange={changeNameTitle} autoFocus
+                           onBlur={offEditMode}/>
                     <button className={style.button}>save</button>
                 </div>
-                : <div><span className={style.span} onDoubleClick={onEditMode}>{name || 'no name'}
+                : <div><span className={style.span} onDoubleClick={onEditMode}>{name}
                     <span className={style.borderColor}><BorderColorOutlined/></span>
                 </span></div>
             }

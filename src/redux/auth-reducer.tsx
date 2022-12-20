@@ -1,5 +1,6 @@
 import {AppDispatch, AppThunk} from "./store";
-import {authAPI, RegisterPopsType} from "../api/auth-api";
+import {authAPI, ForgotPasswordType, LoginParamsType, RegisterPopsType} from "../api/auth-api";
+import {showEmailAC} from "./profile-reducer";
 
 
 const initialState = {
@@ -9,6 +10,8 @@ const initialState = {
     isNewPassword: false,
     registration: false,
     email: '',
+    name: '',
+    sentEmail: false,
 }
 
 type InitialStateType = typeof initialState
@@ -19,6 +22,8 @@ export type AuthActionType =
     | ReturnType<typeof setIsRegistrationAC>
     | ReturnType<typeof setNewPassAC>
     | ReturnType<typeof forgotPasswordAC>
+    | ReturnType<typeof nameAC>
+
 
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -33,7 +38,8 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
             return {...state, isNewPassword: action.value}
         case 'auth/FORGOT-PASSWORD':
             return {...state, email: action.email}
-
+        case 'auth/NAME':
+            return {...state, name: action.name}
         default:
             return state
     }
@@ -59,13 +65,20 @@ export const forgotPasswordAC = (email: string) => {
     return {type: 'auth/FORGOT-PASSWORD', email} as const
 }
 
+export const nameAC = (name: string) => {
+    return {type: 'auth/NAME', name} as const
+}
 
-export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunk => {
+
+export const loginTC = (data: LoginParamsType): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
-           const res = await authAPI.login(email, password, rememberMe)
-            console.log(res.data)
+           const res = await authAPI.login(data)
+            console.log(res.data.email)
+            let {email, name} = res.data
             dispatch(setIsLoggedInAC(true))
+            dispatch(showEmailAC(email))
+            dispatch(nameAC(name))
         } catch (error) {
             console.log(error)
         }

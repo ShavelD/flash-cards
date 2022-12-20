@@ -1,6 +1,7 @@
 import {AppDispatch, AppThunk} from "./store";
 import {authAPI} from "../api/auth-api";
-import { setIsLoggedInAC} from "./auth-reducer";
+import {forgotPasswordAC, setEmailAC, setIsLoggedInAC} from "./auth-reducer";
+import {showEmailAC} from "./profile-reducer";
 
 
 export type InitialStateType = {
@@ -44,8 +45,9 @@ export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) 
     try {
         dispatch(isFetchingAppAC(true))
         const res = await authAPI.me()
-        console.log(res)
+        let {email} = res.data
         dispatch(setIsLoggedInAC(true))
+        dispatch(showEmailAC(email))
     }
     finally {
         dispatch(isFetchingAppAC(false))

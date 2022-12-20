@@ -8,27 +8,29 @@ import {ROUTS} from "../../App";
 import logout from "../../../../flash-cards/src/assets/images/logout.jpg"
 import shibaImg from "../../../../flash-cards/src/assets/images/1559640002_08f026.jpg"
 import {Box} from "@mui/material";
-import {useFormik} from "formik";
-import {loginTC, logOutTC} from "../../redux/auth-reducer";
-import {changeProfileTC} from "../../redux/profile-reducer";
 import {Navigate} from "react-router-dom";
+import {useFormik} from "formik";
+import {logOutTC} from "../../redux/auth-reducer";
+import {changeProfileTC} from "../../redux/profile-reducer";
 
+
+interface Values {
+    name: string
+}
 
 export const Profile = () => {
-    const user = useAppSelector(state => state.profile.name)
+    const user = useAppSelector(state => state.auth.name)
     const showEmail = useAppSelector(state => state.profile.email)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const isFetching = useAppSelector(state => state.app.isFetching)
+
     const dispatch = useAppDispatch()
 
     const updateUserHandler = (name: string) => {
         dispatch(changeProfileTC({name}))
     }
-
     const logOut = () => {
         dispatch(logOutTC())
     }
-
     const formik = useFormik({
         initialValues: {
             name: '',
@@ -38,6 +40,10 @@ export const Profile = () => {
         },
     })
 
+    if (!isLoggedIn) {
+        return <Navigate to={ROUTS.LOGIN}/>
+    }
+    console.log(showEmail)
     return (
         <div className={style.wrapper}>
             <div><NavLink to={ROUTS.PACKS} className={style.navlink}><KeyboardBackspace/>
@@ -54,17 +60,13 @@ export const Profile = () => {
                         </Box>
                     </div>
                     <div className={style.email}>{showEmail}</div>
-                    {!isFetching
-                        ? <div className={style.wrapperButton}>
-                            <button type="submit" className={style.button} onClick={logOut}>
-                                <div className={style.logout}><img src={logout} alt={'logout'}/>
-                                    Log out
-                                </div>
-                            </button>
-
-                        </div>
-                        : <Navigate to={"/login"}/>
-                    }
+                    <div className={style.wrapperButton}>
+                        <button type="submit" className={style.button} onClick={logOut}>
+                            <div className={style.logout}><img src={logout} alt={'logout'}/>
+                                Log out
+                            </div>
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
