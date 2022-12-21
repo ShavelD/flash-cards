@@ -1,5 +1,5 @@
 .form {
-    width: 413px;
+    padding: 27px 0px;
     display: inline-block;
     background-color: #eaeaea;
     border-radius: 25px;
@@ -14,5 +14,4 @@
     font-weight: 600;
     text-decoration: underline;
     margin-top: 11px;
-    padding-bottom: 48px;
 }

@@ -62,7 +62,6 @@ export const PassRecovery = () => {
                             />
                             {formik.touched.email && formik.errors.email ?
                                 <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-
                             <div>
                                 <p>
                                     Enter your email address and we will send you <br/>further instructions
@@ -70,9 +69,8 @@ export const PassRecovery = () => {
                             </div>
                         </Box>
                     </div>
-
                     <div className={style.wrapperButton}>
-                        <button type="submit" className={style.button}>Send instructions</button>
+                        <button type="submit" className={style.button}>Send Instructions</button>
                     </div>
                     <div className={style.wrapperTextAccount}>
                         Did you remember your password?

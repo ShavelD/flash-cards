@@ -32,7 +32,7 @@ export const EditableSpan = ({name, updateUserName}: EditableSpanPropsType) => {
                 ?
                 <div>
                     <div className={style.nickname}>Nickname</div>
-                    <input className={style.input} value={title} onChange={changeNameTitle} autoFocus
+                    <input type={"text"} className={style.input} value={title} onChange={changeNameTitle} autoFocus
                            onBlur={offEditMode}/>
                     <button className={style.button}>save</button>
                 </div>

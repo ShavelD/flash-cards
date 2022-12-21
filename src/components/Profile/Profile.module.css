@@ -20,21 +20,19 @@
 }
 
 .form {
-    width: 413px;
-    min-height: 360px;
+    width: 400px;
+    padding: 27px 0px;
     display: inline-block;
-    background-color: #eaeaea;
+    background-color: #f1f1f1;
     border-radius: 25px;
     font-family: 'Montserrat', sans-serif;
 
 }
 
-h2 {
+.Info {
     display: flex;
     justify-content: center;
-    font-size: 22px;
     font-weight: 600;
-    margin-top: 27px;
 }
 
 .shibaImg {

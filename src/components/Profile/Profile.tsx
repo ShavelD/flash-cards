@@ -52,7 +52,7 @@ export const Profile = () => {
             </div>
             <div className={style.flex}>
                 <form className={style.form} onSubmit={formik.handleSubmit}>
-                    <h2>Personal Information</h2>
+                    <h2 className={style.Info}>Personal Information</h2>
                     <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
                     <div className={style.wrapperInput}>
                         <Box>
