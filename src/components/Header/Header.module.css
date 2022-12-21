@@ -1,17 +1,43 @@
-.wrapper{
+.wrapper {
     display: flex;
-    justify-content: space-around;
-    height: 60px;
+    padding: 0 136px;
+    justify-content: space-between;
     align-items: center;
+    height: 60px;
     background-color: #FCFCFC;
     box-shadow: 1px 5px 2px 2px rgb(28 46 23 / 5%);
 }
 
-.button{
+.button {
     padding: 8px 28px;
     border-radius: 30px;
-    background-color: #366EFF;
     border: 1px solid #366EFF;
     color: white;
+    background: #366EFF;
+    box-shadow: 0px 4px 18px rgba(54, 110, 255, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
 
+.userName {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.widthImg {
+    width: 36px;
+    height: 36px;
+    border-radius: 100px;
+}
+
+.userBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.userName:after {
+    content: '';
+    display: block;
+    border: 1px dashed #000000;
+}

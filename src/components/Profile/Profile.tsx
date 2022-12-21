@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import style from "./Profile.module.css";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
@@ -6,7 +6,7 @@ import {NavLink} from "react-router-dom";
 import {KeyboardBackspace} from "@mui/icons-material";
 import {ROUTS} from "../../App";
 import logout from "../../../../flash-cards/src/assets/images/logout.jpg"
-import shibaImg from "../../../../flash-cards/src/assets/images/1559640002_08f026.jpg"
+import shibaImg from "../../assets/images/Avatar.jpg"
 import {Box} from "@mui/material";
 import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
