@@ -1,6 +1,6 @@
 import {AppDispatch, AppThunk} from "./store";
 import {authAPI, ForgotPasswordType, LoginParamsType, RegisterPopsType} from "../api/auth-api";
-import {showEmailAC} from "./profile-reducer";
+import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
 
 
 const initialState = {
@@ -75,10 +75,9 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
         try {
            const res = await authAPI.login(data)
             console.log(res.data.email)
-            let {email, name} = res.data
             dispatch(setIsLoggedInAC(true))
-            dispatch(showEmailAC(email))
-            dispatch(nameAC(name))
+            dispatch(changeNameProfileAC({ name: res.data.name, avatar: '' }))
+            dispatch(showEmailAC(res.data.email))
         } catch (error) {
             console.log(error)
         }

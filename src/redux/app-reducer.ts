@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk} from "./store";
 import {authAPI} from "../api/auth-api";
-import {forgotPasswordAC, setEmailAC, setIsLoggedInAC} from "./auth-reducer";
-import {showEmailAC} from "./profile-reducer";
+import {setIsLoggedInAC} from "./auth-reducer";
+import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
 
 
 export type InitialStateType = {
@@ -9,11 +9,14 @@ export type InitialStateType = {
     success: string
     isFetching: boolean
 }
+
 const initialState: InitialStateType = {
     error: '',
     success: '',
     isFetching: false,
 }
+
+
 
 export const appReducer = (state: InitialStateType = initialState,action: ActionsType): InitialStateType => {
     switch (action.type) {
@@ -37,17 +40,19 @@ export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setSuccessAC>
 export type SetAppIsInitializeActionType = ReturnType<typeof isFetchingAppAC>
 
+
 export const setAppErrorAC = (error: string) => ({ type: 'APP/SET-ERROR', error } as const)
 export const setSuccessAC = (success: string) => ({ type: 'APP/SET-SUCCESS', success } as const)
 export const isFetchingAppAC = (value: boolean) => ({ type: 'APP/SET-INITIALIZED', value } as const)
 
+
 export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(isFetchingAppAC(true))
     try {
-        dispatch(isFetchingAppAC(true))
         const res = await authAPI.me()
-        let {email} = res.data
         dispatch(setIsLoggedInAC(true))
-        dispatch(showEmailAC(email))
+        dispatch(changeNameProfileAC({ name: res.data.name, avatar: '' }))
+        dispatch(showEmailAC(res.data.email))
     }
     finally {
         dispatch(isFetchingAppAC(false))

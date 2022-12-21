@@ -1,6 +1,23 @@
-import {authAPI, UpdateUserType,} from "../api/auth-api";
+import {authAPI, MePropsType, UpdateUserType,} from "../api/auth-api";
 import {AppRootStateType, AppThunk} from "./store";
 
+
+type initialStateType = {
+    name: string,
+    avatar: string,
+    email: string
+}
+
+const initialState: initialStateType = {
+    name: '',
+    avatar: '',
+    email: ''
+}
+
+type ChangeProfileType = {
+    name?: string
+    avatar?: string
+}
 
 
 export const profileReducer = (state = initialState, action: ActionType): initialStateType => {
@@ -60,19 +77,3 @@ export type ActionType = ReturnType<typeof changeNameProfileAC>
     | ReturnType<typeof showEmailAC>
 
 
-type initialStateType = {
-    name: string,
-    avatar: string,
-    email: string
-}
-
-const initialState: initialStateType = {
-    name: '',
-    avatar: '',
-    email: ''
-}
-
-type ChangeProfileType = {
-    name?: string
-    avatar?: string
-}

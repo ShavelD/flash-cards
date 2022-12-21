@@ -19,7 +19,7 @@ interface Values {
 }
 
 export const Profile = () => {
-    const user = useAppSelector(state => state.auth.name)
+    const userName = useAppSelector(state => state.profile.name)
     const showEmail = useAppSelector(state => state.profile.email)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
@@ -56,7 +56,7 @@ export const Profile = () => {
                     <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
                     <div className={style.wrapperInput}>
                         <Box>
-                            <EditableSpan updateUserName={updateUserHandler} name={user}/>
+                            <EditableSpan updateUserName={updateUserHandler} name={userName}/>
                         </Box>
                     </div>
                     <div className={style.email}>{showEmail}</div>
