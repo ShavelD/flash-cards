@@ -20,7 +20,7 @@ export const Header = () => {
             {isLoggedIn ? (
                 <div className={s.userBlock} onClick={onShowAvaHandler}>
                     <div className={s.userName}>{name}</div>
-                    <div className={s.widthImg}><img className={s.widthImg}src={Avatar}/></div>
+                    <div className={s.widthImg}><img className={s.widthImg} src={Avatar}/></div>
                 </div>
             ) : <button className={s.button}>Sign In</button>}
         </div>

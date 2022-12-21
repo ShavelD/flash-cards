@@ -9,13 +9,15 @@ import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
 import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
-import {Container} from "@mui/material";
+import {Alert, CircularProgress, Container, LinearProgress} from "@mui/material";
 import {Login} from "./components/Login/Login";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 import {Packs} from "./components/Packs/Packs";
 import {Cards} from "./components/Cards/Cards";
-import {setIsInitializedTC} from "./redux/app-reducer";
+import {RequestStatusType, setIsInitializedTC} from "./redux/app-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hook";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "./redux/store";
 
 export enum ROUTS {
     DEFAULT = '/',
@@ -34,7 +36,8 @@ export enum ROUTS {
 
 function App() {
 
-    const isFetching = useAppSelector(state => state.app.isFetching)
+    const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
+    const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
 
     const dispatch = useAppDispatch()
 
@@ -42,10 +45,11 @@ function App() {
         dispatch(setIsInitializedTC())
     }, [])
 
-    if (isFetching) {
+    if (!isInitialized) {
         return (
-            <div>
-                Loading...
+            <div
+                style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                <CircularProgress/>
             </div>
         )
     }
@@ -55,9 +59,10 @@ function App() {
         <div className="App">
             <Header />
             <RoutesNavLink />
+            {status === 'loading' && <LinearProgress/>}
             <Container fixed>
             <Routes>
-                <Route path={ROUTS.DEFAULT} element={<Main/>}/>
+                <Route path={ROUTS.DEFAULT} element={<Profile/>}/>
                 <Route path={ROUTS.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTS.LOGIN} element={<Login/>}/>
                 <Route path={ROUTS.REGISTRATION} element={<Registration/>}/>

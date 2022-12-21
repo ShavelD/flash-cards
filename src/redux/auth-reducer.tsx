@@ -1,6 +1,7 @@
 import {AppDispatch, AppThunk} from "./store";
 import {authAPI, ForgotPasswordType, LoginParamsType, RegisterPopsType} from "../api/auth-api";
 import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
+import {setAppStatusAC} from "./app-reducer";
 
 
 const initialState = {
@@ -72,22 +73,29 @@ export const nameAC = (name: string) => {
 
 export const loginTC = (data: LoginParamsType): AppThunk => {
     return async (dispatch: AppDispatch) => {
+        dispatch(setAppStatusAC('loading'))
         try {
            const res = await authAPI.login(data)
             console.log(res.data.email)
             dispatch(setIsLoggedInAC(true))
             dispatch(changeNameProfileAC({ name: res.data.name, avatar: '' }))
             dispatch(showEmailAC(res.data.email))
+            dispatch(setAppStatusAC('succeeded'))
         } catch (error) {
             console.log(error)
+            dispatch(setAppStatusAC('failed'))
+
         }
+
     }
 }
 
 export const logOutTC = (): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
        const res = await authAPI.logOut()
         dispatch(setIsLoggedInAC(false))
+        dispatch(setAppStatusAC('succeeded'))
         console.log(res.data)
     } catch (error) {
         console.log(error)
@@ -95,10 +103,12 @@ export const logOutTC = (): AppThunk => async (dispatch: AppDispatch) => {
 }
 
 export const forgoPassTC = (email: string): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authAPI.forgotPass(email)
         dispatch(forgotPasswordAC(email))
         dispatch(setEmailAC(true))
+        dispatch(setAppStatusAC('succeeded'))
         console.log(res.data)
     } catch (error) {
         console.log(error)
@@ -106,9 +116,11 @@ export const forgoPassTC = (email: string): AppThunk => async (dispatch: AppDisp
 }
 
 export const setNewPassTC = (password: string, resetToken: string): AppThunk => async (dispatch: AppDispatch) => {
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authAPI.setNewPass({password, resetPasswordToken: resetToken})
         dispatch(setNewPassAC(true))
+        dispatch(setAppStatusAC('succeeded'))
         console.log(res.data)
     } catch (error) {
         console.log(error)
@@ -117,9 +129,11 @@ export const setNewPassTC = (password: string, resetToken: string): AppThunk => 
 
 export const registrationTC = (model: RegisterPopsType): AppThunk => {
     return async (dispatch: AppDispatch) => {
+        dispatch(setAppStatusAC('loading'))
         try {
             const res = await authAPI.registration(model)
             dispatch(setIsRegistrationAC(true))
+            dispatch(setAppStatusAC('succeeded'))
             console.log(res.data)
         } catch (e) {
             console.log(e)

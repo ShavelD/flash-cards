@@ -1,5 +1,6 @@
 import {authAPI, MePropsType, UpdateUserType,} from "../api/auth-api";
 import {AppRootStateType, AppThunk} from "./store";
+import {setAppStatusAC} from "./app-reducer";
 
 
 type initialStateType = {
@@ -57,6 +58,7 @@ export const showEmailAC = (email: string) => {
 
 export const changeProfileTC = (model: ChangeProfileType): AppThunk => {
     return async (dispatch, getState: () => AppRootStateType) => {
+        dispatch(setAppStatusAC('loading'))
         const ProfileState = getState().profile
         const ApiModel: UpdateUserType = {
             name: ProfileState.name,
@@ -66,6 +68,7 @@ export const changeProfileTC = (model: ChangeProfileType): AppThunk => {
         try {
             const res =  await authAPI.userUpdate(ApiModel)
             dispatch(changeNameProfileAC(res.data.updatedUser))
+            dispatch(setAppStatusAC('succeeded'))
 
         } catch (e) {
             console.log(e)

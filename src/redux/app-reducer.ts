@@ -3,17 +3,19 @@ import {authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "./auth-reducer";
 import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
 
+export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+
 
 export type InitialStateType = {
     error: string
-    success: string
-    isFetching: boolean
+    status: RequestStatusType
+    isInitialized: boolean
 }
 
 const initialState: InitialStateType = {
     error: '',
-    success: '',
-    isFetching: false,
+    status: 'idle',
+    isInitialized: false,
 }
 
 
@@ -23,9 +25,9 @@ export const appReducer = (state: InitialStateType = initialState,action: Action
         case 'APP/SET-ERROR':
             return { ...state, error: action.error }
         case 'APP/SET-SUCCESS':
-            return { ...state, success: action.success }
+            return { ...state, status: action.status }
         case 'APP/SET-INITIALIZED':
-            return { ...state, isFetching: action.value }
+            return { ...state, isInitialized: action.isInitialized }
         default:
             return state
     }
@@ -33,21 +35,19 @@ export const appReducer = (state: InitialStateType = initialState,action: Action
 
 type ActionsType =
     | ReturnType<typeof setAppErrorAC>
-    | ReturnType<typeof setSuccessAC>
-    | ReturnType<typeof isFetchingAppAC>
+    | ReturnType<typeof setAppStatusAC>
+    | ReturnType<typeof setIsInitializedAC>
 
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type SetAppStatusActionType = ReturnType<typeof setSuccessAC>
-export type SetAppIsInitializeActionType = ReturnType<typeof isFetchingAppAC>
+export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
 
 
 export const setAppErrorAC = (error: string) => ({ type: 'APP/SET-ERROR', error } as const)
-export const setSuccessAC = (success: string) => ({ type: 'APP/SET-SUCCESS', success } as const)
-export const isFetchingAppAC = (value: boolean) => ({ type: 'APP/SET-INITIALIZED', value } as const)
+export const setAppStatusAC = (status: RequestStatusType) => ({ type: 'APP/SET-SUCCESS', status } as const)
+export const setIsInitializedAC = (isInitialized: boolean) => ({ type: 'APP/SET-INITIALIZED', isInitialized } as const)
 
 
 export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(isFetchingAppAC(true))
     try {
         const res = await authAPI.me()
         dispatch(setIsLoggedInAC(true))
@@ -55,7 +55,7 @@ export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) 
         dispatch(showEmailAC(res.data.email))
     }
     finally {
-        dispatch(isFetchingAppAC(false))
+        dispatch(setIsInitializedAC(true))
     }
 }
 
