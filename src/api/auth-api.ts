@@ -38,6 +38,13 @@ export const authAPI = {
             message: `<div style="background-color: limegreen; padding: 15px">password recovery link: <a href="http://localhost:3000/#/new-password/$token$">link</> </div>`,
         })
     },
+    //добавила
+    // forgotPassword(data:ForgotPasswordType){
+    //     return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
+    // },
+    // newPassword(data:NewPasswordType){
+    //     return instance.post<NewPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/set-new-password', data)
+    // }
 
 
 }
@@ -83,7 +90,7 @@ export type NewPasswordType = {
 }
 
 export type ForgotPasswordType={
-    email:string
+    email?:string
     from: string
     message:string
 }
@@ -92,3 +99,5 @@ type ForgotPasswordResponseType = {
     info: string
     error: string;
 }
+
+
