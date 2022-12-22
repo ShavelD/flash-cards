@@ -4,7 +4,13 @@
     margin-top: 70px;
 }
 
-
+.newUserPhoto {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    margin-top: 68px;
+    margin-left: -32px;
+}
 .flex {
     text-align: center;
 }

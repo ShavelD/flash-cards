@@ -56,8 +56,10 @@ export const Profile = () => {
             <div className={style.flex}>
                 <form className={style.form} onSubmit={formik.handleSubmit}>
                     <h2 className={style.Info}>Personal Information</h2>
-                    <div className={style.shibaImg}><img src={ChibaImg} alt="" className={style.img}/></div>
-                    <div className={style.s}><img src={newUserPhoto} alt="" className={style.s}/></div>
+                    <div className={style.shibaImg}>
+                        <img src={ChibaImg} alt="" className={style.img}/>
+                        <img onClick={() => {alert('Ты не любишь собак?')}} src={newUserPhoto} alt="" className={style.newUserPhoto}/>
+                    </div>
                     <div className={style.wrapperInput}>
                         <Box>
                             <EditableSpan updateUserName={updateUserHandler} name={userName}/>

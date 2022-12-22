@@ -51,6 +51,7 @@ p {
 }
 
 .wrapperButton {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     padding-bottom: 31px;
