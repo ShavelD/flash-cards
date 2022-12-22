@@ -6,12 +6,15 @@ import {NavLink} from "react-router-dom";
 import {KeyboardBackspace} from "@mui/icons-material";
 import {ROUTS} from "../../App";
 import logout from "../../../../flash-cards/src/assets/images/logout.jpg"
-import shibaImg from "../../assets/images/Avatar.jpg"
 import {Box} from "@mui/material";
 import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {logOutTC} from "../../redux/auth-reducer";
 import {changeProfileTC} from "../../redux/profile-reducer";
+import ChibaImg from "../../../../flash-cards/src/assets/images/Avatar.jpg"
+import newUserPhoto from "../../../../flash-cards/src/assets/images/newUserPhoto.svg"
+
+
 
 
 interface Values {
@@ -53,7 +56,8 @@ export const Profile = () => {
             <div className={style.flex}>
                 <form className={style.form} onSubmit={formik.handleSubmit}>
                     <h2 className={style.Info}>Personal Information</h2>
-                    <div className={style.shibaImg}><img src={shibaImg} alt="" className={style.img}/></div>
+                    <div className={style.shibaImg}><img src={ChibaImg} alt="" className={style.img}/></div>
+                    <div className={style.s}><img src={newUserPhoto} alt="" className={style.s}/></div>
                     <div className={style.wrapperInput}>
                         <Box>
                             <EditableSpan updateUserName={updateUserHandler} name={userName}/>

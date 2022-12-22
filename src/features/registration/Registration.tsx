@@ -16,8 +16,6 @@ export type FormDataType = {
 
 
 export const Registration = () => {
-    // let [email, setEmail] = useState("")
-    // let [password, setPassword] = useState("")
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const storeEmail = useAppSelector(state => state.auth.registration)
@@ -31,16 +29,8 @@ export const Registration = () => {
             navigate('/login')
     }, [storeEmail])
 
-
     return (
         <div className={style.registration}>
-            {/*<div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", border: '3px solid black', borderRadius: '15px'}}>*/}
-            {/*    <div><input value={email} onChange={(e)=>setEmail(e.currentTarget.value)}/></div>*/}
-            {/*    <div><input value={password} onChange={(e)=>setPassword(e.currentTarget.value)}/></div>*/}
-            {/*    /!*<button onClick={onClickHandler}>Send</button>*!/*/}
-            {/*    <div style={{display: "flex", justifyContent: "right"}}>*/}
-            {/*        <span>Have an account? <NavLink to={ROUTS.LOGIN}>Login</NavLink></span></div>*/}
-            {/*</div>*/}
             <RegistrationForm onClickHandler={onClickHandler}/>
         </div>
     );

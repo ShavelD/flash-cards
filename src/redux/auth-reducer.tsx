@@ -13,9 +13,7 @@ const initialState = {
     isMessageSent: false,
     isNewPassword: false,
     registration: false,
-    email: '',
-    name: '',
-    sentEmail: false,
+    email: false,
 }
 
 type InitialStateType = typeof initialState
@@ -26,8 +24,7 @@ export type AuthActionType =
     | ReturnType<typeof setIsRegistrationAC>
     | ReturnType<typeof setNewPassAC>
     | ReturnType<typeof forgotPasswordAC>
-    | ReturnType<typeof nameAC>
-    | ReturnType<typeof setRecoveryStatusAC>
+
 
 
 
@@ -43,11 +40,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
             return {...state, isNewPassword: action.value}
         case 'auth/FORGOT-PASSWORD':
             return {...state, email: action.email}
-        case 'auth/NAME':
-            return {...state, name: action.name}
-        case "auth/SENT-RECOVERY-STATUS":{
-            return {...state, sentEmail: action.sentEmail}
-        }
         default:
             return state
     }
@@ -69,22 +61,28 @@ export const setIsRegistrationAC = (value: boolean) => {
     return {type: 'auth/SET-IS-REGISTRATION', value} as const
 }
 
-export const forgotPasswordAC = (email: string) => {
+export const forgotPasswordAC = (email: boolean) => {
     return {type: 'auth/FORGOT-PASSWORD', email} as const
 }
 
-export const nameAC = (name: string) => {
-    return {type: 'auth/NAME', name} as const
-}
-
 // добавила
-export const setRecoveryStatusAC = (sentEmail:boolean) => {
-    return{
-        type:'auth/SENT-RECOVERY-STATUS',
-        sentEmail
-    }as const
+export const setRecoveryStatusAC = (sentEmail: boolean) => {
+    return {type:'auth/SENT-RECOVERY-STATUS', sentEmail} as const
 }
 
+export const registrationTC = (model: RegisterPopsType): AppThunk => {
+    return async (dispatch: AppDispatch) => {
+        dispatch(setAppStatusAC('loading'))
+        try {
+            const res = await authAPI.registration(model)
+            dispatch(setIsRegistrationAC(true))
+            dispatch(setAppStatusAC('succeeded'))
+            console.log(res.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+}
 
 export const loginTC = (data: LoginParamsType): AppThunk => {
     return async (dispatch: AppDispatch) => {
@@ -117,16 +115,25 @@ export const logOutTC = (): AppThunk => async (dispatch: AppDispatch) => {
     }
 }
 
-export const forgoPassTC = (email: string): AppThunk => async (dispatch: AppDispatch) => {
-    dispatch(setAppStatusAC('loading'))
+export const setForgotPassTC = (email: FormikErrorType): AppThunk => async dispatch => {
     try {
-        const res = await authAPI.forgotPass(email)
-        dispatch(forgotPasswordAC(email))
-        dispatch(setEmailAC(true))
-        dispatch(setAppStatusAC('succeeded'))
-        console.log(res.data)
+        const forgotData = {
+            ...email, // кому восстанавливать пароль
+            from: 'cards-nya <neko.nyakus.cafe@gmail.com>',
+            // можно указать разработчика фронта)
+            message: `<div style="background-color: lime; padding: 15px">
+password recovery link:
+<a href='https://sssromaz.github.io/fridayProject/#/set-new-password/$token$'>
+link</a>
+</div>`, // хтмп-письмо, вместо $token$ бэк вставит токен
+        }
+        await authAPI.forgotPassword(forgotData)
+            .then((res) => {
+                dispatch(forgotPasswordAC(true))
+            })
+
     } catch (error) {
-        console.log(error)
+        handleServerNetworkError(error as AxiosError | Error, dispatch)
     }
 }
 
@@ -141,58 +148,37 @@ export const setNewPassTC = (password: string, resetToken: string): AppThunk => 
         console.log(error)
     }
 }
+// export const forgoPassTC = (email: string): AppThunk => async (dispatch: AppDispatch) => {
+//     dispatch(setAppStatusAC('loading'))
+//     try {
+//         const res = await authAPI.forgotPass(email)
+//         dispatch(forgotPasswordAC(email))
+//         dispatch(setEmailAC(true))
+//         dispatch(setAppStatusAC('succeeded'))
+//         console.log(res.data)
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
 
-export const registrationTC = (model: RegisterPopsType): AppThunk => {
-    return async (dispatch: AppDispatch) => {
-        dispatch(setAppStatusAC('loading'))
-        try {
-            const res = await authAPI.registration(model)
-            dispatch(setIsRegistrationAC(true))
-            dispatch(setAppStatusAC('succeeded'))
-            console.log(res.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
-}
+
+
+
 
 
 //добавила
-export const createNewPasswordTC = (password: string, resetPasswordToken: string):AppThunk => async dispatch => {
-    try {
-        const data = {
-            password,
-            resetPasswordToken
-        }
-        let res = await authAPI.newPassword(data)
-        dispatch(setRecoveryStatusAC(true))
-    }
-    catch (error) {
-        // debugger
-        handleServerNetworkError(error as AxiosError | Error, dispatch)
-    }
-}
+// export const createNewPasswordTC = (password: string, resetPasswordToken: string):AppThunk => async dispatch => {
+//     try {
+//         const data = {
+//             password,
+//             resetPasswordToken
+//         }
+//         let res = await authAPI.newPassword(data)
+//         dispatch(setRecoveryStatusAC(true))
+//     }
+//     catch (error) {
+//         handleServerNetworkError(error as AxiosError | Error, dispatch)
+//     }
+// }
 
-export const redirectToEmailTC = (email: FormikErrorType): AppThunk => async dispatch => {
-    debugger
-    try {
-        const forgotData = {
-            ...email, // кому восстанавливать пароль
-            from: 'cards-nya <neko.nyakus.cafe@gmail.com>',
-            // можно указать разработчика фронта)
-            message: `<div style="background-color: lime; padding: 15px">
-password recovery link:
-<a href='https://sssromaz.github.io/fridayProject/#/set-new-password/$token$'>
-link</a>
-</div>`, // хтмп-письмо, вместо $token$ бэк вставит токен
-        }
-        await authAPI.forgotPassword(forgotData)
-            .then((res) => {
-                dispatch(setRecoveryStatusAC(true))
-            })
-
-    } catch (error) {
-        handleServerNetworkError(error as AxiosError | Error, dispatch)
-    }
-}
 

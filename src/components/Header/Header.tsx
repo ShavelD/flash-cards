@@ -16,8 +16,9 @@ export const Header = () => {
 
     const onShowAvaHandler = () => {
     }
- const onClickSignIn = () => {
-       return  navigate('/login')
+
+    const onClickSignIn = () => {
+        return navigate('/login')
     }
 
     return (

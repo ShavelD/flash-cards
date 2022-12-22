@@ -95,7 +95,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {ROUTS} from "../../App";
 import {useFormik} from "formik";
 import {useAppDispatch} from '../../hooks/hook';
-import {redirectToEmailTC} from "../../redux/auth-reducer";
+import {setForgotPassTC} from "../../redux/auth-reducer";
 
 
 
@@ -128,7 +128,7 @@ export const PassRecovery = () => {
         validate,
         onSubmit: values => {
             alert(JSON.stringify(values));
-            dispatch(redirectToEmailTC(values))
+            dispatch(setForgotPassTC(values))
             navigate('/email_confirmation')
         },
     })

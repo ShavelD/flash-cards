@@ -31,20 +31,20 @@ export const authAPI = {
     // forgotPassword(data: ForgotPasswordType) {
     //     return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
     // },
-    forgotPass(email: string) {
-        return instance.post<DeleteForgotType>(`/auth/forgot`, {
-            email,
-            form: 'test-front-admin <ai73a@yandex.by>',
-            message: `<div style="background-color: limegreen; padding: 15px">password recovery link: <a href="http://localhost:3000/#/new-password/$token$">link</> </div>`,
-        })
-    },
+    // forgotPass(email: string) {
+    //     return instance.post<DeleteForgotType>(`/auth/forgot`, {
+    //         email,
+    //         form: 'test-front-admin <ai73a@yandex.by>',
+    //         message: `<div style="background-color: limegreen; padding: 15px">password recovery link: <a href="http://localhost:3000/#/new-password/$token$">link</> </div>`,
+    //     })
+    // },
     //добавила
-    forgotPassword(data:ForgotPasswordType){
+    forgotPassword(data: ForgotPasswordType){
         return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
     },
-    newPassword(data:NewPasswordType){
-        return instance.post<NewPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/set-new-password', data)
-    }
+    // newPassword(data:NewPasswordType){
+    //     return instance.post<NewPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/set-new-password', data)
+    // }
 
 
 }
