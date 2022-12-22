@@ -1,0 +1,8 @@
+.resetFiltersButton button {
+    background-color: white;
+    border: #E8E8E8;
+    height: 36px;
+    width: 40px;
+    border-radius: 2px;
+    margin-top: 18px;
+}

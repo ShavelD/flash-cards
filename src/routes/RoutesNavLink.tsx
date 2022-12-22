@@ -38,7 +38,21 @@ export const RoutesNavLink = () => {
                          className={(navData) => navData.isActive ? s.active : s.item}>
                     Cards
                 </NavLink></div>
-
+            <div>
+                <NavLink to={ROUTS.ADD_NEW_PACK}
+                         className={(navData) => navData.isActive ? s.active : s.item}>
+                    New pack
+                </NavLink></div>
+            <div>
+                <NavLink to={ROUTS.FRIENDS_PACKS}
+                         className={(navData) => navData.isActive ? s.active : s.item}>
+                    Friend’s Pack
+                </NavLink></div>
+            <div>
+                <NavLink to={ROUTS.MY_PACKS}
+                         className={(navData) => navData.isActive ? s.active : s.item}>
+                    My Pack
+                </NavLink></div>
             <div>
                 <NavLink to={ROUTS.TEST_PAGE}
                          className={(navData) => navData.isActive ? s.active : s.item}>Test</NavLink>

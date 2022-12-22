@@ -21,25 +21,27 @@ export type CreatePackType = {
         private?: boolean
     }
 }
+
 export type GetPackType = {
-    packName?:string
-    min?:number
-    max?:number
-    sortPacks?:number
-    page?:number
-    pageCount?:number
-    user_id?:number
-    block?:boolean
+    min?: number
+    max?: number
+    sortPacks?: string
+    page?: number
+    pageCount?: number
+    user_id?: string
 }
+
 export type UpdatePackType = {
     cardsPack: {
         _id: string
         name?: string
     }
 }
+
 export type DeletePackType = {
     id: string
 }
+
 export type CreateCardType = {
     cardsPack_id: string
     question?: string
@@ -51,6 +53,7 @@ export type CreateCardType = {
     questionVideo?: string
     answerVideo?: string
 }
+
 export type GetCardType = {
     cardAnswer?: string
     cardQuestion?: string
@@ -61,10 +64,7 @@ export type GetCardType = {
     page?: number
     pageCount?: number
 }
-/*export type UpdateCardType = {
-    _id: string
-    question?: string
-}*/
+
 export type UpdateCardType = {
     card: {
         _id: string
@@ -83,15 +83,17 @@ type GetPackResponseType = {
     page: number
     pageCount: number
 }
+
 type GetCardResponseType = {
     cards: Array<CardType>
     cardsTotalCount: number
     maxGrade: number
     minGrade: number
     page: number
-    pageCount: number
+    // pageCount: number
     packUserId: string
 }
+
 export const instance = axios.create({
     baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
     withCredentials: true,
@@ -101,8 +103,8 @@ export const cardsApi = {
     createPack(data: CreatePackType){
         return instance.post('cards/pack', data)
     },
-    async getPacks(data: GetPackType){
-        const res = await instance.get<GetPackResponseType>('cards/pack', {params: data})
+    async getPacks(params?: GetPackType){
+        const res = await instance.get<GetPackResponseType>('cards/pack', {params: params})
         return res
     },
     updatePack(data: UpdatePackType){
