@@ -59,7 +59,6 @@ export const RegistrationForm: React.FC<PropsType> = (props) => {
         validate,
         onSubmit: values => {
             props.onClickHandler(values)
-            formik.resetForm()
         },
     })
 

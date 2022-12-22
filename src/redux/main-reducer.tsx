@@ -57,7 +57,6 @@ export const getPacksTC = (data: GetPackType): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
             console.log('1')
-
             const res = await cardsApi.getPacks(data)
             dispatch(setPacksAC(res.data.cardPacks))
         } catch (error) {

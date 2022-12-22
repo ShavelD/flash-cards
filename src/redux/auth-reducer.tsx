@@ -1,13 +1,10 @@
 import {AppDispatch, AppThunk} from "./store";
-import {authAPI, ForgotPasswordType, LoginParamsType, RegisterPopsType} from "../api/auth-api";
+import {authAPI,LoginParamsType, RegisterPopsType} from "../api/auth-api";
 import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
 import {setAppStatusAC} from "./app-reducer";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
-
-
-// разкоментишь, подтянется импорт
-// import {FormikErrorType} from "../features/pass-recovery/PassRecovery";
+import {FormikErrorType} from "../features/pass-recovery/PassRecovery";
 
 
 const initialState = {
@@ -30,8 +27,7 @@ export type AuthActionType =
     | ReturnType<typeof setNewPassAC>
     | ReturnType<typeof forgotPasswordAC>
     | ReturnType<typeof nameAC>
-// добавила
-    //| ReturnType<typeof setRecoveryStatusAC>
+    | ReturnType<typeof setRecoveryStatusAC>
 
 
 
@@ -49,10 +45,9 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
             return {...state, email: action.email}
         case 'auth/NAME':
             return {...state, name: action.name}
-                //добавила
-        // case "auth/SENT-RECOVERY-STATUS":{
-        //     return {...state, sentEmail: action.sentEmail}
-        // }
+        case "auth/SENT-RECOVERY-STATUS":{
+            return {...state, sentEmail: action.sentEmail}
+        }
         default:
             return state
     }
@@ -83,12 +78,12 @@ export const nameAC = (name: string) => {
 }
 
 // добавила
-// export const setRecoveryStatusAC = (sentEmail:boolean) => {
-//     return{
-//         type:'auth/SENT-RECOVERY-STATUS',
-//         sentEmail
-//     }as const
-// }
+export const setRecoveryStatusAC = (sentEmail:boolean) => {
+    return{
+        type:'auth/SENT-RECOVERY-STATUS',
+        sentEmail
+    }as const
+}
 
 
 export const loginTC = (data: LoginParamsType): AppThunk => {
@@ -163,41 +158,41 @@ export const registrationTC = (model: RegisterPopsType): AppThunk => {
 
 
 //добавила
-// export const createNewPasswordTC = (password: string, resetPasswordToken: string):AppThunk => async dispatch => {
-//     try {
-//         const data = {
-//             password,
-//             resetPasswordToken
-//         }
-//         let res = await authAPI.newPassword(data)
-//         dispatch(setRecoveryStatusAC(true))
-//     }
-//     catch (error) {
-//         // debugger
-//         handleServerNetworkError(error as AxiosError | Error, dispatch)
-//     }
-// }
-//
-// export const redirectToEmailTC = (email: FormikErrorType): AppThunk => async dispatch => {
-//     debugger
-//     try {
-//         const forgotData = {
-//             ...email, // кому восстанавливать пароль
-//             from: 'cards-nya <neko.nyakus.cafe@gmail.com>',
-//             // можно указать разработчика фронта)
-//             message: `<div style="background-color: lime; padding: 15px">
-// password recovery link:
-// <a href='https://sssromaz.github.io/fridayProject/#/set-new-password/$token$'>
-// link</a>
-// </div>`, // хтмп-письмо, вместо $token$ бэк вставит токен
-//         }
-//         await authAPI.forgotPassword(forgotData)
-//             .then((res) => {
-//                 dispatch(setRecoveryStatusAC(true))
-//             })
-//
-//     } catch (error) {
-//         handleServerNetworkError(error as AxiosError | Error, dispatch)
-//     }
-// }
+export const createNewPasswordTC = (password: string, resetPasswordToken: string):AppThunk => async dispatch => {
+    try {
+        const data = {
+            password,
+            resetPasswordToken
+        }
+        let res = await authAPI.newPassword(data)
+        dispatch(setRecoveryStatusAC(true))
+    }
+    catch (error) {
+        // debugger
+        handleServerNetworkError(error as AxiosError | Error, dispatch)
+    }
+}
+
+export const redirectToEmailTC = (email: FormikErrorType): AppThunk => async dispatch => {
+    debugger
+    try {
+        const forgotData = {
+            ...email, // кому восстанавливать пароль
+            from: 'cards-nya <neko.nyakus.cafe@gmail.com>',
+            // можно указать разработчика фронта)
+            message: `<div style="background-color: lime; padding: 15px">
+password recovery link:
+<a href='https://sssromaz.github.io/fridayProject/#/set-new-password/$token$'>
+link</a>
+</div>`, // хтмп-письмо, вместо $token$ бэк вставит токен
+        }
+        await authAPI.forgotPassword(forgotData)
+            .then((res) => {
+                dispatch(setRecoveryStatusAC(true))
+            })
+
+    } catch (error) {
+        handleServerNetworkError(error as AxiosError | Error, dispatch)
+    }
+}
 
