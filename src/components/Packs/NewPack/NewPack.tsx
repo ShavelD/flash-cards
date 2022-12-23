@@ -12,7 +12,7 @@ export const NewPack = () => {
 
 
     const handleAddNewPack = () => {
-        dispatch(createPackTC())
+        // dispatch(createPackTC())
     }
 
     return (

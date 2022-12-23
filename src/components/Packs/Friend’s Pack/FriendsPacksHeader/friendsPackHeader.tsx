@@ -22,7 +22,7 @@ export const FriendsPacksHeader = () => {
             </div>
 
             <div className={style.secondSection}>
-                <Searching/>
+                {/*<Searching/>*/}
                 <ShowPacksCards/>
                 <CardsSlider/>
                 <FilterButton/>
