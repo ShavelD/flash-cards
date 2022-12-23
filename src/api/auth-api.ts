@@ -73,7 +73,7 @@ export type MePropsType = {
 
 export type NewPasswordType = {
     password: string
-    resetPasswordToken: string
+    resetPasswordToken?: string
 }
 
 export type ForgotPasswordType={

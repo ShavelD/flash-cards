@@ -97,9 +97,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
         } catch (error) {
             console.log(error)
             dispatch(setAppStatusAC('failed'))
-
         }
-
     }
 }
 
