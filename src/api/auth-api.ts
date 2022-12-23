@@ -25,28 +25,15 @@ export const authAPI = {
     userUpdate(data: UpdateUserType) {
         return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`/auth/me`, data)
     },
-    setNewPass(payload: NewPasswordType) {
-        return instance.post<DeleteForgotType>(`/auth/set-new-password`, payload)
-    },
-    // forgotPassword(data: ForgotPasswordType) {
-    //     return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
+    // setNewPass(payload: NewPasswordType) {
+    //     return instance.post<DeleteForgotType>(`/auth/set-new-password`, payload)
     // },
-    // forgotPass(email: string) {
-    //     return instance.post<DeleteForgotType>(`/auth/forgot`, {
-    //         email,
-    //         form: 'test-front-admin <ai73a@yandex.by>',
-    //         message: `<div style="background-color: limegreen; padding: 15px">password recovery link: <a href="http://localhost:3000/#/new-password/$token$">link</> </div>`,
-    //     })
-    // },
-    //добавила
     forgotPassword(data: ForgotPasswordType){
         return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
     },
-    // newPassword(data:NewPasswordType){
-    //     return instance.post<NewPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/set-new-password', data)
-    // }
-
-
+    newPassword(data: NewPasswordType){
+        return instance.post<NewPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/set-new-password', data)
+    }
 }
 
 

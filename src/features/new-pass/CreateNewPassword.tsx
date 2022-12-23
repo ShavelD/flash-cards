@@ -105,7 +105,7 @@ import {useFormik} from "formik";
 import FormControl from "@mui/material/FormControl";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useAppDispatch} from "../../hooks/hook";
-import {setNewPassTC} from "../../redux/auth-reducer";
+import {createNewPasswordTC} from "../../redux/auth-reducer";
 
 type FormikErrorType = {
     password?: string,
@@ -134,7 +134,7 @@ export const CreateNewPassword = () => {
         validate,
         onSubmit: values => {
             if (resetPassword) {
-                dispatch(setNewPassTC(values.password, resetPassword))
+                dispatch(createNewPasswordTC(values.password, resetPassword))
             }
             formik.resetForm()
             navigate('/login')

@@ -127,7 +127,6 @@ export const PassRecovery = () => {
         },
         validate,
         onSubmit: values => {
-            alert(JSON.stringify(values));
             dispatch(setForgotPassTC(values))
             navigate('/email_confirmation')
         },
