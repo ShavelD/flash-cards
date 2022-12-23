@@ -2,9 +2,9 @@ import {AnyAction, applyMiddleware, combineReducers, createStore} from 'redux'
 import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {profileReducer} from "./profile-reducer";
 import {mainReducer} from "./main-reducer";
-import {testReducer} from "./test-reducer";
 import {authReducer} from "./auth-reducer";
 import {appReducer} from "./app-reducer";
+
 
 // объединяя reducer-ы с помощью combineReducers,
 // мы задаём структуру нашего единственного объекта-состояния
@@ -12,7 +12,8 @@ const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
     profile: profileReducer,
-    main: mainReducer
+    main: mainReducer,
+
 })
 
 // непосредственно создаём store

@@ -1,0 +1,39 @@
+.wrapper {
+    font-family: 'Montserrat', sans-serif;
+
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.value {
+    height: 36px;
+    width: 36px;
+    border: 1px solid #D9D9D9;
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+
+}
+
+.count {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 8px;
+
+}
+
+.sliderMain {
+    margin: auto 12px;
+}

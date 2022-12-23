@@ -1,4 +1,4 @@
-import {authAPI, MePropsType, UpdateUserType,} from "../api/auth-api";
+import {authAPI, UpdateUserType,} from "../api/auth-api";
 import {AppRootStateType, AppThunk} from "./store";
 import {setAppStatusAC} from "./app-reducer";
 
@@ -6,13 +6,15 @@ import {setAppStatusAC} from "./app-reducer";
 type initialStateType = {
     name: string,
     avatar: string,
-    email: string
+    email: string,
+    _id: string
 }
 
 const initialState: initialStateType = {
     name: '',
     avatar: '',
-    email: ''
+    email: '',
+    _id: '',
 }
 
 type ChangeProfileType = {
@@ -45,17 +47,6 @@ export const showEmailAC = (email: string) => {
 
 
 //thunk
-// export const updateUserTC = (data: UpdateUserType): AppThunk => async dispatch => {
-//     try {
-//         const res = await authAPI.userUpdate(data)
-//         dispatch(setProfileAC(res.data.updatedUser))
-//     } catch (error) {
-//         handleServerNetworkError(error as AxiosError | Error, dispatch)
-//     } finally {
-//         dispatch(setIsLoggedInAC(false))
-//     }
-// }
-
 export const changeProfileTC = (model: ChangeProfileType): AppThunk => {
     return async (dispatch, getState: () => AppRootStateType) => {
         dispatch(setAppStatusAC('loading'))

@@ -4,12 +4,11 @@ import {Route, Routes, Navigate} from "react-router-dom";
 import {Test} from "./components/Test/Test";
 import {Registration} from "./features/registration/Registration";
 import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
-import {Main} from "./components/Main/Main";
 import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
 import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
-import {Alert, CircularProgress, Container, LinearProgress} from "@mui/material";
+import {CircularProgress, Container, LinearProgress} from "@mui/material";
 import {Login} from "./components/Login/Login";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 import {Packs} from "./components/Packs/Packs";
@@ -18,6 +17,7 @@ import {RequestStatusType, setIsInitializedTC} from "./redux/app-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hook";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
+import {NewPack} from "./components/Packs/NewPack/NewPack";
 
 export enum ROUTS {
     DEFAULT = '/',
@@ -32,8 +32,10 @@ export enum ROUTS {
     //NEW_PASS = '/createNewPassword/:token',
     PACKS = '/packs',
     CARDS = '/cards',
+    ADD_NEW_PACK = '/add_new_pack',
     TEST_PAGE = '/test',
-
+    FRIENDS_PACKS = '/friends_packs',
+    MY_PACKS = '/my_packs',
 }
 
 function App() {
@@ -74,6 +76,9 @@ function App() {
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
+                <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
+                {/*<Route path={ROUTS.FRIENDS_PACKS} element={<FriendsPack/>}/>*/}
+                {/*<Route path={ROUTS.MY_PACKS} element={<MyPack/>}/>*/}
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
             </Routes>

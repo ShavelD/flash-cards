@@ -1,0 +1,17 @@
+.wrapper {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.text {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.inputBase{
+    font-family: 'Montserrat', sans-serif;
+    height: 36px;
+    width: 413px;
+    border-radius: 2px !important;
+    background-color: #FFFFFF;
+}
