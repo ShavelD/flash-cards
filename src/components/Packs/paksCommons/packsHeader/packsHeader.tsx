@@ -20,7 +20,7 @@ export const PacksHeader = () => {
             </div>
 
             <div className={style.secondSection}>
-                <Searching/>
+                <Searching search={"packName"}/>
                 <ShowPacksCards/>
                 <CardsSlider/>
                 <FilterButton/>

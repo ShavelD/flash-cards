@@ -5,7 +5,7 @@ import TableCell from '@mui/material/TableCell'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
-import { visuallyHidden } from '@mui/utils'
+import {visuallyHidden} from '@mui/utils'
 import {MainPackType} from "../../redux/main-reducer";
 
 
@@ -27,7 +27,7 @@ interface EnhancedTableProps {
 }
 
 export const TableHeadMain = (props: EnhancedTableProps) => {
-    const { order, orderBy, onRequestSort, columnsHead } = props
+    const {order, orderBy, onRequestSort, columnsHead} = props
 
     const createSortHandler = (property: keyof MainPackType) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property)
@@ -42,7 +42,7 @@ export const TableHeadMain = (props: EnhancedTableProps) => {
                         padding={'normal'}
                         sortDirection={orderBy === column.id ? order : false}
                         align={column.align}
-                        style={{ minWidth: column.minWidth }}
+                        style={{minWidth: column.minWidth}}
                     >
                         <TableSortLabel
                             active={orderBy === column.id}

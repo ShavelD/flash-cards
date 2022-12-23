@@ -8,16 +8,3 @@
     margin-bottom: 5px;
 }
 
-.buttons button{
-    height: 36px;
-    width: 97px;
-    color: white;
-    background-color: #366EFF;
-    border: none;
-    border-radius: 2px;
-}
-
-.buttons button:active{
-    color: black;
-    background-color: white;
-}

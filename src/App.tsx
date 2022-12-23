@@ -77,7 +77,7 @@ function App() {
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
                 <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
-                <Route path={ROUTS.FRIENDS_PACKS} element={<FriendsPack/>}/>
+                {/*<Route path={ROUTS.FRIENDS_PACKS} element={<FriendsPack/>}/>*/}
                 {/*<Route path={ROUTS.MY_PACKS} element={<MyPack/>}/>*/}
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>

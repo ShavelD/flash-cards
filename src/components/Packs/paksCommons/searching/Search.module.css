@@ -10,5 +10,8 @@
 
 .inputBase{
     font-family: 'Montserrat', sans-serif;
-
+    height: 36px;
+    width: 413px;
+    border-radius: 2px !important;
+    background-color: #FFFFFF;
 }

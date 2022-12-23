@@ -1,30 +1,74 @@
-import React from 'react'
+import React, {ChangeEvent, useEffect, useState} from 'react'
 
 import SearchIcon from '@mui/icons-material/Search'
-import InputBase from '@mui/material/InputBase'
+import ClearIcon from '@mui/icons-material/Clear';
 import IconButton from '@mui/material/IconButton'
-import Paper from '@mui/material/Paper'
 import style from './Search.module.css'
+import {useAppSelector} from "../../../../hooks/hook";
+import {useSearchParams} from "react-router-dom";
+import {InputAdornment, OutlinedInput} from "@mui/material";
+import {useDebounce} from "../../../../hooks/useDebounce";
 
 
+type PropsType = {
+    search: 'packName' | 'cardQuestion' | 'userName';
+};
 
-export const Searching = () => {
+export const Searching: React.FC<PropsType> = ({ search }) => {
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [value, setValue] = useState<string>(searchParams.get(search) || '');
+
+    const debouncedValue = useDebounce<string>(value);
+    const status = useAppSelector(state => state.app.status);
+
+    const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+        setValue(event.target.value);
+    };
+    const clearSearch = (): void => {
+        setValue('');
+    };
+
+    useEffect(() => {
+        const queryParams: { packName?: string; cardQuestion?: string; userName?: string } =
+            {};
+
+        if (debouncedValue) {
+            queryParams[search] = debouncedValue;
+            searchParams.delete('page');
+            setSearchParams(searchParams);
+        } else searchParams.delete(search);
+
+        setSearchParams({
+            ...Object.fromEntries(searchParams),
+            ...queryParams,
+        });
+    }, [debouncedValue, search, setSearchParams]);
+
     return (
         <div className={style.wrapper}>
             <div className={style.text}>Search</div>
-            <Paper component="form"
-                   sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400, height: 32 }}
-            >
-                <IconButton type="button" aria-label="search" >
-                    <SearchIcon />
-                </IconButton>
-                <InputBase
-                    sx={{ flex: 1 }}
-                    placeholder="Provide your text"
-                    inputProps={{ 'aria-label': 'Provide your text' }}
+                <OutlinedInput
+                    disabled={status === 'loading'}
                     className={style.inputBase}
+                    value={value}
+                    onChange={handleChange}
+                    placeholder="Provide your text"
+                    startAdornment={
+                        <InputAdornment position="start" >
+                            <SearchIcon />
+                        </InputAdornment>
+                    }
+                    endAdornment={
+                        <InputAdornment position="end">
+                            {value && (
+                                <IconButton size="small" onClick={clearSearch}>
+                                    <ClearIcon />
+                                </IconButton>
+                            )}
+                        </InputAdornment>
+                    }
                 />
-            </Paper>
         </div>
     )
 }
