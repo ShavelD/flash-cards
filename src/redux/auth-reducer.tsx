@@ -1,5 +1,5 @@
 import {AppDispatch, AppThunk} from "./store";
-import {authAPI,LoginParamsType, RegisterPopsType} from "../api/auth-api";
+import {authAPI, LoginParamsType, RegisterPopsType} from "../api/auth-api";
 import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
 import {setAppStatusAC} from "./app-reducer";
 import {handleServerNetworkError} from "../utils/error-utils";
@@ -24,8 +24,6 @@ export type AuthActionType =
     | ReturnType<typeof setIsRegistrationAC>
     | ReturnType<typeof setNewPassAC>
     | ReturnType<typeof forgotPasswordAC>
-
-
 
 
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
@@ -67,7 +65,7 @@ export const forgotPasswordAC = (email: boolean) => {
 
 // добавила
 export const setRecoveryStatusAC = (sentEmail: boolean) => {
-    return {type:'auth/SENT-RECOVERY-STATUS', sentEmail} as const
+    return {type: 'auth/SENT-RECOVERY-STATUS', sentEmail} as const
 }
 
 export const registrationTC = (model: RegisterPopsType): AppThunk => {
@@ -88,10 +86,10 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
     return async (dispatch: AppDispatch) => {
         dispatch(setAppStatusAC('loading'))
         try {
-           const res = await authAPI.login(data)
+            const res = await authAPI.login(data)
             console.log(res.data.email)
             dispatch(setIsLoggedInAC(true))
-            dispatch(changeNameProfileAC({ name: res.data.name, avatar: '' }))
+            dispatch(changeNameProfileAC({name: res.data.name, avatar: ''}))
             dispatch(showEmailAC(res.data.email))
             dispatch(setAppStatusAC('succeeded'))
         } catch (error) {
@@ -104,7 +102,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
 export const logOutTC = (): AppThunk => async (dispatch: AppDispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
-       const res = await authAPI.logOut()
+        const res = await authAPI.logOut()
         dispatch(setIsLoggedInAC(false))
         dispatch(setAppStatusAC('succeeded'))
         console.log(res.data)
@@ -148,7 +146,7 @@ link</a>
 // }
 
 
-export const createNewPasswordTC = (password: string, resetPasswordToken: string):AppThunk => async dispatch => {
+export const createNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => async dispatch => {
     try {
         const data = {
             password,
@@ -156,8 +154,7 @@ export const createNewPasswordTC = (password: string, resetPasswordToken: string
         }
         let res = await authAPI.newPassword(data)
         dispatch(setRecoveryStatusAC(true))
-    }
-    catch (error) {
+    } catch (error) {
         handleServerNetworkError(error as AxiosError | Error, dispatch)
     }
 }

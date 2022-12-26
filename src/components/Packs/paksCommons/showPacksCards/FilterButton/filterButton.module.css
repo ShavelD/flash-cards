@@ -1,4 +1,4 @@
-.buttons button{
+.filterButton{
     height: 36px;
     width: 97px;
     color: white;
@@ -7,7 +7,7 @@
     border-radius: 2px;
 }
 
-.buttons button:active{
+.filterButton:active{
     color: black;
     background-color: white;
 }

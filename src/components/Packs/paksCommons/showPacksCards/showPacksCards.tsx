@@ -38,9 +38,10 @@ export const ShowPacksCards = () => {
         <div className={style.wrapper}>
             <div className={style.text}>Show packs cards</div>
             <div className={style.buttons}>
-                <button>My</button>
-                <FilterButton title={packsOwn.MY} key={packsOwn.MY} onClickButton={onClickButton} packsOwnLS={packsOwnLS}/>
-                <button>All</button>
+                <FilterButton title={packsOwn.MY} key={packsOwn.MY} onClickButton={onClickButton}
+                              packsOwnLS={packsOwnLS}/>
+                <FilterButton title={packsOwn.ALL} key={packsOwn.ALL} onClickButton={onClickButton}
+                              packsOwnLS={packsOwnLS}/>
             </div>
         </div>
     )

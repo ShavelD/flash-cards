@@ -5,14 +5,19 @@ import {NavLink} from "react-router-dom";
 import {ROUTS} from "../../../App";
 import {KeyboardBackspace} from "@mui/icons-material";
 import {createPackTC} from "../../../redux/main-reducer";
+import {useState} from "react";
 
 
 export const NewPack = () => {
     const dispatch = useAppDispatch()
 
+    const [value, setValue] = useState('')
+    const [checkValue, setCheckValue] = useState(false)
 
     const handleAddNewPack = () => {
-        // dispatch(createPackTC())
+        // dispatch(createPackTC(data))
+        setValue('')
+        setCheckValue(false)
     }
 
     return (
