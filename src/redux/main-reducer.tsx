@@ -1,7 +1,7 @@
 import React from "react";
 import {AppDispatch, AppThunk} from "./store";
 import {
-    cardsApi, CreatePackType, DeletePackType,
+    cardsApi, CreatePackType, DeletePackType, GetCardType,
     GetPackType, UpdatePackType
 } from "../api/cards-api";
 
@@ -15,7 +15,7 @@ export type CardType = {
     user_id?: string
     created?: string
     updated: string
-    _id?: string
+    _id: string
 }
 
 export type PackType = {
@@ -40,16 +40,17 @@ type initialStateType = {
 }
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
-    cards: [] as CardType[],
+    cards: [] as MainCardsType[],
     cardPacksTotalCount: 0,
-    maxCardsCount: 53,
+    maxCardsCount: 0,
     minCardsCount: 0,
-    page: 0,
-    pageCount: 5,
+    page: 1,
+    pageCount: 0,
     sortPacks: '0updated',
 }
 
 export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created'>
+export type MainCardsType = Pick<CardType,  'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade'>
 
 
 type MainActionType = ReturnType<typeof setPacksAC>
@@ -65,6 +66,8 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
         case 'main/SET-PACKS': {
             return {
                 ...state,
+                maxCardsCount: state.maxCardsCount,
+                minCardsCount: state.minCardsCount,
                 packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created}) => ({
                         _id,
                         name,
@@ -79,7 +82,10 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
         case 'main/SET-CARDS': {
             return {
                 ...state,
-                cards: action.cards.map(({updated, question, answer, grade}) => ({
+                cards: action.cards.map(({user_id, cardsPack_id, _id, updated, question, answer, grade}) => ({
+                    user_id,
+                    cardsPack_id,
+                    _id,
                     answer,
                     question,
                     grade,
@@ -121,10 +127,19 @@ export const changeSortPacksAC = (sortPacks: string) => {
 }
 
 
-export const getPacksTC = (paramsSearch?: GetPackType): AppThunk => {
+export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
-            const res = await cardsApi.getPacks(paramsSearch)
+            let params = {
+                packName: paramsSearch?.packName || undefined,
+                min: Number(paramsSearch?.min) || undefined,
+                max: Number(paramsSearch?.max) || undefined,
+                page: Number(paramsSearch?.page) || undefined,
+                pageCount: Number(paramsSearch?.pageCount) || undefined,
+                user_id: paramsSearch?.user_id || undefined,
+                sortPacks: paramsSearch?.sortPacks || undefined,
+            }
+            const res = await cardsApi.getPacks(params)
             dispatch(setPacksAC(res.data.cardPacks))
         } catch (error) {
             console.log(error)
@@ -164,10 +179,10 @@ export const deletePackTC = (data: DeletePackType): AppThunk =>
         }
     }
 
-export const getCardsTC = (cardsPacks_id: string): AppThunk => {
+export const getCardsTC = (params: GetCardType): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
-            const res = await cardsApi.getCards({cardsPack_id: cardsPacks_id})
+            const res = await cardsApi.getCards({cardsPack_id: params.cardsPack_id})
             dispatch(setCardsAC(res.data.cards))
         } catch (error) {
             console.log(error)

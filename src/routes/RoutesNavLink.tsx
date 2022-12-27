@@ -44,11 +44,6 @@ export const RoutesNavLink = () => {
                     New pack
                 </NavLink></div>
             <div>
-                <NavLink to={ROUTS.FRIENDS_PACKS}
-                         className={(navData) => navData.isActive ? s.active : s.item}>
-                    Friend’s Pack
-                </NavLink></div>
-            <div>
                 <NavLink to={ROUTS.MY_PACKS}
                          className={(navData) => navData.isActive ? s.active : s.item}>
                     My Pack

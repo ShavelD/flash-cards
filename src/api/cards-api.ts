@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import {CardType, PackType} from "../redux/main-reducer";
 
 
@@ -23,12 +23,13 @@ export type CreatePackType = {
 }
 
 export type GetPackType = {
-    min?: number
-    max?: number
-    sortPacks?: string
-    page?: number
-    pageCount?: number
-    user_id?: string
+    packName: string
+    min: number
+    max: number
+    page: number
+    pageCount: number
+    user_id: string
+    sortPacks: string
 }
 
 export type UpdatePackType = {
@@ -52,6 +53,7 @@ export type CreateCardType = {
     questionImg?: string
     questionVideo?: string
     answerVideo?: string
+
 }
 
 export type GetCardType = {
@@ -100,31 +102,46 @@ export const instance = axios.create({
 })
 
 export const cardsApi = {
-    createPack(data: CreatePackType){
+    createPack(data: CreatePackType) {
         return instance.post('cards/pack', data)
     },
-    async getPacks(params?: GetPackType){
+    async getPacks(params?: Partial<GetPackType>) {
         const res = await instance.get<GetPackResponseType>('cards/pack', {params: params})
         return res
     },
-    updatePack(data: UpdatePackType){
+    updatePack(data: UpdatePackType) {
         return instance.put('cards/pack', data)
     },
-    deletePack(data: DeletePackType){
+    deletePack(data: DeletePackType) {
         return instance.delete('cards/pack', {params: data})
     },
-    createCard(data: CreateCardType){
-        return instance.post('cards/card', data)
+
+    createCard(data: CreateCardType) {
+        return instance.post('cards/card', {
+            card: {
+                cardsPack_id: data.cardsPack_id,
+                question: data.question,
+                answer: data.answer,
+                grade: data.grade,
+            },
+        })
     },
-    async getCards(data: GetCardType){
-        const res = await instance.get<GetCardResponseType>('cards/card', {params: data})
+    async getCards(data: GetCardType) {
+        const res = await instance.get<GetCardResponseType>('cards/card', {params: {
+                cardsPack_id: data.cardsPack_id,
+                page: data.page,
+                pageCount: data.pageCount,
+                sortCards: data.sortCards,
+                min: data.min,
+                max: data.max,
+            },})
         return res
     },
-    updateCard(data: UpdateCardType){
-        return instance.put('cards/card', data)
+    updateCard(payload: UpdateCardType) {
+        return instance.put('cards/card', {card: payload})
     },
-    deleteCard(data: DeleteCardType){
-        return instance.delete('cards/card', {params: data})
+    deleteCard(cardId: string) {
+        return instance.delete(`/cards/card?id=${cardId}`)
     }
 
 }

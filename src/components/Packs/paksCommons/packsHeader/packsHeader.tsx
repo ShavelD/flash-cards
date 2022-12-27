@@ -2,13 +2,16 @@ import React from 'react'
 import Button from '@mui/material/Button'
 import style from './PacksHeader.module.css'
 import {CardsSlider} from "../cardsSlider/CardsSlider";
-import {FilterButton} from "../filterButton/filterButton";
+import {ClearFilterButton} from "../filterButton/clearFilterButton";
 import {Searching} from "../searching/Searching";
 import {ShowPacksCards} from "../showPacksCards/showPacksCards";
 import {ROUTS} from "../../../../App";
 
 
+
 export const PacksHeader = () => {
+
+    const clearParams = ['page', 'user_id', 'min', 'max', 'sortPacks', 'pageCount'];
 
     return (
         <div className={style.container}>
@@ -20,10 +23,10 @@ export const PacksHeader = () => {
             </div>
 
             <div className={style.secondSection}>
-                <Searching search={"packName"}/>
+                <Searching search="packName"/>
                 <ShowPacksCards/>
                 <CardsSlider/>
-                <FilterButton/>
+                <ClearFilterButton params={clearParams}/>
             </div>
         </div>
     )

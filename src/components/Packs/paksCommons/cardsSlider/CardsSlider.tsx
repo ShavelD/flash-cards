@@ -14,7 +14,7 @@ export const CardsSlider = () => {
 
     const [searchParams, setSearchParams] = useSearchParams({
         min: '0',
-        max: '53',
+        max: '100',
     })
 
     const handleChange = (event: Event, newValue: number | number[]) => {

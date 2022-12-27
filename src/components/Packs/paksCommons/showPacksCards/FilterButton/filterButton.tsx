@@ -17,7 +17,7 @@ export const FilterButton: React.FC<PropsType> = ({
     const onClickButtonHandle = (): void => onClickButton(title);
 
     return (
-        <button onClick={onClickButtonHandle} className={style.button}>
+        <button onClick={onClickButtonHandle} className={style.filterButton}>
             {title}
         </button>
     );

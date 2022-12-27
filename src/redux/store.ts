@@ -4,25 +4,25 @@ import {profileReducer} from "./profile-reducer";
 import {mainReducer} from "./main-reducer";
 import {authReducer} from "./auth-reducer";
 import {appReducer} from "./app-reducer";
+import {cardsReducer} from "./cards-reducer";
 
 
-// объединяя reducer-ы с помощью combineReducers,
-// мы задаём структуру нашего единственного объекта-состояния
+
 const rootReducer = combineReducers({
     app: appReducer,
     auth: authReducer,
     profile: profileReducer,
     main: mainReducer,
-
+    cars: cardsReducer,
 })
 
-// непосредственно создаём store
+
 export const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
-// определить автоматически тип всего объекта состояния
+
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export type AppDispatch = ThunkDispatch<AppRootStateType, unknown, AnyAction>
-// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
+
 
 
 export type AppThunk<ReturnType = void> = ThunkAction<
@@ -30,7 +30,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     AppRootStateType,
     unknown,
     AnyAction>
-// а это, чтобы можно было в консоли браузера обращаться к store в любой момент
+
 // @ts-ignore
 window.store = store;
 

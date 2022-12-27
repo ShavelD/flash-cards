@@ -4,16 +4,22 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {PacksHeader} from "./paksCommons/packsHeader/packsHeader";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {useNavigate, useSearchParams} from "react-router-dom";
-import {useEffect} from "react";
-import {changePageAC, changeSortPacksAC, getCardsTC, getPacksTC, MainPackType} from "../../redux/main-reducer";
-import {Order, TableHeadMain} from '../../common/TebleHead/tableHead';
-
+import {useEffect, useMemo} from "react";
+import {
+    changePageAC,
+    changePageCountAC,
+    changeSortPacksAC, deletePackTC,
+    getCardsTC,
+    getPacksTC,
+    MainPackType, updatePackTC
+} from "../../redux/main-reducer";
+import {Order, TableHeadMain} from '../../common/TebleHead/tablePackHead';
+import {Paginator} from "../../common/Paginator/Paginator";
 
 
 type ColumnType = {
@@ -27,40 +33,35 @@ type ColumnType = {
 const columns: ColumnType[] = [
     {id: 'name', label: 'Name', minWidth: 100},
     {id: 'cardsCount', label: 'Cards', minWidth: 100},
-    {id: 'updated', label: 'Last Updated', minWidth: 170, align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),},
-    {id: 'user_id', label: 'Created by', minWidth: 170, align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),},
-    {id: 'created', label: 'Action', minWidth: 100, align: 'right',
-        format: (value: number) => value.toFixed(2),},
+    {
+        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
+    {
+        id: 'user_id', label: 'Created by', minWidth: 170, align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
+    {
+        id: 'created', label: 'Action', minWidth: 100, align: 'right',
+        format: (value: number) => value.toFixed(2),
+    },
 ];
 
 
 export const Packs = () => {
 
     const dispatch = useAppDispatch()
-    let navigate = useNavigate()
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(changePageAC(+event.target.value))
-    };
+    const navigate = useNavigate()
 
     const packsCards = useAppSelector(state => state.main.packs)
-    const pageState = useAppSelector(state => state.main.page)
-    const packCountState = useAppSelector(state => state.main.pageCount)
     const cardPacksTotal = useAppSelector(state => state.main.cardPacksTotalCount)
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
-    const sortPacksUse = useAppSelector(state => state.main.sortPacks)
-    const minValue = useAppSelector(state => state.main.minCardsCount)
-    const maxValue = useAppSelector(state => state.main.maxCardsCount)
+    const pageState = useAppSelector(state => state.main.page)
+    const packCountState = useAppSelector(state => state.main.pageCount)
 
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
-
-    const [searchParams, setSearchParams] = useSearchParams({
-        page: '1',
-        pageCount: '5',
-    })
+    const [searchParams, setSearchParams] = useSearchParams({pageCount: '5'})
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof MainPackType) => {
         if (property === 'user_id') {
@@ -77,20 +78,47 @@ export const Packs = () => {
     const handleChangePage = (event: unknown, page: number) => {
         const newPage = page + 1
         searchParams.set('page', newPage.toString())
+        setSearchParams(searchParams)
         dispatch(changePageAC(newPage))
     };
 
-    useEffect(() => {
+    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+        searchParams.set('pageCount', event.target.value.toString())
         setSearchParams(searchParams)
-        dispatch(getPacksTC())
-    }, [pageState, packCountState, sortPacksUse, minValue, maxValue])
+        dispatch(changePageCountAC(+event.target.value))
+    }
+
+    let URLParams = useMemo(
+        () => ({
+            packName: searchParams.get('packName') || undefined,
+            min: Number(searchParams.get('min')) || undefined,
+            max: Number(searchParams.get('max')) || undefined,
+            page: Number(searchParams.get('page')) || undefined,
+            pageCount: Number(searchParams.get('pageCount')) || undefined,
+            sortPacks: searchParams.get('sortPacks') || undefined,
+        }),
+        [searchParams]
+    )
+
+    useEffect(() => {
+        dispatch(getPacksTC(URLParams))
+    }, [URLParams])
 
     const rows = packsCards
 
     const handleClick = (id_cards: string) => {
-        navigate(`/cards/${id_cards}`)
-        dispatch(getCardsTC(id_cards))
+        navigate(`/packs/${id_cards}`)
     }
+
+    // const deletePack = (_id: string) => {
+    //     dispatch(deletePackTC(_id))
+    // }
+    // const updatePack = (name: string, pack_id: string) => {
+    //     let newName = 'new name'
+    //
+    //     dispatch(updatePackTC(newName, pack_id))
+    // }
+
 
     return (
         <div>
@@ -129,15 +157,7 @@ export const Packs = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25]}
-                        component="div"
-                        count={cardPacksTotal}
-                        rowsPerPage={packCountState}
-                        page={pageState ? pageState - 1 : 0}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
+                    <Paginator totalCount={cardPacksTotal}/>
                 </Paper>
             </Box>
         </div>
