@@ -11,9 +11,10 @@
 }
 
 .title {
-    font-size: 22px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
     font-weight: 600;
-    margin-right: 870px;
+    color: #000000;
 }
 
 .secondSection {
@@ -22,20 +23,29 @@
     align-items: center;
 }
 
-.firstSection .button {
-    padding: 8px 28px;
-    height: 36px;
+.firstSection {
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    cursor: pointer;
     border-radius: 30px;
     background-color: #366EFF;
     border: 1px solid #366EFF;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: lowercase;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-    /* identical to box height */
-    text-align: center;
+    padding: 8px 28px;
     letter-spacing: 0.01em;
     color: #FFFFFF;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+}
+
+.button:hover {
+    color: #fff;
+    background: #4376f5;
+    tansition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
 }

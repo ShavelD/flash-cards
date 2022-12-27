@@ -1,15 +1,20 @@
 import React from 'react'
-import Button from '@mui/material/Button'
 import style from './PacksHeader.module.css'
 import {CardsSlider} from "../cardsSlider/CardsSlider";
 import {ClearFilterButton} from "../filterButton/clearFilterButton";
 import {Searching} from "../searching/Searching";
 import {ShowPacksCards} from "../showPacksCards/showPacksCards";
 import {ROUTS} from "../../../../App";
-
+import {useNavigate} from "react-router-dom";
 
 
 export const PacksHeader = () => {
+
+    const navigate = useNavigate()
+
+    const onClickHandlerAddNewPack = () => {
+        return navigate(ROUTS.ADD_NEW_PACK)
+    }
 
     const clearParams = ['page', 'user_id', 'min', 'max', 'sortPacks', 'pageCount'];
 
@@ -17,11 +22,8 @@ export const PacksHeader = () => {
         <div className={style.container}>
             <div className={style.firstSection}>
                 <h2 className={style.title}>Packs list</h2>
-                <Button className={style.button} href={ROUTS.ADD_NEW_PACK}>
-                    Add new pack
-                </Button>
+                <button type="submit" className={style.button} onClick={onClickHandlerAddNewPack}>Add new pack</button>
             </div>
-
             <div className={style.secondSection}>
                 <Searching search="packName"/>
                 <ShowPacksCards/>

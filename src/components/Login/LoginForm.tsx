@@ -118,7 +118,7 @@ export const LoginForm = () => {
                     <NavLink to={ROUTS.PASS_RECOVERY} className={style.navlink}> Forgot your password?</NavLink>
                 </div>
                 <div className={style.wrapperButton}>
-                    <button type="submit" className={style.button}>Sign in</button>
+                    <button type="submit" className={style.button}>Sign In</button>
                 </div>
                 <div className={style.wrapperTextAccount}>
                     Still don't have an account?

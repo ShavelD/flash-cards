@@ -24,14 +24,12 @@
     display: flex;
     justify-content: center;
     background-color: white;
-
 }
 
 .count {
     font-size: 16px;
     font-weight: 500;
     margin-top: 8px;
-
 }
 
 .sliderMain {

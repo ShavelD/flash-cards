@@ -1,3 +1,7 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
 .wrapper {
     display: flex;
     justify-content: center;
@@ -65,16 +69,17 @@ h1 {
     border: 1px solid #366EFF;
     letter-spacing: 0.01em;
     color: #FFFFFF;
-    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-    /* identical to box height */
     text-align: center;
-    letter-spacing: 0.01em;
+}
 
-    color: #FFFFFF;
+.button:hover {
+    color: #fff;
+    background: #4376f5;
+    tansition: all .2s linear;
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
 }
 
 .wrapperButton {

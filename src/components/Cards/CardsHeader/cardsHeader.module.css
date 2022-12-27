@@ -22,20 +22,3 @@
     align-items: center;
 }
 
-.firstSection .button {
-    padding: 8px 28px;
-    height: 36px;
-    border-radius: 30px;
-    background-color: #366EFF;
-    border: 1px solid #366EFF;
-    font-family: 'Montserrat', sans-serif;
-    text-transform: lowercase;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 20px;
-    /* identical to box height */
-    text-align: center;
-    letter-spacing: 0.01em;
-    color: #FFFFFF;
-}

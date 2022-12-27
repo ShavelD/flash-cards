@@ -19,7 +19,6 @@ export const HeaderProfile = (props: HeaderProfileType) => {
     }
     const toProfileHandler = () => {
         props.onHidden()
-        console.log('to profile')
         navigate('/profile')
     }
     const onLeave = () => {
