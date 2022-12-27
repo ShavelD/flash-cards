@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {getCardsTC, MainCardsType} from "../../redux/main-reducer";
-import {Order} from "../../common/TebleHead/tableCardHead";
+import {Order, TableHeadCard} from "../../common/TebleHead/tableCardHead";
 import {useEffect, useState} from "react";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {
@@ -22,9 +22,6 @@ import {
 import {CardsHeadMain} from "./CardsHeader/cardsHeader";
 
 
-
-
-
 type ColumnType = {
     id: '_id' | 'question' | 'answer' | 'updated' | 'grade'
     label: string
@@ -33,13 +30,17 @@ type ColumnType = {
     format?: (value: number) => string
 }
 
-const columns: readonly ColumnType[] = [
+const columns: ColumnType[] = [
     {id: 'question', label: 'Question', minWidth: 170},
     {id: 'answer', label: 'Answer', minWidth: 100},
-    {id: 'updated', label: 'Last Updated', minWidth: 170, align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),},
-    {id: 'grade', label: 'Grade', minWidth: 170, align: 'right',
-        format: (value: number) => value.toLocaleString('en-US'),},
+    {
+        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
+    {
+        id: 'grade', label: 'Grade', minWidth: 170, align: 'right',
+        format: (value: number) => value.toLocaleString('en-US'),
+    },
 
 ];
 
@@ -55,9 +56,8 @@ export const Cards = () => {
     const cardPage = useAppSelector(state => state.cars.page)
     const sortCards = useAppSelector(state => state.cars.sortCards)
 
-    const { id_pack } = useParams()
+    const {id_pack} = useParams()
 
-    // local state
     const [order, setOrder] = useState<Order>('asc')
     const [orderBy, setOrderBy] = useState<keyof MainCardsType>('question')
     const [searchParams, setSearchParams] = useSearchParams({
@@ -78,29 +78,27 @@ export const Cards = () => {
 
     const handleChangePage = (event: unknown, page: number) => {
         const newPage = page + 1
-
         searchParams.set('page', newPage.toString())
         dispatch(changeCardsPageAC(newPage))
     }
 
     const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
         searchParams.set('pageCount', event.target.value.toString())
-
         dispatch(changeCardsPageCountAC(+event.target.value))
     }
 
     // choose card
     const handleClick = (id_pack: string, id_card: string) => {
-        // navigate(`/packs/pack/${id_pack}/card/${id_card}`)
+        navigate(`/packs/pack/${id_pack}/card/${id_card}`)
     }
 
 
     const deleteCard = (id_pack: string, id_card: string) => {
         dispatch(deleteCardTC(id_pack, id_card))
     }
-    const updateCard = (id_pack: string, id_card: string) => {
-        // dispatch(updateCardTC(id_pack, { _id: id_card ? id_card : '', question: 'Updated' }))
-    }
+    // const updateCard = (id_pack: string, id_card: string) => {
+    //     dispatch(updateCardTC(id_pack, { _id: id_card ? id_card : '', question: 'Updated' }))
+    // }
 
     const paramsSearch: any = {
         sortCards: searchParams.get('sortCards') || undefined,
@@ -112,23 +110,23 @@ export const Cards = () => {
         paramsSearch[value] = key
     })
 
-    //useEffect for params
 
     // useEffect(() => {
     //   setSearchParams(searchParams)
     //
     //   dispatch(
-    //     fetchCardsTC({
+    //     getCardsTC({
     //       cardsPack_id: id_pack ? id_pack : '',
     //       page: paramsSearch.page,
     //       pageCount: paramsSearch.pageCount,
     //       sortCards: paramsSearch.sortCards,
     //     })
     //   )
-    // }, [cardPage, cardsPageCount, cortCards])
+    // }, [cardPage, cardsPageCount, sortCards])
+
 
     useEffect(() => {
-        dispatch(getCardsTC({ cardsPack_id: id_pack ? id_pack : '' }))
+        dispatch(getCardsTC({cardsPack_id: id_pack ? id_pack : ''}))
     }, [])
 
     return (
@@ -141,13 +139,13 @@ export const Cards = () => {
                             sx={{minWidth: 750}}
                             aria-labelledby="tableTitle"
                         >
-                            {/*<TableHeadCard*/}
-                            {/*    columnsHead={columns}*/}
-                            {/*    onRequestSort={handleRequestSort}*/}
-                            {/*    order={order}*/}
-                            {/*    orderBy={orderBy}*/}
-                            {/*    rowCount={rows.length}*/}
-                            {/*/>*/}
+                            <TableHeadCard
+                                columnsHead={columns}
+                                onRequestSort={handleRequestSort}
+                                order={order}
+                                orderBy={orderBy}
+                                rowCount={rows.length}
+                            />
                             <TableBody>
                                 {rows.map((row, index) => {
                                     const labelId = `enhanced-table-checkbox-${index}`
@@ -155,8 +153,8 @@ export const Cards = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row"
-                                                       // onClick={() => handleClick(row.cardsPack_id, row._id)}
-                                                >
+                                                onClick={() => handleClick(row.cardsPack_id, row._id)}
+                                            >
                                                 {row.question}
                                             </TableCell>
                                             <TableCell align="right">{row.answer}</TableCell>

@@ -92,8 +92,9 @@ type GetCardResponseType = {
     maxGrade: number
     minGrade: number
     page: number
-    // pageCount: number
+    pageCount: number
     packUserId: string
+    sortCards: string
 }
 
 export const instance = axios.create({
@@ -102,18 +103,18 @@ export const instance = axios.create({
 })
 
 export const cardsApi = {
-    createPack(data: CreatePackType) {
-        return instance.post('cards/pack', data)
+    createPack(name: string, privateCheckbox: boolean) {
+        return instance.post('cards/pack', {data: {name, private: privateCheckbox}})
     },
     async getPacks(params?: Partial<GetPackType>) {
         const res = await instance.get<GetPackResponseType>('cards/pack', {params: params})
         return res
     },
-    updatePack(data: UpdatePackType) {
-        return instance.put('cards/pack', data)
+    updatePack(name: string, _id: string) {
+        return instance.put('cards/pack', {data: {name, _id}})
     },
-    deletePack(data: DeletePackType) {
-        return instance.delete('cards/pack', {params: data})
+    deletePack(id: string) {
+        return instance.delete('cards/pack', {params: id})
     },
 
     createCard(data: CreateCardType) {
@@ -127,7 +128,7 @@ export const cardsApi = {
         })
     },
     async getCards(data: GetCardType) {
-        const res = await instance.get<GetCardResponseType>('cards/card', {params: {
+        const res = await instance.get<GetCardResponseType>('cards/card', {data: {
                 cardsPack_id: data.cardsPack_id,
                 page: data.page,
                 pageCount: data.pageCount,

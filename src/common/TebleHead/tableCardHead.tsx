@@ -18,7 +18,7 @@ export interface Column {
     align?: 'right'
 }
 
-interface EnhancedTableProps {
+interface TableHeadCardProps {
     onRequestSort: (event: React.MouseEvent<unknown>, property: keyof MainCardsType) => void
     order: Order
     orderBy: string
@@ -26,7 +26,7 @@ interface EnhancedTableProps {
     columnsHead: Column[]
 }
 
-export const TableHeadCard = (props: EnhancedTableProps) => {
+export const TableHeadCard = (props: TableHeadCardProps) => {
     const {order, orderBy, onRequestSort, columnsHead} = props
 
     const createSortHandler = (property: keyof MainCardsType) => (event: React.MouseEvent<unknown>) => {

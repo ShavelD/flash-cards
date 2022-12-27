@@ -9,7 +9,7 @@ import {
 export type CardType = {
     answer: string
     question: string
-    cardsPack_id?: string
+    cardsPack_id: string
     grade: number
     shots?: number
     user_id?: string
@@ -72,8 +72,8 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                         _id,
                         name,
                         cardsCount,
-                        updated: new Date(updated).toLocaleDateString(),
-                        user_id: user_id,
+                        updated,
+                        user_id,
                         created
                     })
                 ),
@@ -89,7 +89,7 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                     answer,
                     question,
                     grade,
-                    updated: new Date(updated).toLocaleDateString(),
+                    updated,
                 })),
             }
         }
@@ -147,32 +147,30 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
     }
 }
 
-export const createPackTC = (data: CreatePackType): AppThunk =>
+export const createPackTC = (name: string, privateCheckbox: boolean): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
-            await cardsApi.createPack(data)
+            await cardsApi.createPack(name, privateCheckbox)
             dispatch(getPacksTC())
         } catch (error) {
             console.log(error)
         }
     }
 
-export const updatePackTC = (data: UpdatePackType): AppThunk =>
+export const updatePackTC = (name: string, _id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
-            await cardsApi.updatePack(data)
-
+            await cardsApi.updatePack(name, _id)
             dispatch(getPacksTC())
         } catch (error) {
             console.log(error)
         }
     }
 
-export const deletePackTC = (data: DeletePackType): AppThunk =>
+export const deletePackTC = (id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
-            await cardsApi.deletePack(data)
-
+            await cardsApi.deletePack(id)
             dispatch(getPacksTC())
         } catch (error) {
             console.log(error)
