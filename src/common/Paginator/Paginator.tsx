@@ -3,9 +3,9 @@ import React, {useCallback, useEffect, useState} from 'react';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Select, SelectChangeEvent} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
-import Pagination from '@mui/material/Pagination';
 import {useSearchParams} from 'react-router-dom';
 import style from './Paginator.module.css'
+import {PaginatorNew} from "./PaginatorNew";
 
 
 type PropsType = {
@@ -62,7 +62,17 @@ export const Paginator: React.FC<PropsType> = ({totalCount}) => {
 
     return (
         <div className={style.container}>
-            <Pagination count={pagesCount} page={page} onChange={handleChange}/>
+
+
+
+
+            {/*<Pagination count={pagesCount} page={page} onChange={handleChange}/>*/}
+            <PaginatorNew/>
+
+
+
+
+
             <p className={style.text}>Show</p>
 
             <Select

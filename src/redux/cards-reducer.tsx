@@ -1,8 +1,11 @@
 import React from "react";
 import {CardType, getCardsTC, setCardsAC} from "./main-reducer";
 import {AppDispatch, AppThunk} from "./store";
-import {cardsApi, CreateCardType, UpdateCardType} from "../api/cards-api";
+import {cardsApi, CreateCardType, GetPackResponseType, UpdateCardType} from "../api/cards-api";
 
+export enum SORT_PACKS {
+    NOT_SORT = '',
+}
 
 type initialStateType = {
     cardsTotalCount: number,
@@ -12,6 +15,12 @@ type initialStateType = {
     pageCount: number,
     packUserId: string,
     sortCards: string,
+
+    isMy:boolean
+    filterPackName:string
+    filterMinCardsCount:number
+        filterMaxCardsCount:number
+    sortPacks:SORT_PACKS.NOT_SORT,
 }
 const initialState: initialStateType = {
     cardsTotalCount: 0,
@@ -21,6 +30,12 @@ const initialState: initialStateType = {
     pageCount: 5,
     packUserId: '',
     sortCards: '0updated',
+
+    isMy:false,
+    filterPackName:'',
+    filterMinCardsCount:0,
+    filterMaxCardsCount:110,
+    sortPacks:SORT_PACKS.NOT_SORT,
 }
 
 
@@ -28,6 +43,7 @@ export type CardsActionsType =
     | ReturnType<typeof changeCardsPageCountAC>
     | ReturnType<typeof changeCardsPageAC>
     | ReturnType<typeof changeSortCardsAC>
+    | ReturnType<typeof setPacksAC>
 
 
 export const cardsReducer = (state: initialStateType = initialState, action: CardsActionsType): initialStateType => {
@@ -38,6 +54,8 @@ export const cardsReducer = (state: initialStateType = initialState, action: Car
             return {...state, page: action.page}
         case 'cards/CHANGE-SORT':
             return {...state, sortCards: action.sortCards}
+        case "SET_PACKS":
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -52,6 +70,8 @@ export const changeCardsPageAC = (page: number) => {
 export const changeSortCardsAC = (sortCards: string) => {
     return {type: 'cards/CHANGE-SORT', sortCards} as const
 }
+const setPacksAC = (packs: GetPackResponseType) =>
+    ({type: 'SET_PACKS', payload: {...packs}} as const)
 
 export const addCardTC = (data: CreateCardType): AppThunk =>
     async (dispatch: AppDispatch) => {
@@ -84,10 +104,22 @@ export const updateCardTC = (cardsPack_id: string, data: UpdateCardType): AppThu
         }
     }
 
+    export const currentPageTC = (page: number): AppThunk =>async (dispatch, getState) => {
+        try {
+            const isMy = getState().cars.isMy
+            const params = {
+                packName: getState().cars.filterPackName,
+                min: getState().cars.filterMinCardsCount,
+                max: getState().cars.filterMaxCardsCount,
+                sortPacks: getState().cars.sortPacks,
+                page: page,
+                pageCount: getState().cars.pageCount,
+                user_id: isMy ? getState().profile._id : '',
+            }
 
+            const res = await cardsApi.getPacks(params)
+            dispatch(setPacksAC(res.data))
+        }catch (e) {
 
-
-
-
-
-
+        }
+    }

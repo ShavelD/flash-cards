@@ -77,7 +77,7 @@ export type DeleteCardType = {
     id: string
 }
 
-type GetPackResponseType = {
+export type GetPackResponseType = {
     cardPacks: Array<PackType>
     cardPacksTotalCount: number
     maxCardsCount: number
