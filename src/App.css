@@ -1,5 +1,7 @@
 .App {
   background: #F9F9FA;
+  width: 1366px;
+  margin: 0 auto;
   height: 100vh;
 }
 
