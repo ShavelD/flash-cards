@@ -18,6 +18,7 @@ import {useAppDispatch, useAppSelector} from "./hooks/hook";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
 import {NewPack} from "./components/Packs/NewPack/NewPack";
+import {Card} from "./components/Cards/Card";
 
 
 export enum ROUTS {
@@ -28,11 +29,10 @@ export enum ROUTS {
     PROFILE = '/profile',
     NOT_FOUND = '404',
     PASS_RECOVERY = '/password_recovery',
-    // NEW_PASS = '/createNewPassword',
-    // изменила
     NEW_PASS = '/createNewPassword/:token',
     PACKS = '/packs',
-    CARDS = '/cards',
+    CARDS = '/packs/:id_pack',
+    CARD = '/packs/pack/:id_pack/card/:id_card',
     ADD_NEW_PACK = '/add_new_pack',
     TEST_PAGE = '/test',
     MY_PACKS = '/my_packs',
@@ -76,6 +76,7 @@ function App() {
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
+                <Route path={ROUTS.CARD} element={<Card/>}/>
                 <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>

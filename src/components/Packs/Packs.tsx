@@ -20,6 +20,8 @@ import {
 } from "../../redux/main-reducer";
 import {Order, TableHeadMain} from '../../common/TebleHead/tablePackHead';
 import {Paginator} from "../../common/Paginator/Paginator";
+import IconButton from "@mui/material/IconButton";
+import {DeleteOutline, EditOutlined, SchoolOutlined} from "@mui/icons-material";
 
 
 type ColumnType = {
@@ -106,18 +108,17 @@ export const Packs = () => {
 
     const rows = packsCards
 
-    const handleClick = (id_cards: string) => {
-        navigate(`/packs/${id_cards}`)
+    const handleClick = (id_pack: string) => {
+        navigate(`/packs/${id_pack}`)
     }
 
-    // const deletePack = (_id: string) => {
-    //     dispatch(deletePackTC(_id))
-    // }
-    // const updatePack = (name: string, pack_id: string) => {
-    //     let newName = 'new name'
-    //
-    //     dispatch(updatePackTC(newName, pack_id))
-    // }
+    const deletePack = (_id: string) => {
+        dispatch(deletePackTC(_id))
+    }
+    const updatePack = (name: string, pack_id: string) => {
+        let newName = 'new name'
+        dispatch(updatePackTC(newName, pack_id))
+    }
 
 
     return (
@@ -142,15 +143,33 @@ export const Packs = () => {
                                     const labelId = `enhanced-table-checkbox-${index}`
 
                                     return (
-                                        <TableRow hover tabIndex={-1} key={row._id}
-                                                  onClick={() => handleClick(row._id)}>
-                                            <TableCell id={labelId} scope="row">
+                                        <TableRow hover tabIndex={-1} key={row._id}>
+                                            <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
                                             </TableCell>
                                             <TableCell align="right">{row.cardsCount}</TableCell>
                                             <TableCell
                                                 align="right">{new Date(row.updated).toLocaleDateString()}</TableCell>
                                             <TableCell align="right">{row.created}</TableCell>
+                                            {!userIdLogin ? (
+                                                <div>
+                                                    <IconButton disabled={row.cardsCount === 0}>
+                                                        <SchoolOutlined fontSize={'small'} />
+                                                    </IconButton>
+                                                    <IconButton onClick={() => updatePack(row.name, row._id)}>
+                                                        <EditOutlined fontSize={'small'} />
+                                                    </IconButton>
+                                                    <IconButton onClick={() => deletePack(row._id)}>
+                                                        <DeleteOutline fontSize={'small'} />
+                                                    </IconButton>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <IconButton disabled={row.cardsCount === 0}>
+                                                        <SchoolOutlined fontSize={'small'} />
+                                                    </IconButton>
+                                                </div>
+                                            )}
                                         </TableRow>
                                     )
                                 })}

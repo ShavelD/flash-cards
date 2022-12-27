@@ -15,7 +15,7 @@ export const NewPack = () => {
     const [checkValue, setCheckValue] = useState(false)
 
     const handleAddNewPack = () => {
-        // dispatch(createPackTC(data))
+        dispatch(createPackTC(value, checkValue))
         setValue('')
         setCheckValue(false)
     }

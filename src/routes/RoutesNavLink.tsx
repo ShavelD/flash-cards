@@ -39,19 +39,24 @@ export const RoutesNavLink = () => {
                     Cards
                 </NavLink></div>
             <div>
+                <NavLink to={ROUTS.CARD}
+                         className={(navData) => navData.isActive ? s.active : s.item}>
+                    Card
+                </NavLink></div>
+            <div>
                 <NavLink to={ROUTS.ADD_NEW_PACK}
                          className={(navData) => navData.isActive ? s.active : s.item}>
                     New pack
                 </NavLink></div>
-            <div>
-                <NavLink to={ROUTS.MY_PACKS}
-                         className={(navData) => navData.isActive ? s.active : s.item}>
-                    My Pack
-                </NavLink></div>
-            <div>
-                <NavLink to={ROUTS.TEST_PAGE}
-                         className={(navData) => navData.isActive ? s.active : s.item}>Test</NavLink>
-            </div>
+            {/*<div>*/}
+            {/*<NavLink to={ROUTS.MY_PACKS}*/}
+            {/*         className={(navData) => navData.isActive ? s.active : s.item}>*/}
+            {/*    My Pack*/}
+            {/*</NavLink></div>*/}
+            {/*<div>*/}
+            {/*    <NavLink to={ROUTS.TEST_PAGE}*/}
+            {/*             className={(navData) => navData.isActive ? s.active : s.item}>Test</NavLink>*/}
+            {/*</div>*/}
         </nav>
     )
 }

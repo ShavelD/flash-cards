@@ -24,9 +24,6 @@ const initialState: initialStateType = {
 }
 
 
-export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade'>
-
-
 export type CardsActionsType =
     | ReturnType<typeof changeCardsPageCountAC>
     | ReturnType<typeof changeCardsPageAC>
