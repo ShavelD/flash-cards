@@ -14,8 +14,9 @@ const EmailConfirmation = () => {
         <div className={style.wrapper}>
             <div className={style.form}>
                 <h2 className={style.CheckMail}>Check Email</h2>
-                <div className={style.group}><img src={Group} alt={''}/> </div>
-                <p>We have sent an Email with instructions to {storeEmail}</p>
+                <div className={style.group}><img src={Group} alt={''}/></div>
+                <p>We have sent an Email with instructions to</p>
+                <div className={style.toEmail}>{storeEmail}</div>
                 <div className={style.wrapperButton}><button onClick={()=>navigate('/login')}
                    >Back to login</button> </div>
             </div>

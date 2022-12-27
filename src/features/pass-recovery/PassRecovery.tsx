@@ -88,14 +88,13 @@
 
 
 import React from 'react'
-import style from "../../components/Login/LoginForm.module.css"
-import styles from "./PassRecovery.module.css"
+import style from "../../components/Login/LoginForm.module.css";
 import {Box, TextField} from "@mui/material";
 import {NavLink, useNavigate} from "react-router-dom";
 import {ROUTS} from "../../App";
 import {useFormik} from "formik";
 import {useAppDispatch} from '../../hooks/hook';
-import {setForgotPassTC} from "../../redux/auth-reducer";
+import {forgotPasswordAC} from "../../redux/auth-reducer";
 
 
 
@@ -127,7 +126,7 @@ export const PassRecovery = () => {
         },
         validate,
         onSubmit: values => {
-            dispatch(setForgotPassTC(values))
+            dispatch(forgotPasswordAC(values.email))
             navigate('/email_confirmation')
         },
     })
@@ -135,13 +134,13 @@ export const PassRecovery = () => {
     return (
         <>
             <div className={style.wrapper}>
-                <form className={styles.form}
+                <form className={style.form}
                       onSubmit={formik.handleSubmit}
                 >
                     <h1>Forgot your password?</h1>
                     <div className={style.wrapperInput}>
                         <Box>
-                            <TextField sx={{width: '30ch'}}
+                            <TextField sx={{width: '33ch'}}
                                        id="input-with-sx" label="Email" variant="standard"
                                        {...formik.getFieldProps('email')}
                             />
@@ -150,7 +149,7 @@ export const PassRecovery = () => {
 
                             <div>
                                 <p>
-                                    Enter your email address and we will send you <br/>further instructions
+                                    Enter your email address and we will send you further instructions
                                 </p>
                             </div>
                         </Box>
@@ -162,8 +161,8 @@ export const PassRecovery = () => {
                     <div className={style.wrapperTextAccount}>
                         Did you remember your password?
                     </div>
-                    <div className={styles.wrapperTextSignUp}>
-                        <NavLink to={ROUTS.LOGIN} className={styles.navlink}>Try logging in</NavLink>
+                    <div className={style.wrapperTextSignUp}>
+                        <NavLink to={ROUTS.LOGIN} className={style.navlink}>Try logging in</NavLink>
                     </div>
                 </form>
             </div>

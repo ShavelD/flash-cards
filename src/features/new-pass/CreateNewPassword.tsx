@@ -98,7 +98,6 @@
 
 import React from 'react'
 import style from "../../components/Login/LoginForm.module.css"
-import styles from "../pass-recovery/PassRecovery.module.css"
 import {IconButton, Input, InputAdornment, InputLabel} from "@mui/material";
 import {useNavigate, useParams} from "react-router-dom";
 import {useFormik} from "formik";
@@ -153,12 +152,12 @@ export const CreateNewPassword = () => {
     return (
         <>
             <div className={style.wrapper}>
-                <form className={styles.form}
+                <form className={style.form}
                       onSubmit={formik.handleSubmit}
                 >
                     <h1>Create new password</h1>
                     <div className={style.wrapperInput}>
-                        <FormControl sx={{width: '30ch'}} variant="standard">
+                        <FormControl sx={{width: '33ch'}} variant="standard">
                             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                             <Input
                                 id="standard-adornment-password"
@@ -185,7 +184,7 @@ export const CreateNewPassword = () => {
                         <button type="submit" className={style.button}>Create new password</button>
                     </div>
                     <div className={style.wrapperTextAccount}>
-                        Create new password and we will send you further <br/> instructions to email
+                        Create new password and we will send you further instructions to email
                     </div>
                 </form>
             </div>

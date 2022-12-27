@@ -76,7 +76,7 @@ export const LoginForm = () => {
                 <h1>Sign in</h1>
                 <div className={style.wrapperInput}>
                     <Box>
-                        <TextField sx={{width: '30ch'}}
+                        <TextField sx={{width: '33ch'}}
                                    id="input-with-sx" label="Email" variant="standard"
                                    {...formik.getFieldProps('email')}/>
                         {formik.touched.email && formik.errors.email ?
@@ -84,7 +84,7 @@ export const LoginForm = () => {
                     </Box>
                 </div>
                 <div className={style.wrapperInput}>
-                    <FormControl sx={{width: '30ch'}} variant="standard">
+                    <FormControl sx={{width: '33ch'}} variant="standard">
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
