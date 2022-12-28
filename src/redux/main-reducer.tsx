@@ -4,6 +4,7 @@ import {
     cardsApi, CreatePackType, DeletePackType, GetCardType,
     GetPackType, UpdatePackType
 } from "../api/cards-api";
+import {setAppStatusAC} from "./app-reducer";
 
 
 export type CardType = {
@@ -32,25 +33,27 @@ type initialStateType = {
     packs: Array<PackType>
     cards: Array<CardType>
     cardPacksTotalCount: number,
-    maxCardsCount: number,
-    minCardsCount: number,
-    page: number,
-    pageCount: number,
-    sortPacks: string,
+    queryParams: any
 }
+
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
     cards: [] as MainCardsType[],
     cardPacksTotalCount: 0,
-    maxCardsCount: 0,
-    minCardsCount: 0,
-    page: 1,
-    pageCount: 0,
-    sortPacks: '0updated',
+    queryParams: {
+        // packName: null,
+        maxCardsCount: 0,
+        minCardsCount: 0,
+        page: 1,
+        pageCount: 0,
+        sortPacks: '0updated',
+        // user_id: '',
+    }
 }
 
+
 export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created'>
-export type MainCardsType = Pick<CardType,  'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade'>
+export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade'>
 
 
 type MainActionType = ReturnType<typeof setPacksAC>
@@ -66,8 +69,11 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
         case 'main/SET-PACKS': {
             return {
                 ...state,
-                maxCardsCount: state.maxCardsCount,
-                minCardsCount: state.minCardsCount,
+                queryParams: {
+                    ...state,
+                    maxCardsCount: state.queryParams.maxCardsCount,
+                    minCardsCount: state.queryParams.minCardsCount
+                },
                 packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created}) => ({
                         _id,
                         name,
@@ -94,13 +100,13 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
             }
         }
         case 'main/CHANGE-PAGE':
-            return {...state, page: action.page}
+            return {...state, queryParams: {...state.queryParams, page: action.page}}
         case 'main/CHANGE-PAGE-COUNT':
-            return {...state, pageCount: action.pageCount}
+            return {...state, queryParams: {...state.queryParams, pageCount: action.pageCount}}
         case 'main/packs-CHANGE-CARDS-NUMBER-IN-PACK':
-            return {...state, minCardsCount: action.min, maxCardsCount: action.max}
+            return {...state, queryParams: {...state.queryParams, minCardsCount: action.min, maxCardsCount: action.max}}
         case 'main/packs-CHANGE-SORT-PACKS':
-            return {...state, sortPacks: action.sortPacks}
+            return {...state, queryParams: {...state.queryParams, sortPacks: action.sortPacks}}
         default:
             return state
     }
@@ -147,16 +153,46 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
     }
 }
 
-export const createPackTC = (name: string, privateCheckbox: boolean): AppThunk =>
+export const addPackTC = (newPacks: any): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
-            await cardsApi.createPack(name, privateCheckbox)
+            dispatch(setAppStatusAC('loading'))
+            await cardsApi.addPack(newPacks)
             dispatch(getPacksTC())
         } catch (error) {
             console.log(error)
+        } finally {
+            dispatch(setAppStatusAC('succeeded'))
         }
     }
 
+// export const addPackTC = (newPacks: any): AppThunk =>
+//     async (dispatch, getState) => {
+//         const model = getState().packs.queryParams
+//         try {
+//             await cardsApi.addPack(newPacks)
+//             dispatch(getPacksTC({params: any}))
+//         } catch (error) {
+//             console.log(error)
+//         }
+//
+//     }
+
+// export const addNewPack =
+//     (newCard: any): AppThunk =>
+//         async (dispatch, getState) => {
+//             const model = getState().packs.queryParams
+//
+//             try {
+//                 dispatch(setIsFetchingAC(true))
+//                 await packsAPI.addPack(newCard)
+//                 dispatch(getPacksTC({ params: model }))
+//             } catch (error) {
+//                 handleServerNetworkError(error as AxiosError | Error, dispatch)
+//             } finally {
+//                 dispatch(setIsFetchingAC(false))
+//             }
+//         }
 export const updatePackTC = (name: string, _id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {

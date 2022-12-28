@@ -7,8 +7,8 @@ import {changeCardsNumberInPackAC} from "../../../../redux/main-reducer";
 
 
 export const CardsSlider = () => {
-    const minValue = useAppSelector(state => state.main.minCardsCount)
-    const maxValue = useAppSelector(state => state.main.maxCardsCount)
+    const minValue = useAppSelector(state => state.main.queryParams.minCardsCount)
+    const maxValue = useAppSelector(state => state.main.queryParams.maxCardsCount)
     const dispatch = useAppDispatch()
     const [value, setValue] = useState<number[]>([minValue, maxValue])
 

@@ -32,6 +32,17 @@ export type GetPackType = {
     sortPacks: string
 }
 
+type AddPackModelType = {
+    cardsPack: CardsPackType
+}
+
+type CardsPackType = {
+    name: string
+    deckCover?: string
+    private: boolean
+}
+
+
 export type UpdatePackType = {
     cardsPack: {
         _id: string
@@ -103,6 +114,9 @@ export const instance = axios.create({
 })
 
 export const cardsApi = {
+    addPack(postModel: AddPackModelType) {
+        return instance.post('/cards/pack', postModel)
+    },
     createPack(name: string, privateCheckbox: boolean) {
         return instance.post('cards/pack', {data: {name, private: privateCheckbox}})
     },

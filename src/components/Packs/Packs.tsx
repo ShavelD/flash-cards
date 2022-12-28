@@ -14,7 +14,6 @@ import {
     changePageAC,
     changePageCountAC,
     changeSortPacksAC, deletePackTC,
-    getCardsTC,
     getPacksTC,
     MainPackType, updatePackTC
 } from "../../redux/main-reducer";
@@ -22,6 +21,7 @@ import {Order, TableHeadMain} from '../../common/TebleHead/tablePackHead';
 import {Paginator} from "../../common/Paginator/Paginator";
 import IconButton from "@mui/material/IconButton";
 import {DeleteOutline, EditOutlined, SchoolOutlined} from "@mui/icons-material";
+import {NewPack} from "./NewPack/NewPack";
 
 
 type ColumnType = {
@@ -58,8 +58,8 @@ export const Packs = () => {
     const packsCards = useAppSelector(state => state.main.packs)
     const cardPacksTotal = useAppSelector(state => state.main.cardPacksTotalCount)
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
-    const pageState = useAppSelector(state => state.main.page)
-    const packCountState = useAppSelector(state => state.main.pageCount)
+    const pageState = useAppSelector(state => state.main.queryParams.page)
+    const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
 
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
@@ -123,7 +123,7 @@ export const Packs = () => {
 
     return (
         <div>
-            <PacksHeader/>
+            <PacksHeader />
             <Box sx={{width: '100%'}}>
                 <Paper sx={{width: '100%', mb: 2}}>
                     <TableContainer>

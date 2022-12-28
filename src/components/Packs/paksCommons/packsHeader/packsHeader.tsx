@@ -6,6 +6,7 @@ import {Searching} from "../searching/Searching";
 import {ShowPacksCards} from "../showPacksCards/showPacksCards";
 import {ROUTS} from "../../../../App";
 import {useNavigate} from "react-router-dom";
+import {NewPack} from "../../NewPack/NewPack";
 
 
 export const PacksHeader = () => {

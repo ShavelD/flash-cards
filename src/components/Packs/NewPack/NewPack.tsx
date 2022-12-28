@@ -4,21 +4,28 @@ import style from "./NewPack.module.css"
 import {NavLink} from "react-router-dom";
 import {ROUTS} from "../../../App";
 import {KeyboardBackspace} from "@mui/icons-material";
-import {createPackTC} from "../../../redux/main-reducer";
-import {useState} from "react";
+import {addPackTC} from "../../../redux/main-reducer";
+import {ChangeEvent, useState} from "react";
 
 
 export const NewPack = () => {
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = useState('')
-    const [checkValue, setCheckValue] = useState(false)
+    const [packName, setPackName] = useState('')
+    const [isPrivate, setIsPrivate] = useState(false)
 
-    const handleAddNewPack = () => {
-        dispatch(createPackTC(value, checkValue))
-        setValue('')
-        setCheckValue(false)
+
+    const addNewPackHandler = () => {
+        dispatch(addPackTC({ cardsPack: { name: packName, private: isPrivate } }))
+        alert(JSON.stringify("Колода добавилась " + new Date()))
     }
+
+    // const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setPackName(e.currentTarget.value)
+    // }
+    // const setPrivatePack = (e: ChangeEvent<HTMLInputElement>) => {
+    //     setIsPrivate(e.currentTarget.checked)
+    // }
 
     return (
         <div className={style.container}>
@@ -31,7 +38,7 @@ export const NewPack = () => {
             </h2>
             <div className={style.textEmpty}>This pack is empty. Click add new card to fill this pack</div>
             <div className={style.divButton}>
-                <button className={style.button} onClick={handleAddNewPack}>
+                <button className={style.button} onClick={addNewPackHandler}>
                     Add new pack
                 </button>
             </div>
