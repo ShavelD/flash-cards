@@ -15,7 +15,7 @@ export interface Column {
     id: keyof MainPackType
     label: string
     minWidth?: number
-    align?: 'right'
+    align?: 'left'
 }
 
 interface TableHeadMainProps {
@@ -29,7 +29,7 @@ interface TableHeadMainProps {
 export const TableHeadMain = (props: TableHeadMainProps) => {
     const {order, orderBy, onRequestSort, columnsHead} = props
 
-    const createSortHandler = (property: keyof MainPackType) => (event: React.MouseEvent<unknown>) => {
+    const sortHandler = (property: keyof MainPackType) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property)
     }
 
@@ -42,12 +42,17 @@ export const TableHeadMain = (props: TableHeadMainProps) => {
                         padding={'normal'}
                         sortDirection={orderBy === column.id ? order : false}
                         align={column.align}
-                        style={{minWidth: column.minWidth}}
+                        style={{ minWidth: column.minWidth }}
+                        sx={{
+                            backgroundColor: '#EFEFEF',
+                            textAlign: 'left',
+                            fontFamily: 'Montserrat',
+                        }}
                     >
                         <TableSortLabel
                             active={orderBy === column.id}
                             direction={orderBy === column.id ? order : 'asc'}
-                            onClick={createSortHandler(column.id)}
+                            onClick={sortHandler(column.id)}
                         >
                             {column.label}
                             {orderBy === column.id ? (

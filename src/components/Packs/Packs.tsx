@@ -28,7 +28,7 @@ type ColumnType = {
     id: '_id' | 'name' | 'updated' | 'user_id' | 'cardsCount' | 'created'
     label: string
     minWidth?: number
-    align?: 'right'
+    align?: 'left'
     format?: (value: number) => string
 }
 
@@ -36,15 +36,15 @@ const columns: ColumnType[] = [
     {id: 'name', label: 'Name', minWidth: 100},
     {id: 'cardsCount', label: 'Cards', minWidth: 100},
     {
-        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'right',
+        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'user_id', label: 'Created by', minWidth: 170, align: 'right',
+        id: 'user_id', label: 'Created by', minWidth: 170, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'created', label: 'Action', minWidth: 100, align: 'right',
+        id: 'created', label: 'Action', minWidth: 100, align: 'left',
         format: (value: number) => value.toFixed(2),
     },
 ];
@@ -71,8 +71,10 @@ export const Packs = () => {
         }
         const isAsc = orderBy === property && order === 'asc'
 
-        searchParams.set('sortPacks', (isAsc ? 1 : 0) + property)
-        dispatch(changeSortPacksAC((isAsc ? 1 : 0) + property))
+        searchParams.set('sortPacks', (isAsc ? 0 : 1) + property)
+        setSearchParams(searchParams)
+
+        dispatch(changeSortPacksAC((isAsc ? 0 : 1) + property))
         setOrder(isAsc ? 'desc' : 'asc')
         setOrderBy(property)
     }
@@ -90,21 +92,40 @@ export const Packs = () => {
         dispatch(changePageCountAC(+event.target.value))
     }
 
-    let URLParams = useMemo(
-        () => ({
-            packName: searchParams.get('packName') || undefined,
-            min: Number(searchParams.get('min')) || undefined,
-            max: Number(searchParams.get('max')) || undefined,
-            page: Number(searchParams.get('page')) || undefined,
-            pageCount: Number(searchParams.get('pageCount')) || undefined,
-            sortPacks: searchParams.get('sortPacks') || undefined,
-        }),
-        [searchParams]
-    )
+    let URLParam = useMemo(() => {
+        const paramsSearch: any = {}
+
+        searchParams.forEach((key, value) => {
+            paramsSearch[value] = key
+        })
+
+        return paramsSearch
+    }, [searchParams])
 
     useEffect(() => {
-        dispatch(getPacksTC(URLParams))
-    }, [URLParams])
+        let orderParam = searchParams.get('sortPacks')
+
+        if (orderParam) {
+            setOrderBy(orderParam.substring(1) as keyof MainPackType)
+            setOrder(Number(orderParam.at(0)) ? 'asc' : 'desc')
+        }
+    }, [searchParams, order, orderBy])
+
+    // let URLParams = useMemo(
+    //     () => ({
+    //         packName: searchParams.get('packName') || undefined,
+    //         min: Number(searchParams.get('min')) || undefined,
+    //         max: Number(searchParams.get('max')) || undefined,
+    //         page: Number(searchParams.get('page')) || undefined,
+    //         pageCount: Number(searchParams.get('pageCount')) || undefined,
+    //         sortPacks: searchParams.get('sortPacks') || undefined,
+    //     }),
+    //     [searchParams]
+    // )
+
+    useEffect(() => {
+        dispatch(getPacksTC(URLParam))
+    }, [URLParam])
 
     const rows = packsCards
 
@@ -135,7 +156,7 @@ export const Packs = () => {
                                 columnsHead={columns}
                                 onRequestSort={handleRequestSort}
                                 order={order}
-                                orderBy={orderBy}
+                                orderBy={orderBy.toString()}
                                 rowCount={rows.length}
                             />
                             <TableBody>
@@ -147,10 +168,10 @@ export const Packs = () => {
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell align="right">{row.cardsCount}</TableCell>
+                                            <TableCell align="left">{row.cardsCount}</TableCell>
                                             <TableCell
-                                                align="right">{new Date(row.updated).toLocaleDateString()}</TableCell>
-                                            <TableCell align="right">{row.created}</TableCell>
+                                                align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
+                                            <TableCell align="left">{row.created}</TableCell>
                                             {!userIdLogin ? (
                                                 <div>
                                                     <IconButton disabled={row.cardsCount === 0}>
