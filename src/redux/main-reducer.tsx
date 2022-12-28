@@ -166,33 +166,6 @@ export const addPackTC = (newPacks: any): AppThunk =>
         }
     }
 
-// export const addPackTC = (newPacks: any): AppThunk =>
-//     async (dispatch, getState) => {
-//         const model = getState().packs.queryParams
-//         try {
-//             await cardsApi.addPack(newPacks)
-//             dispatch(getPacksTC({params: any}))
-//         } catch (error) {
-//             console.log(error)
-//         }
-//
-//     }
-
-// export const addNewPack =
-//     (newCard: any): AppThunk =>
-//         async (dispatch, getState) => {
-//             const model = getState().packs.queryParams
-//
-//             try {
-//                 dispatch(setIsFetchingAC(true))
-//                 await packsAPI.addPack(newCard)
-//                 dispatch(getPacksTC({ params: model }))
-//             } catch (error) {
-//                 handleServerNetworkError(error as AxiosError | Error, dispatch)
-//             } finally {
-//                 dispatch(setIsFetchingAC(false))
-//             }
-//         }
 export const updatePackTC = (name: string, _id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
