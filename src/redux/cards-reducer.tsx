@@ -16,6 +16,8 @@ type initialStateType = {
     packUserId: string,
     sortCards: string,
 
+    currentPage:number,
+
     isMy:boolean
     filterPackName:string
     filterMinCardsCount:number
@@ -24,10 +26,12 @@ type initialStateType = {
 }
 const initialState: initialStateType = {
     cardsTotalCount: 0,
-    maxGrade: 30,
-    minGrade: 5,
-    page: 1,
-    pageCount: 5,
+    maxGrade: 0,
+    minGrade: 0,
+    page: 2,
+    pageCount: 8,
+    currentPage:1,
+
     packUserId: '',
     sortCards: '0updated',
 
@@ -55,7 +59,7 @@ export const cardsReducer = (state: initialStateType = initialState, action: Car
         case 'cards/CHANGE-SORT':
             return {...state, sortCards: action.sortCards}
         case "SET_PACKS":
-            return {...state, ...action.payload}
+            return {...state, currentPage:action.currentPage}
         default:
             return state
     }
@@ -70,8 +74,8 @@ export const changeCardsPageAC = (page: number) => {
 export const changeSortCardsAC = (sortCards: string) => {
     return {type: 'cards/CHANGE-SORT', sortCards} as const
 }
-const setPacksAC = (packs: GetPackResponseType) =>
-    ({type: 'SET_PACKS', payload: {...packs}} as const)
+export const setPacksAC = (currentPage:number) =>
+    ({type: 'SET_PACKS', currentPage} as const)
 
 export const addCardTC = (data: CreateCardType): AppThunk =>
     async (dispatch: AppDispatch) => {
@@ -118,7 +122,7 @@ export const updateCardTC = (cardsPack_id: string, data: UpdateCardType): AppThu
             }
 
             const res = await cardsApi.getPacks(params)
-            dispatch(setPacksAC(res.data))
+            dispatch(setPacksAC(res.data.page))
         }catch (e) {
 
         }

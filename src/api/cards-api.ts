@@ -107,7 +107,7 @@ export const cardsApi = {
         return instance.post('cards/pack', {data: {name, private: privateCheckbox}})
     },
     async getPacks(params?: Partial<GetPackType>) {
-        const res = await instance.get<GetPackResponseType>('cards/pack', {params: params})
+        const res = await instance.get<GetPackResponseType>(`cards/pack?`, {params: params})
         return res
     },
     updatePack(name: string, _id: string) {

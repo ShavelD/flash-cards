@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useState} from 'react';
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import {Select, SelectChangeEvent} from '@mui/material';
+import {Pagination, Select, SelectChangeEvent} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
 import {useSearchParams} from 'react-router-dom';
 import style from './Paginator.module.css'
-import {PaginatorNew} from "./PaginatorNew";
+import {useAppSelector} from "../../hooks/hook";
 
 
 type PropsType = {
@@ -13,11 +13,19 @@ type PropsType = {
 };
 
 export const Paginator: React.FC<PropsType> = ({totalCount}) => {
+    // const pageCount = useAppSelector(state => state.cars.pageCount)
+    // const pageSize = useAppSelector(state => state.cars.page)
+    // const currentPage = useAppSelector(state => state.cars.currentPage)
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState<number>(Number(searchParams.get('page')) || 1);
     const [pageCount, setPageCount] = useState<number>(
         Number(searchParams.get('pageCount')) || 5,
     );
+
+
+    // const pageCount = useAppSelector(state => state.main.pageCount)
+
 
     const pagesCount = Math.ceil(totalCount / pageCount);
 
@@ -66,8 +74,8 @@ export const Paginator: React.FC<PropsType> = ({totalCount}) => {
 
 
 
-            {/*<Pagination count={pagesCount} page={page} onChange={handleChange}/>*/}
-            <PaginatorNew/>
+            <Pagination count={pagesCount} page={page} onChange={handleChange} />
+            {/*<PaginatorNew/>*/}
 
 
 
