@@ -18,7 +18,7 @@ export const CardsHeadMain = () => {
         <div className={style.container}>
             <div className={style.firstSection}>
                 <h2 className={style.title}>Packs list</h2>
-                <button type="submit" className={style.button} onClick={onClickHandlerAddNewPack}>Add new pack</button>
+                <button type="submit" className={style.button} onClick={onClickHandlerAddNewPack}>Add new card</button>
             </div>
             <div className={style.secondSection}>
                 <Searching search='cardQuestion'/>
