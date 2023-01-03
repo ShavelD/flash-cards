@@ -11,7 +11,7 @@ export const CardsHeadMain = () => {
     const navigate = useNavigate()
 
     const onClickHandlerAddNewPack = () => {
-        return navigate(ROUTS.ADD_NEW_PACK)
+        return navigate(ROUTS.ADD_NEW_CARD)
     }
 
     return (

@@ -117,12 +117,8 @@ export const cardsApi = {
     addPack(postModel: AddPackModelType) {
         return instance.post('/cards/pack', postModel)
     },
-    createPack(name: string, privateCheckbox: boolean) {
-        return instance.post('cards/pack', {data: {name, private: privateCheckbox}})
-    },
-    async getPacks(params?: Partial<GetPackType>) {
-        const res = await instance.get<GetPackResponseType>('cards/pack', {params: params})
-        return res
+    getPacks(params?: Partial<GetPackType>) {
+      return  instance.get<GetPackResponseType>('cards/pack', {params: params})
     },
     updatePack(name: string, _id: string) {
         return instance.put('cards/pack', {data: {name, _id}})
@@ -130,7 +126,6 @@ export const cardsApi = {
     deletePack(id: string) {
         return instance.delete('cards/pack', {params: id})
     },
-
     createCard(data: CreateCardType) {
         return instance.post('cards/card', {
             card: {

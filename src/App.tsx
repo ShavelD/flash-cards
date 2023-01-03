@@ -12,13 +12,13 @@ import {CircularProgress, Container, LinearProgress} from "@mui/material";
 import {Login} from "./components/Login/Login";
 import EmailConfirmation from "./components/emailConfirmation/EmailConfirmation";
 import {Packs} from "./components/Packs/Packs";
-import {Cards} from "./components/Cards/Cards";
 import {RequestStatusType, setIsInitializedTC} from "./redux/app-reducer";
 import {useAppDispatch, useAppSelector} from "./hooks/hook";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./redux/store";
 import {NewPack} from "./components/Packs/NewPack/NewPack";
-import {Card} from "./components/Cards/Card";
+import {AddNewCard} from "./components/Cards/AddNewCard/AddNewCard";
+import {Cards} from "./components/Cards/Cards";
 
 
 export enum ROUTS {
@@ -32,7 +32,7 @@ export enum ROUTS {
     NEW_PASS = '/createNewPassword/:token',
     PACKS = '/packs',
     CARDS = '/packs/:id_pack',
-    CARD = '/packs/pack/:id_pack/card/:id_card',
+    ADD_NEW_CARD = '/packs/pack/:id_pack/card/:id_card',
     ADD_NEW_PACK = '/add_new_pack',
     TEST_PAGE = '/test',
     MY_PACKS = '/my_packs',
@@ -75,9 +75,9 @@ function App() {
                 <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
-                <Route path={ROUTS.CARDS} element={<Cards/>}/>
-                <Route path={ROUTS.CARD} element={<Card/>}/>
                 <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
+                <Route path={ROUTS.CARDS} element={<Cards/>}/>
+                <Route path={ROUTS.ADD_NEW_CARD} element={<AddNewCard/>}/>
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
             </Routes>

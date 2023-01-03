@@ -166,6 +166,17 @@ export const addPackTC = (newPacks: any): AppThunk =>
         }
     }
 
+export const getCardsTC = (params: GetCardType): AppThunk => {
+    return async (dispatch: AppDispatch) => {
+        try {
+            const res = await cardsApi.getCards({cardsPack_id: params.cardsPack_id})
+            dispatch(setCardsAC(res.data.cards))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export const updatePackTC = (name: string, _id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
@@ -186,16 +197,7 @@ export const deletePackTC = (id: string): AppThunk =>
         }
     }
 
-export const getCardsTC = (params: GetCardType): AppThunk => {
-    return async (dispatch: AppDispatch) => {
-        try {
-            const res = await cardsApi.getCards({cardsPack_id: params.cardsPack_id})
-            dispatch(setCardsAC(res.data.cards))
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
+
 
 
 
