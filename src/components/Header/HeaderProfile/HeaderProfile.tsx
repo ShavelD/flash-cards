@@ -14,7 +14,6 @@ export const HeaderProfile = (props: HeaderProfileType) => {
 
     const logOutHandler = () => {
         props.onHidden()
-        console.log('log out')
         dispatch(logOutTC())
     }
     const toProfileHandler = () => {
@@ -31,7 +30,7 @@ export const HeaderProfile = (props: HeaderProfileType) => {
                 <span className={s.profile}></span>
                 Profile
             </div>
-            <div className={s.block} onClick={logOutHandler}>
+            <div className={s.block_two} onClick={logOutHandler}>
                 <span className={s.logOut}></span>
                 Log out
             </div>

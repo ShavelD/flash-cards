@@ -1,21 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from '../../assets/images/logo.png'
 import Avatar from '../../assets/images/Avatar.jpg'
 import s from './Header.module.css';
 import {useAppSelector} from "../../hooks/hook";
-import style from "../Login/LoginForm.module.css";
-import {NavLink, useNavigate} from "react-router-dom";
-import {ROUTS} from "../../App";
+import {useNavigate} from "react-router-dom";
+import {HeaderProfile} from "./HeaderProfile/HeaderProfile";
 
 
 export const Header = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const name = useAppSelector(state => state.profile.name)
-    const navigate = useNavigate()
 
+    let [isHidden, setIsHidden] = useState(true)
 
     const onShowAvaHandler = () => {
+        setIsHidden(!isHidden)
     }
+
+    const navigate = useNavigate()
 
     const onClickSignIn = () => {
         return navigate('/login')
@@ -32,6 +34,7 @@ export const Header = () => {
                     <div className={s.widthImg}><img className={s.widthImg} src={Avatar}/></div>
                 </div>
             ) : <button className={s.button} onClick={onClickSignIn}>Sign In</button>}
+            {isHidden ? null : <HeaderProfile onHidden={onShowAvaHandler} />}
         </div>
     );
 };
