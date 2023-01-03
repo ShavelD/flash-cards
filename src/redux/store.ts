@@ -5,6 +5,7 @@ import {mainReducer} from "./main-reducer";
 import {authReducer} from "./auth-reducer";
 import {appReducer} from "./app-reducer";
 import {cardsReducer} from "./cards-reducer";
+import {packsReducer} from "./packs-reducer";
 
 
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     main: mainReducer,
     cars: cardsReducer,
+    packs: packsReducer,
 })
 
 

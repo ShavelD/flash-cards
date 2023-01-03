@@ -11,7 +11,6 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {getCardsTC, MainCardsType} from "../../redux/main-reducer";
 import {Order, TableHeadCard} from "../../common/TebleHead/tableCardHead";
 import {useEffect, useState} from "react";
-import {Paginator} from "../../common/Paginator/Paginator";
 import {
     changeCardsPageAC,
     changeCardsPageCountAC,
