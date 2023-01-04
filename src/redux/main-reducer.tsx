@@ -26,6 +26,7 @@ export type PackType = {
     updated: string
     cardsCount: number
     created: string
+    user_name: string
 }
 
 
@@ -38,7 +39,7 @@ type initialStateType = {
 
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
-    cards: [] as MainCardsType[] ,
+    cards: [] as MainCardsType[],
     cardPacksTotalCount: 0,
     queryParams: {
         // packName: null,
@@ -74,23 +75,34 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                     maxCardsCount: state.queryParams.maxCardsCount,
                     minCardsCount: state.queryParams.minCardsCount
                 },
-                packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created}) => ({
+                packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created, user_name}) => ({
                         _id,
                         name,
                         cardsCount,
                         updated,
                         user_id,
-                        created
+                        created,
+                        user_name
                     })
                 ),
             }
         }
         case 'main/SET-CARDS':
-             // return {...state, cards: action.cards}
+            // return {...state, cards: action.cards}
         {
             return {
                 ...state,
-                cards: action.cards.map(({user_id, cardsPack_id, _id, updated, question, answer, grade,shots,created,}) => ({
+                cards: action.cards.map(({
+                                             user_id,
+                                             cardsPack_id,
+                                             _id,
+                                             updated,
+                                             question,
+                                             answer,
+                                             grade,
+                                             shots,
+                                             created,
+                                         }) => ({
                     user_id,
                     cardsPack_id,
                     _id,
@@ -191,10 +203,10 @@ export const updatePackTC = (name: string, _id: string): AppThunk =>
         }
     }
 
-export const deletePackTC = (id: string): AppThunk =>
+export const deletePackTC = (pack_id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
-            await cardsApi.deletePack(id)
+            await cardsApi.deletePack(pack_id)
             dispatch(getPacksTC())
         } catch (error) {
             console.log(error)

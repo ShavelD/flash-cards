@@ -6,12 +6,14 @@ import {Searching} from "../searching/Searching";
 import {ShowPacksCards} from "../showPacksCards/showPacksCards";
 import {ROUTS} from "../../../../App";
 import {useNavigate} from "react-router-dom";
-import {NewPack} from "../../NewPack/NewPack";
+import useModal from "../../../../hooks/useModal";
+import {AddNewPackModal} from "../../../Modals/Add New Pack Modal/AddNewPackModal";
 
 
 export const PacksHeader = () => {
 
     const navigate = useNavigate()
+    const { itemModalOpen, toggle } = useModal()
 
     const onClickHandlerAddNewPack = () => {
         return navigate(ROUTS.ADD_NEW_PACK)
@@ -23,7 +25,8 @@ export const PacksHeader = () => {
         <div className={style.container}>
             <div className={style.firstSection}>
                 <h2 className={style.title}>Packs list</h2>
-                <button type="submit" className={style.button} onClick={onClickHandlerAddNewPack}>Add new pack</button>
+                <button className={style.button} onClick={toggle}>Add new pack</button>
+                <AddNewPackModal open={itemModalOpen} hide={toggle} />
             </div>
             <div className={style.secondSection}>
                 <Searching search="packName"/>

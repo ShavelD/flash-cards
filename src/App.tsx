@@ -72,15 +72,17 @@ function App() {
                 <Route path={ROUTS.LOGIN} element={<Login/>}/>
                 <Route path={ROUTS.REGISTRATION} element={<Registration/>}/>
                 <Route path={ROUTS.EMAIL_CONFIRMATION} element={<EmailConfirmation/>}/>
-                <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
                 <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
+
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
                 <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
                 <Route path={ROUTS.ADD_NEW_CARD} element={<AddNewCard id_pack={id_pack ? id_pack : ''}/>}/>
+
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
+                <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
             </Routes>
             </Container>
         </div>
