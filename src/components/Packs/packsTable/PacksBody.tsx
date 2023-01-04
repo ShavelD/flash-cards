@@ -1,5 +1,8 @@
 import React from 'react'
 import style from '../PacksTable.module.css'
+import teacher from '../../../assets/images/teacher.png'
+import edit from '../../../assets/images/edit-2.png'
+import trash from '../../../assets/images/trash.png'
 
 export type PacksBodyProps = {
     packId: string
@@ -17,7 +20,11 @@ export const PacksBody = (props: PacksBodyProps) => {
             <td className={style.tableCards}>{props.cards}</td>
             <td className={style.tableUpd}>{props.updated}</td>
             <td className={style.tablecreated}>{props.created}</td>
-            <td className={style.tableAction}>Actions</td>
+            <td className={style.tableAction}>
+                <img src={teacher} style={{paddingRight:'5px'}}/>
+                <img src={edit} style={{paddingRight:'5px'}}/>
+                <img src={trash} style={{paddingRight:'5px'}}/>
+            </td>
         </tr>
     )
 }
