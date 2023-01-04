@@ -22,6 +22,7 @@ export type CreatePackType = {
     }
 }
 
+
 export type GetPackType = {
     packName: string
     min: number
@@ -55,7 +56,7 @@ export type DeletePackType = {
 }
 
 export type CreateCardType = {
-    cardsPack_id: string
+    cardsPack_id: any
     question?: string
     answer?: string
     grade?: number
@@ -127,25 +128,10 @@ export const cardsApi = {
         return instance.delete('cards/pack', {params: id})
     },
     createCard(data: CreateCardType) {
-        return instance.post('cards/card', {
-            card: {
-                cardsPack_id: data.cardsPack_id,
-                question: data.question,
-                answer: data.answer,
-                grade: data.grade,
-            },
-        })
+        return instance.post('cards/card', data)
     },
-    async getCards(data: GetCardType) {
-        const res = await instance.get<GetCardResponseType>('cards/card', {data: {
-                cardsPack_id: data.cardsPack_id,
-                page: data.page,
-                pageCount: data.pageCount,
-                sortCards: data.sortCards,
-                min: data.min,
-                max: data.max,
-            },})
-        return res
+    getCards(data: GetCardType) {
+       return instance.get<GetCardResponseType>(`cards/card`,{params: data})
     },
     updateCard(payload: UpdateCardType) {
         return instance.put('cards/card', {card: payload})

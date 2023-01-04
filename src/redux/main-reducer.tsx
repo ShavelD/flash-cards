@@ -38,7 +38,7 @@ type initialStateType = {
 
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
-    cards: [] as MainCardsType[],
+    cards: [] as MainCardsType[] ,
     cardPacksTotalCount: 0,
     queryParams: {
         // packName: null,
@@ -52,8 +52,8 @@ const initialState: initialStateType = {
 }
 
 
-export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created'>
-export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade'>
+export type MainPackType = PackType
+export type MainCardsType = CardType
 
 
 type MainActionType = ReturnType<typeof setPacksAC>
@@ -85,10 +85,12 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                 ),
             }
         }
-        case 'main/SET-CARDS': {
+        case 'main/SET-CARDS':
+             // return {...state, cards: action.cards}
+        {
             return {
                 ...state,
-                cards: action.cards.map(({user_id, cardsPack_id, _id, updated, question, answer, grade}) => ({
+                cards: action.cards.map(({user_id, cardsPack_id, _id, updated, question, answer, grade,shots,created,}) => ({
                     user_id,
                     cardsPack_id,
                     _id,
@@ -96,6 +98,8 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                     question,
                     grade,
                     updated,
+                    shots,
+                    created,
                 })),
             }
         }
@@ -153,6 +157,17 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
     }
 }
 
+export const getCardsTC = (params: GetCardType): AppThunk => {
+    return async (dispatch: AppDispatch) => {
+        try {
+            const res = await cardsApi.getCards(params)
+            dispatch(setCardsAC(res.data.cards))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+
 export const addPackTC = (newPacks: any): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
@@ -165,17 +180,6 @@ export const addPackTC = (newPacks: any): AppThunk =>
             dispatch(setAppStatusAC('succeeded'))
         }
     }
-
-export const getCardsTC = (params: GetCardType): AppThunk => {
-    return async (dispatch: AppDispatch) => {
-        try {
-            const res = await cardsApi.getCards({cardsPack_id: params.cardsPack_id})
-            dispatch(setCardsAC(res.data.cards))
-        } catch (error) {
-            console.log(error)
-        }
-    }
-}
 
 export const updatePackTC = (name: string, _id: string): AppThunk =>
     async (dispatch: AppDispatch) => {

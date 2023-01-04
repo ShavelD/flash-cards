@@ -1,15 +1,23 @@
 import * as React from 'react'
 import {useAppDispatch} from "../../../hooks/hook";
 import style from "./AddNewCard.module.css"
-import {NavLink} from "react-router-dom";
+import {NavLink, useParams} from "react-router-dom";
 import {ROUTS} from "../../../App";
 import {KeyboardBackspace} from "@mui/icons-material";
-import {addPackTC} from "../../../redux/main-reducer";
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, FC, useState} from "react";
 import {addCardTC} from "../../../redux/cards-reducer";
 
+type CardsModalType = {
+    titleName?: string
+    id_pack: string
+    open?: boolean
+    hide?: () => void
+    id_card?: string
+    cardQuestion?: string
+    cardAnswer?: string
+}
 
-export const AddNewCard = () => {
+export const AddNewCard: FC<CardsModalType> = ({id_pack}) => {
     const dispatch = useAppDispatch()
 
     const [packName, setPackName] = useState('')
@@ -17,7 +25,7 @@ export const AddNewCard = () => {
 
 
     const addNewCardHandler = () => {
-        // dispatch(addCardTC({ cardsPack: { name: packName, private: isPrivate } }))
+        dispatch(addCardTC({cardsPack_id: id_pack}))
         // alert(JSON.stringify("Колода добавилась " + new Date()))
     }
 

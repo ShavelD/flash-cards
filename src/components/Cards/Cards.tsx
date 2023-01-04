@@ -10,7 +10,7 @@ import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {getCardsTC, MainCardsType} from "../../redux/main-reducer";
 import {Order, TableHeadCard} from "../../common/TebleHead/tableCardHead";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Paginator} from "../../common/Paginator/Paginator";
 import {
     changeCardsPageAC,
@@ -76,16 +76,16 @@ export const Cards = () => {
         setOrderBy(property)
     }
 
-    const handleChangePage = (event: unknown, page: number) => {
-        const newPage = page + 1
-        searchParams.set('page', newPage.toString())
-        dispatch(changeCardsPageAC(newPage))
-    }
+    // const handleChangePage = (event: unknown, page: number) => {
+    //     const newPage = page + 1
+    //     searchParams.set('page', newPage.toString())
+    //     dispatch(changeCardsPageAC(newPage))
+    // }
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        searchParams.set('pageCount', event.target.value.toString())
-        dispatch(changeCardsPageCountAC(+event.target.value))
-    }
+    // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     searchParams.set('pageCount', event.target.value.toString())
+    //     dispatch(changeCardsPageCountAC(+event.target.value))
+    // }
 
     // choose card
     const handleClick = (id_pack: string, id_card: string) => {
@@ -93,23 +93,12 @@ export const Cards = () => {
     }
 
 
-    const deleteCard = (id_pack: string, id_card: string) => {
-        dispatch(deleteCardTC(id_pack, id_card))
-    }
+    // const deleteCard = (id_pack: string, id_card: string) => {
+    //     dispatch(deleteCardTC(id_pack, id_card))
+    // }
     // const updateCard = (id_pack: string, id_card: string) => {
     //     dispatch(updateCardTC(id_pack, { _id: id_card ? id_card : '', question: 'Updated' }))
     // }
-
-    const paramsSearch: any = {
-        sortCards: searchParams.get('sortCards') || undefined,
-        page: Number(searchParams.get('page')) || undefined,
-        pageCount: Number(searchParams.get('pageCount')) || undefined,
-    }
-
-    searchParams.forEach((key, value) => {
-        paramsSearch[value] = key
-    })
-
 
     // useEffect(() => {
     //   setSearchParams(searchParams)
@@ -124,10 +113,19 @@ export const Cards = () => {
     //   )
     // }, [cardPage, cardsPageCount, sortCards])
 
-
+    let URLParams = useMemo(
+        () => ({
+            cardsPack_id: id_pack ? id_pack : '',
+            // page: Number(searchParams.get('page')) || undefined,
+            // pageCount: Number(searchParams.get('pageCount')) || undefined,
+            // sortCards: searchParams.get('sortCards') || undefined,
+            // cardQuestion: searchParams.get('cardQuestion') || undefined,
+        }),
+        [searchParams, id_pack]
+    )
     useEffect(() => {
-        dispatch(getCardsTC({cardsPack_id: id_pack ? id_pack : ''}))
-    }, [])
+        dispatch(getCardsTC(URLParams))
+    }, [URLParams])
 
     return (
         <div>
