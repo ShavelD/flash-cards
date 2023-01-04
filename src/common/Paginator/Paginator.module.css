@@ -1,0 +1,57 @@
+.wrapper {
+    margin-top: 36px;
+    margin-bottom: 36px;
+    display: flex;
+    width: 500px;
+    justify-content: space-between;
+    align-items: center;
+    /*font-style: normal;*/
+    /*font-weight: 400;*/
+    /*font-size: 12px;*/
+    /*line-height: 15px;*/
+}
+
+.pagesWrap {
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagesBlock {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.pagesWrap button {
+    border: none;
+    margin-right: 5px;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.pagesWrap button:last-child {
+    margin-right: 0;
+}
+
+.pagesWrap .active {
+    border-radius: 10%;
+    background-color: #366EFF;
+    color: whitesmoke;
+}
+
+.show {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.chevron {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+
+.pagesWrap select {
+    border: none;
+}
