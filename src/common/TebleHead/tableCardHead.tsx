@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import {visuallyHidden} from '@mui/utils'
-import {MainCardsType} from "../../redux/main-reducer";
+import {MainCardsType, MainPackType} from "../../redux/main-reducer";
 
 
 export type Order = 'asc' | 'desc'
@@ -15,7 +15,7 @@ export interface Column {
     id: keyof MainCardsType
     label: string
     minWidth?: number
-    align?: 'right'
+    align?: 'left'
 }
 
 interface TableHeadCardProps {
@@ -29,7 +29,7 @@ interface TableHeadCardProps {
 export const TableHeadCard = (props: TableHeadCardProps) => {
     const {order, orderBy, onRequestSort, columnsHead} = props
 
-    const createSortHandler = (property: keyof MainCardsType) => (event: React.MouseEvent<unknown>) => {
+    const sortHandler = (property: keyof MainCardsType) => (event: React.MouseEvent<unknown>) => {
         onRequestSort(event, property)
     }
 
@@ -43,11 +43,16 @@ export const TableHeadCard = (props: TableHeadCardProps) => {
                         sortDirection={orderBy === column.id ? order : false}
                         align={column.align}
                         style={{minWidth: column.minWidth}}
+                        sx={{
+                            backgroundColor: '#EFEFEF',
+                            textAlign: 'left',
+                            fontFamily: 'Montserrat',
+                        }}
                     >
                         <TableSortLabel
                             active={orderBy === column.id}
                             direction={orderBy === column.id ? order : 'asc'}
-                            onClick={createSortHandler(column.id)}
+                            onClick={sortHandler(column.id)}
                         >
                             {column.label}
                             {orderBy === column.id ? (

@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 import {ROUTS} from "../../../App";
 import {KeyboardBackspace} from "@mui/icons-material";
 import {addPackTC} from "../../../redux/main-reducer";
-import {ChangeEvent, useState} from "react";
+import {useState} from "react";
 
 
 export const NewPack = () => {
@@ -19,13 +19,6 @@ export const NewPack = () => {
         dispatch(addPackTC({ cardsPack: { name: packName, private: isPrivate } }))
         alert(JSON.stringify("Колода добавилась " + new Date()))
     }
-
-    // const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setPackName(e.currentTarget.value)
-    // }
-    // const setPrivatePack = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setIsPrivate(e.currentTarget.checked)
-    // }
 
     return (
         <div className={style.container}>
