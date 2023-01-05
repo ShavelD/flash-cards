@@ -3,6 +3,16 @@
     margin-bottom: 30px;
 }
 
+.navlink {
+    display: flex;
+    color: black;
+}
+
+.text {
+    margin-top: 2px;
+    margin-left: 7px;
+}
+
 .firstSection {
     display: flex;
     justify-content: space-around;

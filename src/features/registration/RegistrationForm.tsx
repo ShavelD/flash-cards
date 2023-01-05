@@ -76,7 +76,7 @@ export const RegistrationForm: React.FC<PropsType> = (props) => {
     return (
         <div className={style.wrapper}>
             <form className={style.form} onSubmit={formik.handleSubmit}>
-                <h1>Sign in</h1>
+                <h1>Sign up</h1>
                 <div className={style.wrapperInput}>
                     <Box>
                         <TextField sx={{width: '33ch'}}
@@ -114,7 +114,7 @@ export const RegistrationForm: React.FC<PropsType> = (props) => {
                         <InputLabel htmlFor="standard-adornment-passwordConfirm">Confirm password</InputLabel>
                         <Input
                             id="standard-adornment-passwordConfirm"
-                            type={showPassword ? 'text' : 'password'}
+                            type={showPasswordConfirm ? 'text' : 'password'}
                             {...formik.getFieldProps('passwordConfirm')}
                             endAdornment={
                                 <InputAdornment position="end">

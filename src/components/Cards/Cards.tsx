@@ -20,13 +20,14 @@ import {
     updateCardTC
 } from "../../redux/cards-reducer";
 import {CardsHeadMain} from "./CardsHeader/cardsHeader";
+import {Rating} from "@mui/material";
 
 
 type ColumnType = {
     id: '_id' | 'question' | 'answer' | 'updated' | 'grade'
     label: string
     minWidth?: number
-    align?: 'right'
+    align?: 'left'
     format?: (value: number) => string
 }
 
@@ -34,11 +35,11 @@ const columns: ColumnType[] = [
     {id: 'question', label: 'Question', minWidth: 170},
     {id: 'answer', label: 'Answer', minWidth: 100},
     {
-        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'right',
+        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'grade', label: 'Grade', minWidth: 170, align: 'right',
+        id: 'grade', label: 'Grade', minWidth: 170, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
 
@@ -60,32 +61,18 @@ export const Cards = () => {
 
     const [order, setOrder] = useState<Order>('asc')
     const [orderBy, setOrderBy] = useState<keyof MainCardsType>('question')
-    const [searchParams, setSearchParams] = useSearchParams({
-        pageCount: '5',
-    })
+    const [searchParams, setSearchParams] = useSearchParams()
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof MainCardsType) => {
-        if (property === 'cardsPack_id') {
-            return
-        }
         const isAsc = orderBy === property && order === 'asc'
 
-        searchParams.set('sortCards', (isAsc ? 1 : 0) + property)
-        dispatch(changeSortCardsAC((isAsc ? 1 : 0) + property))
+        searchParams.set('sortCards', (isAsc ? 0 : 1) + property)
+        setSearchParams(searchParams)
+
         setOrder(isAsc ? 'desc' : 'asc')
         setOrderBy(property)
     }
 
-    // const handleChangePage = (event: unknown, page: number) => {
-    //     const newPage = page + 1
-    //     searchParams.set('page', newPage.toString())
-    //     dispatch(changeCardsPageAC(newPage))
-    // }
-
-    // const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     searchParams.set('pageCount', event.target.value.toString())
-    //     dispatch(changeCardsPageCountAC(+event.target.value))
-    // }
 
     // choose card
     const handleClick = (id_pack: string, id_card: string) => {
@@ -116,10 +103,10 @@ export const Cards = () => {
     let URLParams = useMemo(
         () => ({
             cardsPack_id: id_pack ? id_pack : '',
-            // page: Number(searchParams.get('page')) || undefined,
-            // pageCount: Number(searchParams.get('pageCount')) || undefined,
-            // sortCards: searchParams.get('sortCards') || undefined,
-            // cardQuestion: searchParams.get('cardQuestion') || undefined,
+            page: Number(searchParams.get('page')) || undefined,
+            pageCount: Number(searchParams.get('pageCount')) || undefined,
+            sortCards: searchParams.get('sortCards') || undefined,
+            cardQuestion: searchParams.get('cardQuestion') || undefined,
         }),
         [searchParams, id_pack]
     )
@@ -155,10 +142,10 @@ export const Cards = () => {
                                             >
                                                 {row.question}
                                             </TableCell>
-                                            <TableCell align="right">{row.answer}</TableCell>
+                                            <TableCell align="left">{row.answer}</TableCell>
                                             <TableCell
                                                 align="right">{new Date(row.updated).toLocaleDateString()}</TableCell>
-                                            <TableCell align="right">{row.grade}</TableCell>
+                                            <TableCell align="left">{<Rating name="read-only" value={row.grade} readOnly />}</TableCell>
                                         </TableRow>
                                     )
                                 })}
