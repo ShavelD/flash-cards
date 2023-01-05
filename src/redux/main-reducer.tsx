@@ -143,7 +143,6 @@ export const changePageCountAC = (pageCount: number) => {
 export const changeCardsNumberInPackAC = (min: number, max: number) => {
     return {type: 'main/packs-CHANGE-CARDS-NUMBER-IN-PACK', min, max} as const
 }
-
 export const changeSortPacksAC = (sortPacks: string) => {
     return {type: 'main/packs-CHANGE-SORT-PACKS', sortPacks} as const
 }

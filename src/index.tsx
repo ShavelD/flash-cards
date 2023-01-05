@@ -5,17 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {store} from "./redux/store";
 import {Provider} from "react-redux";
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
+    <BrowserRouter>
       <Provider store={store}>
-          <BrowserRouter>
               <App />
-          </BrowserRouter>
       </Provider>
+    </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

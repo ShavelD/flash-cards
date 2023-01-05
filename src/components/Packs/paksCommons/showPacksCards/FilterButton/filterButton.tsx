@@ -14,11 +14,11 @@ export const FilterButton: React.FC<PropsType> = ({
                                                       onClickButton,
                                                       packsOwnLS,
                                                   }) => {
+
     const onClickButtonHandle = (): void => onClickButton(title);
 
     return (
-        <button onClick={onClickButtonHandle} className={style.filterButton}>
-            {title}
-        </button>
+        <button onClick={onClickButtonHandle} className={style.filterButton}>{title}</button>
     );
 };
+

@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk} from "./store";
 import {authAPI, LoginParamsType, RegisterPopsType} from "../api/auth-api";
 import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
-import {setAppStatusAC} from "./app-reducer";
+import {setAppStatusAC, setIsInitializedTC} from "./app-reducer";
 import {handleServerNetworkError} from "../utils/error-utils";
 import {AxiosError} from "axios";
 import {FormikErrorType} from "../features/pass-recovery/PassRecovery";
@@ -20,7 +20,6 @@ type InitialStateType = typeof initialState
 
 export type AuthActionType =
     ReturnType<typeof setIsLoggedInAC>
-    // | ReturnType<typeof setEmailAC>
     | ReturnType<typeof setIsRegistrationAC>
     | ReturnType<typeof setNewPassAC>
     | ReturnType<typeof forgotPasswordAC>
@@ -30,8 +29,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
     switch (action.type) {
         case 'auth/SET-IS-LOGGED-IN':
             return {...state, isLoggedIn: action.isLoggedIn}
-        // case 'auth/SET-EMAIL':
-        //     return {...state, isMessageSent: action.isMessageSent}
         case 'auth/SET-IS-REGISTRATION':
             return {...state, registration: action.value}
         case 'auth/IS-NEW-PASSWORD':
@@ -46,10 +43,6 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 export const setIsLoggedInAC = (isLoggedIn: boolean) => {
     return {type: 'auth/SET-IS-LOGGED-IN', isLoggedIn} as const
 }
-
-// export const setEmailAC = (isMessageSent: boolean) => {
-//     return {type: 'auth/SET-EMAIL', isMessageSent} as const
-// }
 
 export const setNewPassAC = (value: boolean) => {
     return {type: 'auth/IS-NEW-PASSWORD', value} as const
@@ -87,10 +80,11 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
         dispatch(setAppStatusAC('loading'))
         try {
             const res = await authAPI.login(data)
-            console.log(res.data.email)
-            dispatch(setIsLoggedInAC(true))
-            dispatch(changeNameProfileAC({name: res.data.name, avatar: ''}))
-            dispatch(showEmailAC(res.data.email))
+            // console.log(res.data.email)
+            // dispatch(setIsLoggedInAC(true))
+            // dispatch(changeNameProfileAC({name: res.data.name, avatar: ''}))
+            // dispatch(showEmailAC(res.data.email))
+            dispatch(setIsInitializedTC())
             dispatch(setAppStatusAC('succeeded'))
         } catch (error) {
             console.log(error)
@@ -127,19 +121,6 @@ export const setForgotPassTC = (email: FormikErrorType): AppThunk => async dispa
         handleServerNetworkError(error as AxiosError | Error, dispatch)
     }
 }
-//
-// export const setNewPassTC = (password: string, resetToken: string): AppThunk => async (dispatch: AppDispatch) => {
-//     dispatch(setAppStatusAC('loading'))
-//     try {
-//         const res = await authAPI.newPassword({password, resetPasswordToken: resetToken})
-//         dispatch(setNewPassAC(true))
-//         dispatch(setAppStatusAC('succeeded'))
-//         console.log(res.data)
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
-
 
 export const createNewPasswordTC = (password: string, resetPasswordToken: string): AppThunk => async dispatch => {
     try {

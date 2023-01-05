@@ -114,6 +114,7 @@ export const instance = axios.create({
     withCredentials: true,
 })
 
+
 export const cardsApi = {
     addPack(postModel: AddPackModelType) {
         return instance.post('/cards/pack', postModel)

@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {PacksHeader} from "./paksCommons/packsHeader/packsHeader";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo} from "react";
 import {
     changePageAC,
@@ -28,6 +28,7 @@ import {DeleteModalButton} from "../Modals/Delere Pack Modal/DeleteModalBotton/D
 import {DeleteNewPackModal} from "../Modals/Delere Pack Modal/DeleteNewPackModal";
 import {DeleteModalIcon} from "../Modals/Delere Pack Modal/DeleteModalIcon/DeleteModalIcon";
 import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePackIcon";
+import {ROUTS} from "../../App";
 
 
 type ColumnType = {
@@ -67,6 +68,8 @@ export const Packs = () => {
     const getUserId = useAppSelector(state => state.profile._id)
     const pageState = useAppSelector(state => state.main.queryParams.page)
     const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
+
+    console.log('isLOGEDIN ',userIdLogin)
 
 
     const [order, setOrder] = React.useState<Order>('asc')
@@ -150,8 +153,7 @@ export const Packs = () => {
     //     let newName = 'new name'
     //     dispatch(updatePackTC(newName, pack_id))
     // }
-
-
+    
     return (
         <div>
             <PacksHeader/>

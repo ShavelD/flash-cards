@@ -1,7 +1,7 @@
 import {AppDispatch, AppThunk} from "./store";
 import {authAPI} from "../api/auth-api";
 import {setIsLoggedInAC} from "./auth-reducer";
-import {changeNameProfileAC, showEmailAC} from "./profile-reducer";
+import {changeNameProfileAC, showEmailAC, showMyIdAC} from "./profile-reducer";
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
@@ -49,10 +49,12 @@ export const setIsInitializedAC = (isInitialized: boolean) => ({ type: 'APP/SET-
 
 export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) => {
     try {
+        dispatch(setIsInitializedAC(false))
         const res = await authAPI.me()
         dispatch(setIsLoggedInAC(true))
         dispatch(changeNameProfileAC({ name: res.data.name, avatar: '' }))
         dispatch(showEmailAC(res.data.email))
+        dispatch(showMyIdAC(res.data._id))
     }
     finally {
         dispatch(setIsInitializedAC(true))

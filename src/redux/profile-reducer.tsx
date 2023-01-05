@@ -31,6 +31,9 @@ export const profileReducer = (state = initialState, action: ActionType): initia
         case 'profile/SHOW-PROFILE-EMAIL': {
             return {...state, email: action.email}
         }
+        case 'profile/MY-ID': {
+            return {...state, _id: action._id}
+        }
         default:
             return state
     }
@@ -43,6 +46,10 @@ export const changeNameProfileAC = (data: ChangeProfileType) => {
 
 export const showEmailAC = (email: string) => {
     return {type: 'profile/SHOW-PROFILE-EMAIL', email} as const
+}
+
+export const showMyIdAC = (_id: string) => {
+    return {type: 'profile/MY-ID', _id} as const
 }
 
 
@@ -69,5 +76,7 @@ export const changeProfileTC = (model: ChangeProfileType): AppThunk => {
 
 export type ActionType = ReturnType<typeof changeNameProfileAC>
     | ReturnType<typeof showEmailAC>
+    | ReturnType<typeof showMyIdAC>
+
 
 

@@ -3,7 +3,7 @@ import style from './showPacksCards.module.css'
 import {FilterButton} from "./FilterButton/filterButton";
 import {packsOwn} from "../../../../common/enums/packsOwn";
 import {useSearchParams} from "react-router-dom";
-import {useAppSelector} from "../../../../hooks/hook";
+import {useAppDispatch, useAppSelector} from "../../../../hooks/hook";
 import {clearURLParams} from "../../../../common/utils/clearURLParams";
 
 
@@ -13,6 +13,7 @@ export const ShowPacksCards = () => {
 
     const userId = useAppSelector(state => state.profile._id);
     let packsOwnLS;
+    console.log(userId)
 
     if (searchParams.get('user_id') === null) {
         packsOwnLS = packsOwn.ALL;
@@ -23,7 +24,9 @@ export const ShowPacksCards = () => {
     const onClickButton = (buttonName: packsOwn): void => {
         const queryParams: { user_id?: string } = {};
 
-        if (buttonName === packsOwn.MY) queryParams.user_id = userId;
+        if (buttonName === packsOwn.MY) {
+            queryParams.user_id = userId;
+        }
         else searchParams.delete('user_id');
 
         clearURLParams(['page', 'min', 'max'], searchParams);
@@ -39,7 +42,7 @@ export const ShowPacksCards = () => {
             <div className={style.text}>Show packs cards</div>
             <div className={style.buttons}>
                 <FilterButton title={packsOwn.MY} key={packsOwn.MY} onClickButton={onClickButton}
-                              packsOwnLS={packsOwnLS}/>
+                              packsOwnLS={packsOwnLS} />
                 <FilterButton title={packsOwn.ALL} key={packsOwn.ALL} onClickButton={onClickButton}
                               packsOwnLS={packsOwnLS}/>
             </div>

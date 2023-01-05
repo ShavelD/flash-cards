@@ -9,5 +9,6 @@
 
 .filterButton:active{
     color: black;
-    background-color: white;
+    background-color: #ada9a9;
+    transition: -111111111111111111111s;
 }
