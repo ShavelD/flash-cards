@@ -4,7 +4,6 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {PacksHeader} from "./paksCommons/packsHeader/packsHeader";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
@@ -13,9 +12,9 @@ import {useEffect, useMemo} from "react";
 import {
     changePageAC,
     changePageCountAC,
-    changeSortPacksAC, deletePackTC,
+    changeSortPacksAC,
     getPacksTC,
-    MainPackType, updatePackTC
+    MainPackType
 } from "../../redux/main-reducer";
 import {Order, TableHeadMain} from '../../common/TebleHead/tablePackHead';
 import {Paginator} from "../../common/Paginator/Paginator";
@@ -23,6 +22,8 @@ import IconButton from "@mui/material/IconButton";
 import {SchoolOutlined} from "@mui/icons-material";
 import {DeleteModalIcon} from "../Modals/Delere Pack Modal/DeleteModalIcon/DeleteModalIcon";
 import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePackIcon";
+import {TableRow} from "@mui/material";
+
 
 
 type ColumnType = {

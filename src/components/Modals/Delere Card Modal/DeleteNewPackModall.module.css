@@ -1,0 +1,67 @@
+.form {
+    height: 311px;
+    width: 395px;
+    border-radius: 2px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.headerModal {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 5px;
+    margin-top: -15px;
+}
+
+.headerModal button {
+    background-color: #FFFFFF;
+    border: none;
+    height: 20px;
+    width: 20px;
+    font-size: 16px;
+}
+
+.wrapperInput{
+    padding-top: 30px;
+}
+
+.wrapperRememberMe{
+    display: flex;
+    padding: 30px 0;
+}
+
+.private{
+    padding-left: 9px;
+}
+
+.wrapperButtonModal{
+    display: flex;
+    justify-content: space-between;
+    padding: 30px 0;
+}
+.buttonDelete {
+    cursor: pointer;
+    width: 127px;
+    height: 36px;
+    border-radius: 30px;
+    background-color: #FF3636;
+    border: 1px solid #FF3636;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+}
+
+.buttonCancel {
+    cursor: pointer;
+    width: 127px;
+    height: 36px;
+    border-radius: 30px;
+    background-color: #dcd8d8;
+    border: 1px solid #FCFCFC;
+    letter-spacing: 0.01em;
+    color: #000000;
+    font-style: normal;
+    font-weight: 500;
+    text-align: center;
+}

@@ -1,18 +1,20 @@
 import React, {FC, useState} from 'react'
 
-import CloseIcon from '@mui/icons-material/Close'
 import {FormGroup, Select, MenuItem, SelectChangeEvent, IconButton, Box, TextField} from '@mui/material'
 import InputLabel from '@mui/material/InputLabel'
 import {useFormik} from 'formik'
 import {useAppDispatch} from "../../../hooks/hook";
-import {addCardTC} from "../../../redux/cards-reducer";
+import {addCardTC, updateCardTC} from "../../../redux/cards-reducer";
 import {BasicModal} from "../BasicModals";
 import style from './CardsModal.module.css'
 import {CardType} from "../../../redux/main-reducer";
+import {Title} from "./Title/Title";
 
 
 export const CardsModal: FC<CardsModalType> = ({
+                                                   titleName,
                                                    id_pack,
+                                                   id_card,
                                                    open,
                                                    hide,
                                                    cardQuestion,
@@ -49,28 +51,36 @@ export const CardsModal: FC<CardsModalType> = ({
             return errors
         },
         onSubmit: (values: ValuesType) => {
-            dispatch(addCardTC({cardsPack_id: id_pack, question: values.question, answer: values.answer}))
-            hide()
+            if (titleName === 'Add new card') {
+                dispatch(addCardTC({cardsPack_id: id_pack, question: values.question, answer: values.answer}))
+                hide()
+            } else if (titleName === 'Edit card') {
+                dispatch(
+                    updateCardTC(id_pack, {
+                        _id: id_card ? id_card : '',
+                        question: values.question,
+                        answer: values.answer,
+                    })
+                )
+                hide()
+            }
         },
     })
 
     return (
         <>
             <BasicModal open={open}>
-                <div className={style.head}>
-                    <h2>Add new card</h2>
+                <form className={style.formAddNewPack} onSubmit={formik.handleSubmit}>
+                <div className={style.headerModalAddNewPack}>
+                    <Title text={titleName}/>
                     <button onClick={hide}>X</button>
-                </div>
-                <hr/>
-                <div>
-                    <IconButton onClick={hide} className={style.iconButton}>
-                        <CloseIcon fontSize={'large'}/>
-                    </IconButton>
                 </div>
                 <hr/>
                 <FormGroup>
                     <InputLabel className={style.label}>Choose a question format</InputLabel>
-                    <Select value={itemName} label="Choose a question format" onChange={handleChange}>
+                    <Select value={itemName} label="Choose a question format" onChange={handleChange}
+                            sx={{height: '36px'}}
+                    >
                         {menuItems.map((i, index) => (
                             <MenuItem key={index} value={i}>
                                 {i}
@@ -78,28 +88,29 @@ export const CardsModal: FC<CardsModalType> = ({
                         ))}
                     </Select>
                     <Box>
-                        <TextField sx={{width: '37.4ch'}}
+                        <TextField sx={{width: '37.4ch', mt: '20px'}}
                                    id="input-with-sx" label="Question" variant="standard"
                                    {...formik.getFieldProps('question')}/>
                         {formik.touched.question && formik.errors.question ?
                             <div style={{color: 'red'}}>{formik.errors.question}</div> : null}
                     </Box>
                     <Box>
-                        <TextField sx={{width: '37.4ch'}}
+                        <TextField sx={{width: '37.4ch', mt: '20px'}}
                                    id="input-with-sx" label="Answer" variant="standard"
                                    {...formik.getFieldProps('answer')}/>
                         {formik.touched.answer && formik.errors.answer ?
                             <div style={{color: 'red'}}>{formik.errors.answer}</div> : null}
                     </Box>
-                    <button type="submit" className={style.buttonSave}>Save</button>
+                    <button type="submit" className={style.buttonSaveAdd}>Save</button>
                 </FormGroup>
+                </form>
             </BasicModal>
         </>
     )
 }
 
 type CardsModalType = {
-    titleName?: string
+    titleName: string
     id_pack: string
     open: boolean
     hide: () => void
