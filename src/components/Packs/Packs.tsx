@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {PacksHeader} from "./paksCommons/packsHeader/packsHeader";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {Navigate, useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo} from "react";
 import {
     changePageAC,
@@ -20,9 +20,15 @@ import {
 import {Order, TableHeadMain} from '../../common/TebleHead/tablePackHead';
 import {Paginator} from "../../common/Paginator/Paginator";
 import IconButton from "@mui/material/IconButton";
-import {SchoolOutlined} from "@mui/icons-material";
+import {DeleteOutline, EditOutlined, SchoolOutlined} from "@mui/icons-material";
+import {NewPack} from "./NewPack/NewPack";
+import useModal from "../../hooks/useModal";
+import {UpdateNewPackModal} from "../Modals/Update Pack Modal/UpdateNewPackModal";
+import {DeleteModalButton} from "../Modals/Delere Pack Modal/DeleteModalBotton/DeleteModalBotton";
+import {DeleteNewPackModal} from "../Modals/Delere Pack Modal/DeleteNewPackModal";
 import {DeleteModalIcon} from "../Modals/Delere Pack Modal/DeleteModalIcon/DeleteModalIcon";
 import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePackIcon";
+import {ROUTS} from "../../App";
 
 
 type ColumnType = {
@@ -59,14 +65,17 @@ export const Packs = () => {
     const packsCards = useAppSelector(state => state.main.packs)
     const cardPacksTotal = useAppSelector(state => state.main.cardPacksTotalCount)
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
-    const profileId = useAppSelector(state => state.profile._id)
+    const getUserId = useAppSelector(state => state.profile._id)
     const pageState = useAppSelector(state => state.main.queryParams.page)
     const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
+
+    console.log('isLOGEDIN ',userIdLogin)
 
 
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
     const [searchParams, setSearchParams] = useSearchParams({pageCount: '5'})
+
 
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof MainPackType) => {
@@ -125,11 +134,7 @@ export const Packs = () => {
     //         sortPacks: searchParams.get('sortPacks') || undefined,
     //     }),
     //     [searchParams]
-    //
-
-    const isMyPack = (id: string) => {
-        return id === profileId
-    }
+    // )
 
     useEffect(() => {
         dispatch(getPacksTC(URLParam))
@@ -141,6 +146,14 @@ export const Packs = () => {
         navigate(`/packs/${id_pack}`)
     }
 
+    // const deletePack = (_id: string) => {
+    //     dispatch(deletePackTC(_id))
+    // }
+    // const updatePack = (name: string, pack_id: string) => {
+    //     let newName = 'new name'
+    //     dispatch(updatePackTC(newName, pack_id))
+    // }
+    
     return (
         <div>
             <PacksHeader/>
@@ -171,22 +184,20 @@ export const Packs = () => {
                                             <TableCell
                                                 align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
                                             <TableCell align="left">{row.user_name}</TableCell>
-                                            <div>
-                                                {!isMyPack(row.user_id) && (
-                                                    <IconButton disabled={row.cardsCount === 0}>
-                                                        <SchoolOutlined fontSize={'small'}/>
-                                                    </IconButton>
-                                                )}
-                                            </div>
-                                            {isMyPack(row.user_id) && (
-                                                <>
+                                            {userIdLogin ? (
+                                                <div>
                                                     <IconButton disabled={row.cardsCount === 0}>
                                                         <SchoolOutlined fontSize={'small'}/>
                                                     </IconButton>
                                                     <EditPackIcon id_pack={row._id} namePack={row.name}/>
-
                                                     <DeleteModalIcon id_pack={row._id} name={row.name}/>
-                                                </>
+                                                </div>
+                                            ) : (
+                                                <div>
+                                                    <IconButton disabled={row.cardsCount === 0}>
+                                                        <SchoolOutlined fontSize={'small'}/>
+                                                    </IconButton>
+                                                </div>
                                             )}
                                         </TableRow>
                                     )
