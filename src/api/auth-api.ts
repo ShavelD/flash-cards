@@ -25,9 +25,6 @@ export const authAPI = {
     userUpdate(data: UpdateUserType) {
         return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`/auth/me`, data)
     },
-    // setNewPass(payload: NewPasswordType) {
-    //     return instance.post<DeleteForgotType>(`/auth/set-new-password`, payload)
-    // },
     forgotPassword(data: ForgotPasswordType){
         return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)
     },

@@ -1,10 +1,9 @@
 import * as React from 'react'
 import style from "../../Packs/paksCommons/packsHeader/PacksHeader.module.css";
-import Button from "@mui/material/Button";
 import {ROUTS} from "../../../App";
 import {Searching} from "../../Packs/paksCommons/searching/Searching";
-import {useNavigate} from "react-router-dom";
-
+import {NavLink, useNavigate} from "react-router-dom";
+import {KeyboardBackspace} from "@mui/icons-material";
 
 
 export const CardsHeadMain = () => {
@@ -16,9 +15,12 @@ export const CardsHeadMain = () => {
 
     return (
         <div className={style.container}>
+            <div><NavLink to={ROUTS.PACKS} className={style.navlink}><KeyboardBackspace/>
+                <div className={style.text}>Back to Packs List</div>
+            </NavLink>
+            </div>
             <div className={style.firstSection}>
                 <h2 className={style.title}>Packs list</h2>
-                <button type="submit" className={style.button} onClick={onClickHandlerAddNewPack}>Add new card</button>
             </div>
             <div className={style.secondSection}>
                 <Searching search='cardQuestion'/>
