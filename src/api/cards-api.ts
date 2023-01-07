@@ -89,13 +89,15 @@ export type DeleteCardType = {
     id: string
 }
 
-type GetPackResponseType = {
+export type GetPackResponseType = {
     cardPacks: Array<PackType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
 }
 
 type GetCardResponseType = {
@@ -121,6 +123,9 @@ export const cardsApi = {
     getPacks(params?: Partial<GetPackType>) {
       return  instance.get<GetPackResponseType>('cards/pack', {params: params})
     },
+    // getPacks(params:GetPackType) {
+    //     return instance.get<GetPackResponseType>('/cards/pack', { params: params })
+    // },
     updatePack(name: string, _id: string) {
         return instance.put('cards/pack', {cardsPack: {name, _id}})
     },

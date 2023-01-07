@@ -27,6 +27,22 @@ export type PackType = {
     cardsCount: number
     created: string
     user_name: string
+    // _id: string
+    // user_name: string
+    // user_id: string
+    // __v: number
+    // updated: string
+    // type: string
+    // shots: number
+    // rating: number
+    // private: boolean
+    // path: string
+    // name: string
+    // more_id: string
+    // grade: number
+    // deckCover: string
+    // created: string
+    // cardsCount: number
 }
 
 
@@ -40,7 +56,7 @@ type initialStateType = {
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
     cards: [] as MainCardsType[],
-    cardPacksTotalCount: 0,
+    cardPacksTotalCount: 800,
     queryParams: {
         // packName: null,
         maxCardsCount: 0,
@@ -161,6 +177,8 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
                 user_id: paramsSearch?.user_id || undefined,
                 sortPacks: paramsSearch?.sortPacks || undefined,
             }
+            debugger
+            console.log(params.page)
             const res = await cardsApi.getPacks(params)
             dispatch(setPacksAC(res.data.cardPacks))
         } catch (error) {
@@ -168,6 +186,7 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
         }
     }
 }
+
 
 export const getCardsTC = (params: GetCardType): AppThunk => {
     return async (dispatch: AppDispatch) => {

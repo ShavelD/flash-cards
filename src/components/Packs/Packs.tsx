@@ -13,9 +13,8 @@ import {useEffect, useMemo} from "react";
 import {
     changePageAC,
     changePageCountAC,
-    changeSortPacksAC, deletePackTC,
-    getPacksTC,
-    MainPackType, updatePackTC
+    changeSortPacksAC,
+    MainPackType,
 } from "../../redux/main-reducer";
 import {Order, TableHeadMain} from '../../common/TebleHead/tablePackHead';
 import {Paginator} from "../../common/Paginator/Paginator";
@@ -28,6 +27,7 @@ import {DeleteModalButton} from "../Modals/Delere Pack Modal/DeleteModalBotton/D
 import {DeleteNewPackModal} from "../Modals/Delere Pack Modal/DeleteNewPackModal";
 import {DeleteModalIcon} from "../Modals/Delere Pack Modal/DeleteModalIcon/DeleteModalIcon";
 import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePackIcon";
+import {getPacksTC} from "../../redux/packs-reducer";
 
 
 type ColumnType = {
@@ -62,17 +62,24 @@ export const Packs = () => {
     const navigate = useNavigate()
 
     const packsCards = useAppSelector(state => state.main.packs)
-    const cardPacksTotal = useAppSelector(state => state.main.cardPacksTotalCount)
+
+    const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
+    console.log(totalPacksCount)
+
+
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
+    const pageCount = useAppSelector(state => state.packs.pageCount)
+    const pageSize = useAppSelector(state => state.packs.page)
+
+
     const getUserId = useAppSelector(state => state.profile._id)
-    const pageState = useAppSelector(state => state.main.queryParams.page)
-    const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
+    // const pageState = useAppSelector(state => state.main.queryParams.page)
+    //const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
 
 
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
     const [searchParams, setSearchParams] = useSearchParams({pageCount: '5'})
-
 
 
     const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof MainPackType) => {
@@ -134,6 +141,7 @@ export const Packs = () => {
     // )
 
     useEffect(() => {
+        //debugger
         dispatch(getPacksTC(URLParam))
     }, [URLParam])
 
@@ -203,7 +211,23 @@ export const Packs = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Paginator totalCount={cardPacksTotal}/>
+
+                    {/*<Paginator*/}
+                    {/*    currentPage={page}*/}
+                    {/*    onPageChange={currentPageHandler}*/}
+                    {/*    onPageItemsCountChange={pageItemsCountHandler}*/}
+                    {/*    pageSize={pageCount}*/}
+                    {/*    portionSize={5}*/}
+                    {/*    totalItemsCount={cardPacksTotal}*/}
+                    {/*/>*/}
+
+                    <Paginator
+                        totalItemsCount={totalPacksCount}
+                        // totalCount={20}
+                        //page={pageCount}
+                        // pageSize={pageSize} //page
+
+                    />
                 </Paper>
             </Box>
         </div>
