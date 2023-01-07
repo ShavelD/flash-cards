@@ -52,9 +52,9 @@ const initialState: initialStateType = {
     }
 }
 
+export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created'| 'user_name'>
+export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade'>
 
-export type MainPackType = PackType
-export type MainCardsType = CardType
 
 
 type MainActionType = ReturnType<typeof setPacksAC>

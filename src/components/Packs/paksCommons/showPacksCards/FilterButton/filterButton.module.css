@@ -5,10 +5,15 @@
     background-color: #366EFF;
     border: none;
     border-radius: 2px;
+    cursor:pointer
 }
 
-.filterButton:active{
+/*.filterButton:focus{*/
+/*    color: black;*/
+/*    background-color: #EFEFEF;*/
+/*}*/
+
+.active{
     color: black;
-    background-color: #ada9a9;
-    transition: -111111111111111111111s;
+    background-color: #EFEFEF;
 }
