@@ -8,15 +8,15 @@ import {setAppStatusAC} from "./app-reducer";
 
 
 export type CardType = {
-    answer: string
-    question: string
+    user_id: string
     cardsPack_id: string
-    grade: number
-    shots?: number
-    user_id?: string
-    created?: string
-    updated: string
     _id: string
+    question: string
+    answer: string
+    grade: number
+    shots: number
+    created: Date
+    updated: Date
 }
 
 export type PackType = {

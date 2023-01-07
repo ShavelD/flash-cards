@@ -56,14 +56,14 @@ export type DeletePackType = {
 }
 
 export type CreateCardType = {
-    cardsPack_id: any
-    question?: string
-    answer?: string
+    cardsPack_id: string
+    question: string
+    answer: string
     grade?: number
     shots?: number
-    answerImg?: string
     questionImg?: string
     questionVideo?: string
+    answerImg?: string
     answerVideo?: string
 
 }
@@ -79,12 +79,8 @@ export type GetCardType = {
     pageCount?: number
 }
 
-export type UpdateCardType = {
-    card: {
-        _id: string
-        question?: string
-    }
-}
+export type UpdateCardType = Pick<CardType, '_id' | 'question' | 'answer'>
+
 export type DeleteCardType = {
     id: string
 }
@@ -129,7 +125,7 @@ export const cardsApi = {
         return instance.delete('cards/pack', {params: {id}})
     },
     createCard(data: CreateCardType) {
-        return instance.post('cards/card', data)
+        return instance.post('/cards/card', { card: data })
     },
     getCards(data: GetCardType) {
        return instance.get<GetCardResponseType>(`cards/card`,{params: data})

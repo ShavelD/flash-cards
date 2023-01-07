@@ -24,10 +24,10 @@ export const AddNewCard: FC<CardsModalType> = ({id_pack}) => {
     const [isPrivate, setIsPrivate] = useState(false)
 
 
-    const addNewCardHandler = () => {
-        dispatch(addCardTC({cardsPack_id: id_pack}))
-        // alert(JSON.stringify("Колода добавилась " + new Date()))
-    }
+    // const addNewCardHandler = () => {
+    //     dispatch(addCardTC({cardsPack_id: id_pack}))
+    //     // alert(JSON.stringify("Колода добавилась " + new Date()))
+    // }
 
     // const onHandleChange = (e: ChangeEvent<HTMLInputElement>) => {
     //     setPackName(e.currentTarget.value)
@@ -47,9 +47,9 @@ export const AddNewCard: FC<CardsModalType> = ({id_pack}) => {
             </h2>
             <div className={style.textEmpty}>This pack is empty. Click add new card to fill this pack</div>
             <div className={style.divButton}>
-                <button className={style.button} onClick={addNewCardHandler}>
-                    Add new card
-                </button>
+                {/*<button className={style.button} onClick={addNewCardHandler}>*/}
+                {/*    Add new card*/}
+                {/*</button>*/}
             </div>
         </div>
 

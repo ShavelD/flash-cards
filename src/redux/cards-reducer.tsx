@@ -78,7 +78,7 @@ export const updateCardTC = (cardsPack_id: string, data: UpdateCardType): AppThu
     async (dispatch: AppDispatch) => {
         try {
             await cardsApi.updateCard(data)
-            dispatch(getCardsTC({ cardsPack_id: cardsPack_id }))
+            dispatch(getCardsTC({ cardsPack_id}))
         } catch (error) {
             console.log(error)
         }

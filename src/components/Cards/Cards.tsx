@@ -12,15 +12,14 @@ import {getCardsTC, MainCardsType} from "../../redux/main-reducer";
 import {Order, TableHeadCard} from "../../common/TebleHead/tableCardHead";
 import {useEffect, useMemo, useState} from "react";
 import {Paginator} from "../../common/Paginator/Paginator";
-import {
-    changeCardsPageAC,
-    changeCardsPageCountAC,
-    changeSortCardsAC,
-    deleteCardTC,
-    updateCardTC
-} from "../../redux/cards-reducer";
 import {CardsHeadMain} from "./CardsHeader/cardsHeader";
 import {Rating} from "@mui/material";
+import {EditCardIcon} from "../../common/EditCardIcon/EditCardIcon";
+import {DeleteModalIcon} from "../Modals/Delere Card Modal/DeleteModalIcon/DeleteModalIcon";
+import {SchoolOutlined} from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+
+
 
 
 type ColumnType = {
@@ -42,7 +41,12 @@ const columns: ColumnType[] = [
         id: 'grade', label: 'Grade', minWidth: 170, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
-
+    {
+        id: '_id',
+        label: 'Action',
+        minWidth: 30,
+        align: 'left',
+    },
 ];
 
 export const Cards = () => {
@@ -50,8 +54,10 @@ export const Cards = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
+
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
     const rows = useAppSelector(state => state.main.cards)
+    const profileId = useAppSelector(state => state.profile._id)
     const cardsTotalCount = useAppSelector(state => state.cars.cardsTotalCount)
     const cardsPageCount = useAppSelector(state => state.cars.pageCount)
     const cardPage = useAppSelector(state => state.cars.page)
@@ -73,6 +79,9 @@ export const Cards = () => {
         setOrderBy(property)
     }
 
+    const isMyCard = (id: string) => {
+        return id === profileId
+    }
 
     // choose card
     const handleClick = (id_pack: string, id_card: string) => {
@@ -87,18 +96,7 @@ export const Cards = () => {
     //     dispatch(updateCardTC(id_pack, { _id: id_card ? id_card : '', question: 'Updated' }))
     // }
 
-    // useEffect(() => {
-    //   setSearchParams(searchParams)
-    //
-    //   dispatch(
-    //     getCardsTC({
-    //       cardsPack_id: id_pack ? id_pack : '',
-    //       page: paramsSearch.page,
-    //       pageCount: paramsSearch.pageCount,
-    //       sortCards: paramsSearch.sortCards,
-    //     })
-    //   )
-    // }, [cardPage, cardsPageCount, sortCards])
+
 
     let URLParams = useMemo(
         () => ({
@@ -144,8 +142,32 @@ export const Cards = () => {
                                             </TableCell>
                                             <TableCell align="left">{row.answer}</TableCell>
                                             <TableCell
-                                                align="right">{new Date(row.updated).toLocaleDateString()}</TableCell>
+                                                align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
                                             <TableCell align="left">{<Rating name="read-only" value={row.grade} readOnly />}</TableCell>
+                                            {isMyCard(row.user_id) && (
+                                                <TableCell align="left">
+                                                    <div>
+                                                        <EditCardIcon
+                                                            id_pack={row.cardsPack_id}
+                                                            id_card={row._id}
+                                                            cardQuestion={row.question}
+                                                            cardAnswer={row.answer}
+                                                        />
+                                                        <DeleteModalIcon
+                                                            id_pack={row.cardsPack_id}
+                                                            id_card={row._id}
+                                                            name={row.question}
+                                                        />
+                                                    </div>
+                                                </TableCell>
+                                            )}
+                                            {!isMyCard(row.user_id) && (
+                                                <TableCell align="left">
+                                                    <IconButton>
+                                                        <SchoolOutlined fontSize={'small'}/>
+                                                    </IconButton>
+                                                </TableCell>
+                                            )}
                                         </TableRow>
                                     )
                                 })}

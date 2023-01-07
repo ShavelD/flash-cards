@@ -4,14 +4,11 @@ import {ROUTS} from "../../../App";
 import {Searching} from "../../Packs/paksCommons/searching/Searching";
 import {NavLink, useNavigate} from "react-router-dom";
 import {KeyboardBackspace} from "@mui/icons-material";
+import {HeaderTitle} from "./CardHeaderTitle";
+
 
 
 export const CardsHeadMain = () => {
-    const navigate = useNavigate()
-
-    const onClickHandlerAddNewPack = () => {
-        return navigate(ROUTS.ADD_NEW_CARD)
-    }
 
     return (
         <div className={style.container}>
@@ -20,9 +17,9 @@ export const CardsHeadMain = () => {
             </NavLink>
             </div>
             <div className={style.firstSection}>
-                <h2 className={style.title}>Packs list</h2>
+                <HeaderTitle />
             </div>
-            <div className={style.secondSection}>
+            <div className={style.secondSectionCardsHead}>
                 <Searching search='cardQuestion'/>
             </div>
         </div>
