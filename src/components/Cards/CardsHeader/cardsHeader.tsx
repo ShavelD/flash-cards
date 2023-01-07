@@ -7,6 +7,7 @@ import {KeyboardBackspace} from "@mui/icons-material";
 import {HeaderTitle} from "./CardHeaderTitle";
 
 
+
 export const CardsHeadMain = () => {
 
     return (
@@ -16,7 +17,7 @@ export const CardsHeadMain = () => {
             </NavLink>
             </div>
             <div className={style.firstSection}>
-                <HeaderTitle/>
+                <HeaderTitle />
             </div>
             <div className={style.secondSectionCardsHead}>
                 <Searching search='cardQuestion'/>

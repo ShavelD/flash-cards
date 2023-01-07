@@ -23,7 +23,7 @@ export const MyCardMenu = () => {
                 <MoreVertIcon />
             </IconButton>
 
-            <Paper sx={{ width: 320, maxWidth: '100%' }}>
+            <Paper sx={{ width: 320, maxWidth: '100%', pl: '560px' }}>
                 <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
                     <MenuItem onClick={handleClose} disableRipple>
                         <ListItemIcon>
