@@ -19,6 +19,7 @@ import {AppRootStateType} from "./redux/store";
 import {NewPack} from "./components/Packs/NewPack/NewPack";
 import {AddNewCard} from "./components/Cards/AddNewCard/AddNewCard";
 import {Cards} from "./components/Cards/Cards";
+import {LearnPack} from "./components/LearnPack/LearnPack";
 
 
 export enum ROUTS {
@@ -35,14 +36,14 @@ export enum ROUTS {
     ADD_NEW_CARD = '/packs/pack/:id_pack/card/:id_card',
     ADD_NEW_PACK = '/add_new_pack',
     TEST_PAGE = '/test',
-    MY_PACKS = '/my_packs',
+    LEARN_PACKS = '/packs/pack/:id_pack/learn',
 }
 
 function App() {
     const { id_pack } = useParams()
 
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
-    const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
 
     const dispatch = useAppDispatch()
 
@@ -79,6 +80,7 @@ function App() {
                 <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
                 <Route path={ROUTS.ADD_NEW_CARD} element={<AddNewCard id_pack={id_pack ? id_pack : ''}/>}/>
+                <Route path={ROUTS.LEARN_PACKS} element={<LearnPack />} />
 
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>

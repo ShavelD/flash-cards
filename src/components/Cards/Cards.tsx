@@ -58,6 +58,8 @@ export const Cards = () => {
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
     const rows = useAppSelector(state => state.main.cards)
     const profileId = useAppSelector(state => state.profile._id)
+    const namePacs = useAppSelector(state => state.cars.packName)
+    const getCardUserId = useAppSelector (state => state.cars.packUserId)
     const cardsTotalCount = useAppSelector(state => state.cars.cardsTotalCount)
     const cardsPageCount = useAppSelector(state => state.cars.pageCount)
     const cardPage = useAppSelector(state => state.cars.page)

@@ -27,6 +27,7 @@ export type PackType = {
     cardsCount: number
     created: string
     user_name: string
+    shots: number
 }
 
 
@@ -52,7 +53,7 @@ const initialState: initialStateType = {
     }
 }
 
-export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created'| 'user_name'>
+export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created' | 'user_name' | 'shots'>
 export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade' | 'shots' | 'created'>
 
 
@@ -74,14 +75,15 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                     maxCardsCount: state.queryParams.maxCardsCount,
                     minCardsCount: state.queryParams.minCardsCount
                 },
-                packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created, user_name}) => ({
+                packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created, user_name, shots}) => ({
                         _id,
                         name,
                         cardsCount,
                         updated,
                         user_id,
                         created,
-                        user_name
+                        user_name,
+                        shots
                     })
                 ),
             }

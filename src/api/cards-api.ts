@@ -103,6 +103,7 @@ type GetCardResponseType = {
     pageCount: number
     packUserId: string
     sortCards: string
+    packName: string;
 }
 
 export const instance = axios.create({

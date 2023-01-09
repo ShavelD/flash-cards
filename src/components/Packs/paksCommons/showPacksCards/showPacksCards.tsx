@@ -10,7 +10,7 @@ import {clearURLParams} from "../../../../common/utils/clearURLParams";
 export const ShowPacksCards = () => {
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [activeTitle, setActiveTitle] = useState('MY')
+    const [activeTitle, setActiveTitle] = useState('ALL')
 
     const userId = useAppSelector(state => state.profile._id);
     let packsOwnLS;
@@ -45,7 +45,7 @@ export const ShowPacksCards = () => {
                 <FilterButton activeTitle={activeTitle} setActiveTitle={setActiveTitle} title={packsOwn.MY}
                               key={packsOwn.MY} onClickButton={onClickButton}
                               packsOwnLS={packsOwnLS}/>
-                <FilterButton  activeTitle={activeTitle} setActiveTitle={setActiveTitle} title={packsOwn.ALL}
+                <FilterButton activeTitle={activeTitle} setActiveTitle={setActiveTitle} title={packsOwn.ALL}
                               key={packsOwn.ALL} onClickButton={onClickButton}
                               packsOwnLS={packsOwnLS}/>
             </div>

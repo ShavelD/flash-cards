@@ -1,5 +1,5 @@
 import React from "react";
-import {CardType, getCardsTC, setCardsAC} from "./main-reducer";
+import {getCardsTC} from "./main-reducer";
 import {AppDispatch, AppThunk} from "./store";
 import {cardsApi, CreateCardType, UpdateCardType} from "../api/cards-api";
 
@@ -12,6 +12,7 @@ type initialStateType = {
     pageCount: number,
     packUserId: string,
     sortCards: string,
+    packName: string;
 }
 const initialState: initialStateType = {
     cardsTotalCount: 0,
@@ -21,6 +22,7 @@ const initialState: initialStateType = {
     pageCount: 5,
     packUserId: '',
     sortCards: '0updated',
+    packName: ''
 }
 
 
@@ -28,6 +30,7 @@ export type CardsActionsType =
     | ReturnType<typeof changeCardsPageCountAC>
     | ReturnType<typeof changeCardsPageAC>
     | ReturnType<typeof changeSortCardsAC>
+    | ReturnType<typeof showNamePacsAC>
 
 
 export const cardsReducer = (state: initialStateType = initialState, action: CardsActionsType): initialStateType => {
@@ -38,6 +41,8 @@ export const cardsReducer = (state: initialStateType = initialState, action: Car
             return {...state, page: action.page}
         case 'cards/CHANGE-SORT':
             return {...state, sortCards: action.sortCards}
+        case 'cards/SHOW-NAME-PACS':
+            return {...state, packName: action.packName}
         default:
             return state
     }
@@ -52,6 +57,10 @@ export const changeCardsPageAC = (page: number) => {
 export const changeSortCardsAC = (sortCards: string) => {
     return {type: 'cards/CHANGE-SORT', sortCards} as const
 }
+export const showNamePacsAC = (packName: string) => {
+    return {type: 'cards/SHOW-NAME-PACS', packName} as const
+}
+
 
 export const addCardTC = (data: CreateCardType): AppThunk =>
     async (dispatch: AppDispatch) => {
@@ -78,7 +87,7 @@ export const updateCardTC = (cardsPack_id: string, data: UpdateCardType): AppThu
     async (dispatch: AppDispatch) => {
         try {
             await cardsApi.updateCard(data)
-            dispatch(getCardsTC({ cardsPack_id}))
+            dispatch(getCardsTC({cardsPack_id}))
         } catch (error) {
             console.log(error)
         }
