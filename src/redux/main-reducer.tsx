@@ -4,7 +4,9 @@ import {
     cardsApi, CreatePackType, DeletePackType, GetCardType,
     GetPackType, UpdatePackType
 } from "../api/cards-api";
-import {setAppStatusAC} from "./app-reducer";
+import {setAppStatusAC, setIsInitializedTC} from "./app-reducer";
+import {changeNameProfileAC, showMyIdAC} from "./profile-reducer";
+import {showIdPacsAC, showNamePacsAC} from "./cards-reducer";
 
 
 export type CardType = {
@@ -174,6 +176,8 @@ export const getCardsTC = (params: GetCardType): AppThunk => {
         try {
             const res = await cardsApi.getCards(params)
             dispatch(setCardsAC(res.data.cards))
+            dispatch(showIdPacsAC(res.data.packUserId))
+            dispatch(showNamePacsAC(res.data.packName))
         } catch (error) {
             console.log(error)
         }

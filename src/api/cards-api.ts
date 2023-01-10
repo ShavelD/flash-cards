@@ -77,6 +77,7 @@ export type GetCardType = {
     sortCards?: string
     page?: number
     pageCount?: number
+    name?: string
 }
 
 export type UpdateCardType = Pick<CardType, '_id' | 'question' | 'answer'>
@@ -103,7 +104,8 @@ type GetCardResponseType = {
     pageCount: number
     packUserId: string
     sortCards: string
-    packName: string;
+    packName: string
+    _id: string
 }
 
 export const instance = axios.create({

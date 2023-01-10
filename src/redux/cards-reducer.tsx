@@ -22,7 +22,7 @@ const initialState: initialStateType = {
     pageCount: 5,
     packUserId: '',
     sortCards: '0updated',
-    packName: ''
+    packName: '',
 }
 
 
@@ -31,6 +31,7 @@ export type CardsActionsType =
     | ReturnType<typeof changeCardsPageAC>
     | ReturnType<typeof changeSortCardsAC>
     | ReturnType<typeof showNamePacsAC>
+    | ReturnType<typeof showIdPacsAC>
 
 
 export const cardsReducer = (state: initialStateType = initialState, action: CardsActionsType): initialStateType => {
@@ -43,6 +44,8 @@ export const cardsReducer = (state: initialStateType = initialState, action: Car
             return {...state, sortCards: action.sortCards}
         case 'cards/SHOW-NAME-PACS':
             return {...state, packName: action.packName}
+        case 'cards/SHOW-ID-PACS':
+            return {...state, packUserId: action.packUserId}
         default:
             return state
     }
@@ -59,6 +62,9 @@ export const changeSortCardsAC = (sortCards: string) => {
 }
 export const showNamePacsAC = (packName: string) => {
     return {type: 'cards/SHOW-NAME-PACS', packName} as const
+}
+export const showIdPacsAC = (packUserId: string) => {
+    return {type: 'cards/SHOW-ID-PACS', packUserId} as const
 }
 
 

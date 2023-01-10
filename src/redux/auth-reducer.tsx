@@ -80,10 +80,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
         dispatch(setAppStatusAC('loading'))
         try {
             const res = await authAPI.login(data)
-            // console.log(res.data.email)
-            // dispatch(setIsLoggedInAC(true))
-            // dispatch(changeNameProfileAC({name: res.data.name, avatar: ''}))
-            // dispatch(showEmailAC(res.data.email))
+            console.log(res.data.email)
             dispatch(setIsInitializedTC())
             dispatch(setAppStatusAC('succeeded'))
         } catch (error) {
