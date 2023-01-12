@@ -86,13 +86,15 @@ export type DeleteCardType = {
     id: string
 }
 
-type GetPackResponseType = {
+export type GetPackResponseType = {
     cardPacks: Array<PackType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
 }
 
 type GetCardResponseType = {
