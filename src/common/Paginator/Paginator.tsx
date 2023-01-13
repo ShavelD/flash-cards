@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from 'react';
-
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {Select, SelectChangeEvent} from '@mui/material';
 import MenuItem from '@mui/material/MenuItem/MenuItem';
@@ -9,17 +8,29 @@ import style from './Paginator.module.css'
 
 
 type PropsType = {
-    totalCount: number;
+    totalItemsCount: number
+    // pageCount: number
+    // page: number
+    // onPageChanges: (pageNumber: number) => void
 };
 
-export const Paginator: React.FC<PropsType> = ({totalCount}) => {
+// export const Paginator: React.FC<PropsType> = ({totalItemsCount}) => {
+export const Paginator = (props:PropsType) => {
+
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState<number>(Number(searchParams.get('page')) || 1);
     const [pageCount, setPageCount] = useState<number>(
         Number(searchParams.get('pageCount')) || 5,
     );
 
-    const pagesCount = Math.ceil(totalCount / pageCount);
+    const pagesCount = Math.ceil(props.totalItemsCount / pageCount);
+    console.log(props.totalItemsCount)
+
+
+    // let pages = []
+    // for (let i = 1; i <= pagesCount; i++) {
+    //     pages.push(i)
+    // }
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<unknown>, value: number): void => {
@@ -62,7 +73,9 @@ export const Paginator: React.FC<PropsType> = ({totalCount}) => {
 
     return (
         <div className={style.container}>
+
             <Pagination count={pagesCount} page={page} onChange={handleChange}/>
+
             <p className={style.text}>Show</p>
 
             <Select

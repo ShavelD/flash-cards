@@ -58,11 +58,13 @@ export const Packs = () => {
     const navigate = useNavigate()
 
     const packsCards = useAppSelector(state => state.main.packs)
-    const cardPacksTotal = useAppSelector(state => state.main.cardPacksTotalCount)
+    const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
     const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
     const profileId = useAppSelector(state => state.profile._id)
-    const pageState = useAppSelector(state => state.main.queryParams.page)
-    const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
+
+
+    // const pageState = useAppSelector(state => state.main.queryParams.page)
+    // const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
 
 
     const [order, setOrder] = React.useState<Order>('asc')
@@ -195,7 +197,7 @@ export const Packs = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Paginator totalCount={cardPacksTotal}/>
+                    <Paginator totalItemsCount={totalPacksCount}/>
                 </Paper>
             </Box>
         </div>

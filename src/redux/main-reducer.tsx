@@ -51,7 +51,7 @@ type initialStateType = {
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
     cards: [] as MainCardsType[],
-    cardPacksTotalCount: 0,
+    cardPacksTotalCount: 800,
     queryParams: {
         // packName: null,
         maxCardsCount: 0,
