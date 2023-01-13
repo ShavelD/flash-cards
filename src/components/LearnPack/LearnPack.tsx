@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Unstable_Grid2'
-import {Navigate, Routes, useParams} from 'react-router-dom'
+import {Navigate, useParams} from 'react-router-dom'
 import style from './LearnPack.module.css'
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {getRandomCardTC, updateGradeTC} from "../../redux/learnPack-reducer";

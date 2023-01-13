@@ -1,0 +1,1 @@
+export const maxGradeValue = 6;
