@@ -13,6 +13,7 @@ import {logOutTC} from "../../redux/auth-reducer";
 import {changeProfileTC} from "../../redux/profile-reducer";
 import ChibaImg from "../../../../flash-cards/src/assets/images/Avatar.jpg"
 import newUserPhoto from "../../../../flash-cards/src/assets/images/newUserPhoto.svg"
+import {InputTypeFile} from "./InputTypeFile/InputTypeFile";
 
 
 
@@ -58,7 +59,8 @@ export const Profile = () => {
                     <h2 className={style.Info}>Personal Information</h2>
                     <div className={style.shibaImg}>
                         <img src={ChibaImg} alt="" className={style.img}/>
-                        <img onClick={() => {alert('Ты не любишь собак?')}} src={newUserPhoto} alt="" className={style.newUserPhoto}/>
+                        <InputTypeFile />
+                        {/*<img onClick={() => {alert('Ты не любишь собак?')}} src={newUserPhoto} alt="" className={style.newUserPhoto}/>*/}
                     </div>
                     <div className={style.wrapperInput}>
                         <Box>
