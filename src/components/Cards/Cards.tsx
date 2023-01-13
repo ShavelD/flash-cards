@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {useNavigate, useParams, useSearchParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {getCardsTC, MainCardsType} from "../../redux/main-reducer";
 import {Order, TableHeadCard} from "../../common/TebleHead/tableCardHead";
@@ -18,8 +18,7 @@ import {EditCardIcon} from "../../common/EditCardIcon/EditCardIcon";
 import {DeleteModalIcon} from "../Modals/Delere Card Modal/DeleteModalIcon/DeleteModalIcon";
 import {SchoolOutlined} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
-
-
+import {ROUTS} from "../../App";
 
 
 type ColumnType = {
@@ -59,7 +58,7 @@ export const Cards = () => {
     const rows = useAppSelector(state => state.main.cards)
     const profileId = useAppSelector(state => state.profile._id)
     const namePacs = useAppSelector(state => state.cars.packName)
-    const getCardUserId = useAppSelector (state => state.cars.packUserId)
+    const getCardUserId = useAppSelector(state => state.cars.packUserId)
     const cardsTotalCount = useAppSelector(state => state.cars.cardsTotalCount)
     const cardsPageCount = useAppSelector(state => state.cars.pageCount)
     const cardPage = useAppSelector(state => state.cars.page)
@@ -97,7 +96,6 @@ export const Cards = () => {
     // const updateCard = (id_pack: string, id_card: string) => {
     //     dispatch(updateCardTC(id_pack, { _id: id_card ? id_card : '', question: 'Updated' }))
     // }
-
 
 
     let URLParams = useMemo(
@@ -138,14 +136,15 @@ export const Cards = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row"
-                                                onClick={() => handleClick(row.cardsPack_id, row._id)}
+                                                       onClick={() => handleClick(row.cardsPack_id, row._id)}
                                             >
                                                 {row.question}
                                             </TableCell>
                                             <TableCell align="left">{row.answer}</TableCell>
                                             <TableCell
                                                 align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
-                                            <TableCell align="left">{<Rating name="read-only" value={row.grade} readOnly />}</TableCell>
+                                            <TableCell align="left">{<Rating name="read-only" value={row.grade}
+                                                                             readOnly/>}</TableCell>
                                             {isMyCard(row.user_id) && (
                                                 <TableCell align="left">
                                                     <div>
@@ -165,9 +164,11 @@ export const Cards = () => {
                                             )}
                                             {!isMyCard(row.user_id) && (
                                                 <TableCell align="left">
-                                                    <IconButton>
-                                                        <SchoolOutlined fontSize={'small'}/>
-                                                    </IconButton>
+                                                    <NavLink to={ROUTS.LEARN_PACKS}>
+                                                        <IconButton>
+                                                            <SchoolOutlined fontSize={'small'}/>
+                                                        </IconButton>
+                                                    </NavLink>
                                                 </TableCell>
                                             )}
                                         </TableRow>

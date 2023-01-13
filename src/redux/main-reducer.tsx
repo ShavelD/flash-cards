@@ -1,11 +1,10 @@
 import React from "react";
 import {AppDispatch, AppThunk} from "./store";
 import {
-    cardsApi, CreatePackType, DeletePackType, GetCardType,
-    GetPackType, UpdatePackType
+    cardsApi, GetCardType,
+    GetPackType
 } from "../api/cards-api";
-import {setAppStatusAC, setIsInitializedTC} from "./app-reducer";
-import {changeNameProfileAC, showMyIdAC} from "./profile-reducer";
+import {setAppStatusAC} from "./app-reducer";
 import {showIdPacsAC, showNamePacsAC} from "./cards-reducer";
 
 
@@ -17,8 +16,17 @@ export type CardType = {
     answer: string
     grade: number
     shots: number
-    created: Date
-    updated: Date
+    created: string
+    updated: string
+    questionImg: string
+    answerImg: string
+    type: string
+    rating: number
+    more_id: string
+    __v: number
+    answerVideo: string
+    questionVideo: string
+    comments: string
 }
 
 export type PackType = {
@@ -56,7 +64,9 @@ const initialState: initialStateType = {
 }
 
 export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created' | 'user_name' | 'shots'>
-export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated' | 'grade' | 'shots' | 'created'>
+export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated'
+    | 'grade' | 'shots' | 'created' | 'questionImg' | 'answerImg' | 'type' | 'rating' | 'more_id' | '__v' | 'answerVideo'
+    | 'questionVideo' | 'comments'>
 
 
 type MainActionType = ReturnType<typeof setPacksAC>
@@ -105,6 +115,15 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                                              grade,
                                              shots,
                                              created,
+                                             questionImg,
+                                             answerImg,
+                                             type,
+                                             rating,
+                                             more_id,
+                                             __v,
+                                             answerVideo,
+                                             questionVideo,
+                                             comments,
                                          }) => ({
                     user_id,
                     cardsPack_id,
@@ -115,6 +134,15 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                     updated,
                     shots,
                     created,
+                    questionImg,
+                    answerImg,
+                    type,
+                    rating,
+                    more_id,
+                    __v,
+                    answerVideo,
+                    questionVideo,
+                    comments,
                 })),
             }
         }

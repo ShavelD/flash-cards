@@ -1,47 +1,102 @@
-import {useAppSelector} from "../../hooks/hook";
-import {RateYourself} from "./RateYourself";
-import Paper from "@mui/material/Paper";
-import {useState} from "react";
-import {NavLink, useParams} from "react-router-dom";
+import React, { useEffect, useState } from 'react'
+import { Button, Card } from '@mui/material'
+import Typography from '@mui/material/Typography'
+import Grid from '@mui/material/Unstable_Grid2'
+import {Navigate, Routes, useParams} from 'react-router-dom'
 import style from './LearnPack.module.css'
+import {useAppDispatch, useAppSelector} from "../../hooks/hook";
+import {getRandomCardTC, updateGradeTC} from "../../redux/learnPack-reducer";
+import {BackToCardPacks} from "../../common/BackToCardPacks/BackToCardPacks";
+import {Grades} from "./Grades/Grades";
+import {CardType} from "../../redux/main-reducer";
+import {getCard} from "../../common/utils/getCard";
 import {ROUTS} from "../../App";
-import {KeyboardBackspace} from "@mui/icons-material";
-import * as React from "react";
 
 
 export const LearnPack = () => {
-
-    const {id_pack} = useParams()
-    const cards = useAppSelector(state => state.main.cards)
-    const pack = useAppSelector(state => state.main.packs.find(pack => pack._id === id_pack))
+    const dispatch = useAppDispatch()
+    const [isClickButton, setIsClickButton] = useState(false)
+    const { packId } = useParams()
     const packName = useAppSelector(state => state.cars.packName)
-    // const questionName = useAppSelector (state => state.)
-    const counter = pack && pack.shots
+    const grade = useAppSelector(state => state.learnPack.grade)
+    const randomCard = useAppSelector(state => state.learnPack.randomCard)
+    const cards = useAppSelector(state => state.main.cards);
 
-    console.log(cards)
+    const [card, setCard] = useState<CardType>(getCard(cards));
 
-    const [isAnswered, setIsAnswered] = useState<boolean>(false)
+    const setAnswerHandler = () => {
+        if (packId) dispatch(updateGradeTC(packId, randomCard._id, grade))
+        setIsClickButton(false)
+        setCard(getCard(cards));
+    }
+
+    useEffect(() => {
+        if (packId) dispatch(getRandomCardTC(packId))
+    }, [packId])
+
+    if (cards.length === 0) return <Navigate to={ROUTS.CARDS} />;
 
     return (
-        <div>
-            <div><NavLink to={ROUTS.PACKS} className={style.navlink}><KeyboardBackspace/>
-                <div className={style.text}>Back to Packs List</div>
-            </NavLink>
-            </div>
-            <div className={style.title}> Learn {packName}</div>
-            <Paper elevation={3} square className={style.learn}>
-                <div className={style.questionOrAnswer}>Question:</div>
-                <div className={style.counter}>Количество попыток ответов на вопрос: {counter}</div>
-
-                {isAnswered ? (
-                    <RateYourself setIsAnswered={setIsAnswered}/>
-                ) : (
-                    <button onClick={() => setIsAnswered(true)} className={style.showAnswer}>
-                        Show answer
-                    </button>
-                )}
-            </Paper>
-        </div>
+        <Grid container justifyContent={'center'}>
+            <BackToCardPacks/>
+            <Grid display="flex" flexDirection={'column'} justifyContent="center" alignItems="center">
+                <Typography component="legend" variant="h5" sx={{ mt: 5, mb: 2 }}>
+                    Learn {`"${packName}"`}
+                </Typography>
+                <Card sx={{ width: 440, minHeight: 200 }}>
+                    <div className={style.cardQuestion_main}>
+                        <div className={style.cardQuestion_question}>
+                            <b>Question:</b> {card.question}
+                        </div>
+                        <div className={style.cardQuestion_attempt}>
+                            Number of attempts for this question: {card.shots}
+                        </div>
+                        <div className={style.cardQuestion_button}>
+                            {!isClickButton && (
+                                <Button
+                                    variant={'contained'}
+                                    color={'primary'}
+                                    onClick={() => setIsClickButton(true)}
+                                    sx={{ borderRadius: '30px', mt: 3 }}
+                                    style={{ width: 335 }}
+                                >
+                                    Show Answer
+                                </Button>
+                            )}
+                            {isClickButton && (
+                                <Grid container justifyContent={'center'}>
+                                    <Grid display="flex" justifyContent="center" alignItems="center">
+                                        <div className={style.cardQuestion_main}>
+                                            <div className={style.cardAnswer_answer}>
+                                                <b>Answer:</b> {card.answer}
+                                            </div>
+                                            <div className={style.cardAnswer_rateYourself}>
+                                                <Grades />
+                                            </div>
+                                            <div className={style.cardQuestion_button}>
+                                                <Button
+                                                    variant={'contained'}
+                                                    color={'primary'}
+                                                    onClick={setAnswerHandler}
+                                                    sx={{ borderRadius: '30px', mt: 3 }}
+                                                    style={{ width: 335 }}
+                                                >
+                                                    Next
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </Grid>
+                                </Grid>
+                                /*<CardAnswer
+                                  packId={packId}
+                                  setIsClickButton={setIsClickButton}
+                                  setAnswerHandler={setAnswerHandler}
+                                />*/
+                            )}
+                        </div>
+                    </div>
+                </Card>
+            </Grid>
+        </Grid>
     )
-
 }

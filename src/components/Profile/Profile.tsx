@@ -2,8 +2,6 @@ import React from 'react'
 import style from "./Profile.module.css";
 import {EditableSpan} from "./EditableSpan/EditableSpan";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
-import {NavLink} from "react-router-dom";
-import {KeyboardBackspace} from "@mui/icons-material";
 import {ROUTS} from "../../App";
 import logout from "../../../../flash-cards/src/assets/images/logout.jpg"
 import {Box} from "@mui/material";
@@ -13,6 +11,7 @@ import {logOutTC} from "../../redux/auth-reducer";
 import {changeProfileTC} from "../../redux/profile-reducer";
 import ChibaImg from "../../../../flash-cards/src/assets/images/Avatar.jpg"
 import newUserPhoto from "../../../../flash-cards/src/assets/images/newUserPhoto.svg"
+import {BackToCardPacks} from "../../common/BackToCardPacks/BackToCardPacks";
 
 
 
@@ -49,10 +48,7 @@ export const Profile = () => {
     console.log(showEmail)
     return (
         <div className={style.wrapper}>
-            <div><NavLink to={ROUTS.PACKS} className={style.navlink}><KeyboardBackspace/>
-                <div className={style.text}>Back to Packs List</div>
-            </NavLink>
-            </div>
+            <BackToCardPacks/>
             <div className={style.flex}>
                 <form className={style.form} onSubmit={formik.handleSubmit}>
                     <h2 className={style.Info}>Personal Information</h2>

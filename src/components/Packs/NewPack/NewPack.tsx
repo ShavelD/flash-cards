@@ -1,11 +1,9 @@
 import * as React from 'react'
 import {useAppDispatch} from "../../../hooks/hook";
 import style from "./NewPack.module.css"
-import {NavLink} from "react-router-dom";
-import {ROUTS} from "../../../App";
-import {KeyboardBackspace} from "@mui/icons-material";
 import {addPackTC} from "../../../redux/main-reducer";
 import {useState} from "react";
+import {BackToCardPacks} from "../../../common/BackToCardPacks/BackToCardPacks";
 
 
 export const NewPack = () => {
@@ -22,10 +20,7 @@ export const NewPack = () => {
 
     return (
         <div className={style.container}>
-            <div><NavLink to={ROUTS.PACKS} className={style.navlink}><KeyboardBackspace/>
-                <div className={style.text}>Back to Packs List</div>
-            </NavLink>
-            </div>
+            <BackToCardPacks/>
             <h2 className={style.title}>
                 Name Pack
             </h2>
