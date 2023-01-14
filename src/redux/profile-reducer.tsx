@@ -1,6 +1,7 @@
 import {authAPI, UpdateUserType,} from "../api/auth-api";
 import {AppRootStateType, AppThunk} from "./store";
 import {setAppStatusAC} from "./app-reducer";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 
 type initialStateType = {
@@ -23,7 +24,7 @@ type ChangeProfileType = {
 }
 
 
-export const profileReducer = (state = initialState, action: ActionType): initialStateType => {
+export const profileReducer = (state = initialState, action: ProfileActionType): initialStateType => {
     switch (action.type) {
         case 'profile/CHANGE-NAME': {
             return {...state, ...action.data}
@@ -68,13 +69,13 @@ export const changeProfileTC = (model: ChangeProfileType): AppThunk => {
             dispatch(changeNameProfileAC(res.data.updatedUser))
             dispatch(setAppStatusAC('succeeded'))
 
-        } catch (e) {
-            console.log(e)
+        } catch (error) {
+            handleServerNetworkError(error, dispatch)
         }
     }
 }
 
-export type ActionType = ReturnType<typeof changeNameProfileAC>
+export type ProfileActionType = ReturnType<typeof changeNameProfileAC>
     | ReturnType<typeof showEmailAC>
     | ReturnType<typeof showMyIdAC>
 

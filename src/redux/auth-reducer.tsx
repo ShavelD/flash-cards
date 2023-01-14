@@ -70,7 +70,7 @@ export const registrationTC = (model: RegisterPopsType): AppThunk => {
             dispatch(setAppStatusAC('succeeded'))
             console.log(res.data)
         } catch (e) {
-            console.log(e)
+            handleServerNetworkError(e, dispatch)
         }
     }
 }
@@ -85,7 +85,7 @@ export const loginTC = (data: LoginParamsType): AppThunk => {
             dispatch(setAppStatusAC('succeeded'))
         } catch (error) {
             console.log(error)
-            dispatch(setAppStatusAC('failed'))
+            handleServerNetworkError(error, dispatch)
         }
     }
 }
@@ -98,7 +98,7 @@ export const logOutTC = (): AppThunk => async (dispatch: AppDispatch) => {
         dispatch(setAppStatusAC('succeeded'))
         console.log(res.data)
     } catch (error) {
-        console.log(error)
+        handleServerNetworkError(error, dispatch)
     }
 }
 
@@ -115,7 +115,7 @@ export const setForgotPassTC = (email: FormikErrorType): AppThunk => async dispa
         await authAPI.forgotPassword(forgotData)
         dispatch(forgotPasswordAC(''))
     } catch (error) {
-        handleServerNetworkError(error as AxiosError | Error, dispatch)
+        handleServerNetworkError(error, dispatch)
     }
 }
 
@@ -128,7 +128,7 @@ export const createNewPasswordTC = (password: string, resetPasswordToken: string
         let res = await authAPI.newPassword(data)
         dispatch(setRecoveryStatusAC(true))
     } catch (error) {
-        handleServerNetworkError(error as AxiosError | Error, dispatch)
+        handleServerNetworkError(error, dispatch)
     }
 }
 

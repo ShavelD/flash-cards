@@ -20,6 +20,7 @@ import {NewPack} from "./components/Packs/NewPack/NewPack";
 import {AddNewCard} from "./components/Cards/AddNewCard/AddNewCard";
 import {Cards} from "./components/Cards/Cards";
 import {LearnPack} from "./components/LearnPack/LearnPack";
+import ErrorSnackbar from "./components/ErrorChackbar/ErrorChackbar";
 
 
 
@@ -65,6 +66,7 @@ function App() {
 
     return (
         <div className="App">
+            <ErrorSnackbar/>
             <Header />
             <RoutesNavLink />
             {status === 'loading' && <LinearProgress/>}

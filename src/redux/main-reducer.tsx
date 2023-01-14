@@ -6,6 +6,7 @@ import {
 } from "../api/cards-api";
 import {setAppStatusAC} from "./app-reducer";
 import {showIdPacsAC, showNamePacsAC} from "./cards-reducer";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 
 export type CardType = {
@@ -69,7 +70,7 @@ export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 
     | 'questionVideo' | 'comments'>
 
 
-type MainActionType = ReturnType<typeof setPacksAC>
+export type MainActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof changePageAC>
     | ReturnType<typeof changePageCountAC>
@@ -194,7 +195,7 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
             const res = await cardsApi.getPacks(params)
             dispatch(setPacksAC(res.data.cardPacks))
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 }
@@ -207,7 +208,7 @@ export const getCardsTC = (params: GetCardType): AppThunk => {
             dispatch(showIdPacsAC(res.data.packUserId))
             dispatch(showNamePacsAC(res.data.packName))
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 }
@@ -219,7 +220,7 @@ export const addPackTC = (newPacks: any): AppThunk =>
             await cardsApi.addPack(newPacks)
             dispatch(getPacksTC())
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         } finally {
             dispatch(setAppStatusAC('succeeded'))
         }
@@ -231,7 +232,7 @@ export const updatePackTC = (name: string, _id: string): AppThunk =>
             await cardsApi.updatePack(name, _id)
             dispatch(getPacksTC())
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 
@@ -241,7 +242,7 @@ export const deletePackTC = (pack_id: string): AppThunk =>
             await cardsApi.deletePack(pack_id)
             dispatch(getPacksTC())
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 

@@ -2,6 +2,7 @@ import React from "react";
 import {getCardsTC} from "./main-reducer";
 import {AppDispatch, AppThunk} from "./store";
 import {cardsApi, CreateCardType, UpdateCardType} from "../api/cards-api";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 
 type initialStateType = {
@@ -85,7 +86,7 @@ export const deleteCardTC =
                 await cardsApi.deleteCard(cardId)
                 dispatch(getCardsTC({cardsPack_id: cardsPack_id}))
             } catch (error) {
-                console.log(error)
+                handleServerNetworkError(error, dispatch)
             }
         }
 
@@ -95,7 +96,7 @@ export const updateCardTC = (cardsPack_id: string, data: UpdateCardType): AppThu
             await cardsApi.updateCard(data)
             dispatch(getCardsTC({cardsPack_id}))
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 

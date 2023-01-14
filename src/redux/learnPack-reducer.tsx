@@ -3,6 +3,7 @@ import {AppDispatch, AppThunk} from "./store";
 import {setAppStatusAC} from "./app-reducer";
 import {cardsApi, gradeAPI} from "../api/cards-api";
 import {getCard} from "../common/utils/getCard";
+import {handleServerNetworkError} from "../utils/error-utils";
 
 // types
 export type LearnPackInitialStateType = {
@@ -77,7 +78,7 @@ export const getRandomCardTC = (id_pack: string): AppThunk => {
             dispatch(setCardAC(RandomCard))
             dispatch(setAppStatusAC('succeeded'))
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 }
@@ -88,7 +89,7 @@ export const updateGradeTC = (id_pack: string, card_id: string, grade: string): 
             const res = await gradeAPI.updateGrade(+grade, card_id)
             dispatch(getRandomCardTC(id_pack))
         } catch (error) {
-            console.log(error)
+            handleServerNetworkError(error, dispatch)
         }
     }
 }
