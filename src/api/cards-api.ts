@@ -159,8 +159,8 @@ export const cardsApi = {
     createCard(data: CreateCardType) {
         return instance.post('/cards/card', { card: data })
     },
-    getCards(data: GetCardType) {
-       return instance.get<GetCardResponseType>(`cards/card`,{params: data})
+    getCards(params: GetCardType) {
+       return instance.get<GetCardResponseType>(`cards/card`,{params})
     },
     updateCard(payload: UpdateCardType) {
         return instance.put('cards/card', {card: payload})
@@ -173,7 +173,7 @@ export const cardsApi = {
 
 export const gradeAPI = {
     updateGrade(grade: number, card_id: string) {
-        return instance.put<UpdateGradeResponseType>('cards/grade', {
+        return instance.put('cards/grade', {
             grade,
             card_id
         });

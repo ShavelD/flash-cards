@@ -72,10 +72,11 @@ export const Paginator = (props:PropsType) => {
     }, [searchParams]);
 
     return (
-        <div className={style.container}>
+
+        <div className={style.containerPagination}>
 
             <Pagination count={pagesCount} page={page} onChange={handleChange}/>
-
+            <div className={style.containerPaginationSelect}>
             <p className={style.text}>Show</p>
 
             <Select
@@ -92,6 +93,7 @@ export const Paginator = (props:PropsType) => {
                 <MenuItem value={100}>100</MenuItem>
             </Select>
             <p className={style.text}>Cards per Page</p>
+        </div>
         </div>
     );
 };

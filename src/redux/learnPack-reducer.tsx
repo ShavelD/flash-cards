@@ -22,7 +22,7 @@ const initialState: LearnPackInitialStateType = {
     packName: '',
     grade: '1',
     randomCard: {
-        _id: 'fake',
+        _id: '',
         cardsPack_id: '',
 
         answer: '',
@@ -39,7 +39,7 @@ const initialState: LearnPackInitialStateType = {
         answerVideo: '',
         questionImg: '',
         questionVideo: '',
-        user_id: 'fake',
+        user_id: '',
         comments: '',
     },
 }
@@ -67,11 +67,11 @@ export const setCardAC = (randomCard: CardType) =>
     ({type: 'LEARN_PACKS/SET_CARD', randomCard} as const)
 
 // thunks
-export const getRandomCardTC = (packId: string): AppThunk => {
+export const getRandomCardTC = (id_pack: string): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
             dispatch(setAppStatusAC('loading'))
-            const res = await cardsApi.getCards({cardsPack_id: packId, pageCount: 120})
+            const res = await cardsApi.getCards({cardsPack_id: id_pack})
             const RandomCard = getCard(res.data.cards)
             dispatch(setCardListAC(res.data.cards, res.data.packName))
             dispatch(setCardAC(RandomCard))
@@ -82,11 +82,11 @@ export const getRandomCardTC = (packId: string): AppThunk => {
     }
 }
 
-export const updateGradeTC = (packId: string, card_id: string, grade: string): AppThunk => {
+export const updateGradeTC = (id_pack: string, card_id: string, grade: string): AppThunk => {
     return async (dispatch: AppDispatch) => {
         try {
             const res = await gradeAPI.updateGrade(+grade, card_id)
-            dispatch(getRandomCardTC(packId))
+            dispatch(getRandomCardTC(id_pack))
         } catch (error) {
             console.log(error)
         }

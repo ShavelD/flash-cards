@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Card } from '@mui/material'
+import React, {useEffect, useState} from 'react'
+import {Button, Card} from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Unstable_Grid2'
 import {Navigate, useParams} from 'react-router-dom'
@@ -16,7 +16,7 @@ import {ROUTS} from "../../App";
 export const LearnPack = () => {
     const dispatch = useAppDispatch()
     const [isClickButton, setIsClickButton] = useState(false)
-    const { packId } = useParams()
+    const {id_pack} = useParams()
     const packName = useAppSelector(state => state.cars.packName)
     const grade = useAppSelector(state => state.learnPack.grade)
     const randomCard = useAppSelector(state => state.learnPack.randomCard)
@@ -25,25 +25,24 @@ export const LearnPack = () => {
     const [card, setCard] = useState<CardType>(getCard(cards));
 
     const setAnswerHandler = () => {
-        if (packId) dispatch(updateGradeTC(packId, randomCard._id, grade))
+        if (id_pack) dispatch(updateGradeTC(id_pack, randomCard._id, grade))
         setIsClickButton(false)
-        setCard(getCard(cards));
     }
 
     useEffect(() => {
-        if (packId) dispatch(getRandomCardTC(packId))
-    }, [packId])
+        if (id_pack) dispatch(getRandomCardTC(id_pack))
+    }, [id_pack])
 
-    if (cards.length === 0) return <Navigate to={ROUTS.CARDS} />;
+    if (cards.length === 0) return <Navigate to={ROUTS.CARDS}/>;
 
     return (
         <Grid container justifyContent={'center'}>
             <BackToCardPacks/>
             <Grid display="flex" flexDirection={'column'} justifyContent="center" alignItems="center">
-                <Typography component="legend" variant="h5" sx={{ mt: 5, mb: 2 }}>
+                <Typography component="legend" variant="h5" sx={{mt: 5, mb: 2}}>
                     Learn {`"${packName}"`}
                 </Typography>
-                <Card sx={{ width: 440, minHeight: 200 }}>
+                <Card sx={{width: 440, minHeight: 200}}>
                     <div className={style.cardQuestion_main}>
                         <div className={style.cardQuestion_question}>
                             <b>Question:</b> {card.question}
@@ -57,8 +56,8 @@ export const LearnPack = () => {
                                     variant={'contained'}
                                     color={'primary'}
                                     onClick={() => setIsClickButton(true)}
-                                    sx={{ borderRadius: '30px', mt: 3 }}
-                                    style={{ width: 335 }}
+                                    sx={{borderRadius: '30px', mt: 3}}
+                                    style={{width: 335}}
                                 >
                                     Show Answer
                                 </Button>
@@ -71,15 +70,15 @@ export const LearnPack = () => {
                                                 <b>Answer:</b> {card.answer}
                                             </div>
                                             <div className={style.cardAnswer_rateYourself}>
-                                                <Grades />
+                                                <Grades/>
                                             </div>
                                             <div className={style.cardQuestion_button}>
                                                 <Button
                                                     variant={'contained'}
                                                     color={'primary'}
                                                     onClick={setAnswerHandler}
-                                                    sx={{ borderRadius: '30px', mt: 3 }}
-                                                    style={{ width: 335 }}
+                                                    sx={{borderRadius: '30px', mt: 3}}
+                                                    style={{width: 335}}
                                                 >
                                                     Next
                                                 </Button>
@@ -87,11 +86,6 @@ export const LearnPack = () => {
                                         </div>
                                     </Grid>
                                 </Grid>
-                                /*<CardAnswer
-                                  packId={packId}
-                                  setIsClickButton={setIsClickButton}
-                                  setAnswerHandler={setAnswerHandler}
-                                />*/
                             )}
                         </div>
                     </div>

@@ -10,8 +10,6 @@ import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo} from "react";
 import {
-    changePageAC,
-    changePageCountAC,
     changeSortPacksAC,
     getPacksTC,
     MainPackType
@@ -59,13 +57,7 @@ export const Packs = () => {
 
     const packsCards = useAppSelector(state => state.main.packs)
     const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
-    const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
     const profileId = useAppSelector(state => state.profile._id)
-
-
-    // const pageState = useAppSelector(state => state.main.queryParams.page)
-    // const packCountState = useAppSelector(state => state.main.queryParams.pageCount)
-
 
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
@@ -86,19 +78,6 @@ export const Packs = () => {
         setOrderBy(property)
     }
 
-    const handleChangePage = (event: unknown, page: number) => {
-        const newPage = page + 1
-        searchParams.set('page', newPage.toString())
-        setSearchParams(searchParams)
-        dispatch(changePageAC(newPage))
-    };
-
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        searchParams.set('pageCount', event.target.value.toString())
-        setSearchParams(searchParams)
-        dispatch(changePageCountAC(+event.target.value))
-    }
-
     let URLParam = useMemo(() => {
         const paramsSearch: any = {}
 
@@ -117,18 +96,6 @@ export const Packs = () => {
             setOrder(Number(orderParam.at(0)) ? 'asc' : 'desc')
         }
     }, [searchParams, order, orderBy])
-
-    // let URLParams = useMemo(
-    //     () => ({
-    //         packName: searchParams.get('packName') || undefined,
-    //         min: Number(searchParams.get('min')) || undefined,
-    //         max: Number(searchParams.get('max')) || undefined,
-    //         page: Number(searchParams.get('page')) || undefined,
-    //         pageCount: Number(searchParams.get('pageCount')) || undefined,
-    //         sortPacks: searchParams.get('sortPacks') || undefined,
-    //     }),
-    //     [searchParams]
-    //
 
     const isMyPack = (id: string) => {
         return id === profileId

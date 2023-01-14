@@ -11,7 +11,6 @@ import {useAppDispatch, useAppSelector} from '../../hooks/hook';
 import {getCardsTC, MainCardsType} from "../../redux/main-reducer";
 import {Order, TableHeadCard} from "../../common/TebleHead/tableCardHead";
 import {useEffect, useMemo, useState} from "react";
-import {Paginator} from "../../common/Paginator/Paginator";
 import {CardsHeadMain} from "./CardsHeader/cardsHeader";
 import {Rating} from "@mui/material";
 import {EditCardIcon} from "../../common/EditCardIcon/EditCardIcon";
@@ -19,6 +18,7 @@ import {DeleteModalIcon} from "../Modals/Delere Card Modal/DeleteModalIcon/Delet
 import {SchoolOutlined} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import {ROUTS} from "../../App";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 
 type ColumnType = {
@@ -52,17 +52,9 @@ export const Cards = () => {
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-
-
-    const userIdLogin = useAppSelector(state => state.auth.isLoggedIn)
     const rows = useAppSelector(state => state.main.cards)
     const profileId = useAppSelector(state => state.profile._id)
-    const namePacs = useAppSelector(state => state.cars.packName)
-    const getCardUserId = useAppSelector(state => state.cars.packUserId)
-    const cardsTotalCount = useAppSelector(state => state.cars.cardsTotalCount)
-    const cardsPageCount = useAppSelector(state => state.cars.pageCount)
-    const cardPage = useAppSelector(state => state.cars.page)
-    const sortCards = useAppSelector(state => state.cars.sortCards)
+    const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
 
     const {id_pack} = useParams()
 
@@ -88,15 +80,6 @@ export const Cards = () => {
     const handleClick = (id_pack: string, id_card: string) => {
         navigate(`/packs/pack/${id_pack}/card/${id_card}`)
     }
-
-
-    // const deleteCard = (id_pack: string, id_card: string) => {
-    //     dispatch(deleteCardTC(id_pack, id_card))
-    // }
-    // const updateCard = (id_pack: string, id_card: string) => {
-    //     dispatch(updateCardTC(id_pack, { _id: id_card ? id_card : '', question: 'Updated' }))
-    // }
-
 
     let URLParams = useMemo(
         () => ({
@@ -177,6 +160,7 @@ export const Cards = () => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <Paginator totalItemsCount={totalPacksCount}/>
                 </Paper>
             </Box>
         </div>

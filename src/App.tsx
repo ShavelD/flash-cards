@@ -37,10 +37,11 @@ export enum ROUTS {
     ADD_NEW_CARD = '/packs/pack/:id_pack/card/:id_card',
     ADD_NEW_PACK = '/add_new_pack',
     TEST_PAGE = '/test',
-    LEARN_PACKS = '/packs/pack/:id_pack/learn',
+    LEARN_PACKS = '/question/:id_pack',
 }
 
 function App() {
+
     const { id_pack } = useParams()
 
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
