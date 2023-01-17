@@ -1,107 +1,46 @@
-// import React, { ChangeEvent } from 'react';
-// import { IconButton } from '@mui/material';
-// import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
-// import style from "../Profile.module.css";
-
-//
-// export const InputTypeFile = () => {
-//
-//     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-//         if (e.target.files && e.target.files.length) {
-//             const file = e.target.files[0]
-//             console.log('file: ', file)
-//         }
-//     };
-//
-//     return (
-//         <label className={style.newUserPhoto}>
-//             <input type="file"
-//                    onChange={uploadHandler}
-//                    style={{display: 'none'}}
-//                    accept="image/*"
-//                    multiple
-//             />
-//             <IconButton component="span">
-//                 <AddAPhotoIcon/>
-//             </IconButton>
-//         </label>
-//     )
-// }
-import React, { ChangeEvent } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { IconButton } from '@mui/material';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import style from "../Profile.module.css";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hook";
+import { changeProfileTC} from "../../../redux/profile-reducer";
+import {uploadHandler} from "../../../utils/uploadFile";
+
 export const InputTypeFile = () => {
 
-    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            const file = e.target.files[0]
-            console.log('file: ', file)
+    const userAvatar = useAppSelector(state => state.profile.avatar)
+    const dispatch = useAppDispatch()
 
-            if (file.size < 4000000) {
-                // https://developer.mozilla.org/ru/docs/Web/API/FileReader/FileReader
-                const reader = new FileReader();
+    const [ava, setAva] = useState(userAvatar)
 
-                reader.onloadend = () => {
-                    const file64 = reader.result as string
-                    console.log('file64: ', file64)
-                }
-                // https://developer.mozilla.org/ru/docs/Web/API/FileReader/readAsDataURL
-                reader.readAsDataURL(file)
-            } else {
-                console.error('Error: ', 'Файл слишком большого размера')
-            }
-        }
+
+    const loadPhotoHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        uploadHandler(event, setAva, file64 => {
+            dispatch(changeProfileTC({avatar: file64}))
+        })
     }
 
     return (
-        <label className={style.newUserPhoto}>
-            <input type="file"
-                   onChange={uploadHandler}
-                   style={{display: 'none'}}
-                   accept="image/*"
-                   multiple
+        <div>
+            <img
+                src={userAvatar !== null ? userAvatar : ava}
+                style={{width: '100px'}}
+                alt="ava"
             />
-            <IconButton component="span">
-                <AddAPhotoIcon/>
-            </IconButton>
-        </label>
+            <label className={style.newUserPhoto}>
+                <input type="file"
+                       onChange={loadPhotoHandler}
+                       style={{display: 'none'}}
+                       accept="image/*"
+                       multiple
+                />
+                <IconButton component="span">
+                    <AddAPhotoIcon/>
+                </IconButton>
+            </label>
+        </div>
     )
 }
 
 
-
-//
-//
-// import React, { ChangeEvent, useRef } from 'react';
-// import newUserPhoto from "../../../assets/images/newUserPhoto.svg";
-// import style from "../Profile.module.css";
-//
-// export const InputTypeFile = () => {
-//
-//     const inputRef = useRef<HTMLInputElement>(null)
-//
-//     const selectFileHandler = () => {
-//         inputRef && inputRef.current?.click();
-//     };
-//
-//     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-//         if (e.target.files && e.target.files.length) {
-//             const file = e.target.files[0]
-//             console.log('file: ', file)
-//         }
-//     };
-//
-//     return (
-//         <div>
-//             <img onClick={selectFileHandler} className={style.newUserPhoto} src={newUserPhoto}/>
-//             <input
-//                 style={{display: 'none'}}
-//                 ref={inputRef}
-//                 type="file"
-//                 onChange={uploadHandler}
-//             />
-//         </div>
-//     )
-// }
 

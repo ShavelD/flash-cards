@@ -22,8 +22,8 @@ export const authAPI = {
     logOut() {
         return instance.delete<DeleteForgotType>('/auth/me');
     },
-    userUpdate(data: UpdateUserType) {
-        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`/auth/me`, data)
+    userUpdate(params: UpdateUserType) {
+        return instance.put<UpdateUserType, AxiosResponse<ResponseType>>(`/auth/me`, params)
     },
     forgotPassword(data: ForgotPasswordType){
         return instance.post<ForgotPasswordType, AxiosResponse<ForgotPasswordResponseType>>('/auth/forgot', data)

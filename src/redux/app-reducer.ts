@@ -53,7 +53,7 @@ export const setIsInitializedTC = (): AppThunk => async (dispatch: AppDispatch) 
         dispatch(setIsInitializedAC(false))
         const res = await authAPI.me()
         dispatch(setIsLoggedInAC(true))
-        dispatch(changeNameProfileAC({name: res.data.name, avatar: ''}))
+        dispatch(changeNameProfileAC({name: res.data.name, avatar: res.data.avatar}))
         dispatch(showEmailAC(res.data.email))
         dispatch(showMyIdAC(res.data._id))
     } catch (error) {

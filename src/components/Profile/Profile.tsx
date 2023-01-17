@@ -54,9 +54,7 @@ export const Profile = () => {
                 <form className={style.form} onSubmit={formik.handleSubmit}>
                     <h2 className={style.Info}>Personal Information</h2>
                     <div className={style.shibaImg}>
-                        <img src={ChibaImg} alt="" className={style.img}/>
                         <InputTypeFile />
-                        {/*<img onClick={() => {alert('Ты не любишь собак?')}} src={newUserPhoto} alt="" className={style.newUserPhoto}/>*/}
                     </div>
                     <div className={style.wrapperInput}>
                         <Box>

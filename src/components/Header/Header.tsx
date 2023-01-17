@@ -10,6 +10,7 @@ import {HeaderProfile} from "./HeaderProfile/HeaderProfile";
 export const Header = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const name = useAppSelector(state => state.profile.name)
+    const userAvatar = useAppSelector(state => state.profile.avatar)
 
     let [isHidden, setIsHidden] = useState(true)
 
@@ -31,7 +32,7 @@ export const Header = () => {
             {isLoggedIn ? (
                 <div className={s.userBlock} onClick={onShowAvaHandler}>
                     <div className={s.userName}>{name}</div>
-                    <div className={s.widthImg}><img className={s.widthImg} src={Avatar}/></div>
+                    <div className={s.widthImg}><img className={s.widthImg} src={userAvatar}/></div>
                 </div>
             ) : <button className={s.button} onClick={onClickSignIn}>Sign In</button>}
             {isHidden ? null : <HeaderProfile onHidden={onShowAvaHandler} />}
