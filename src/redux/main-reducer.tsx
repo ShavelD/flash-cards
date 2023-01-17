@@ -102,7 +102,6 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
             }
         }
         case 'main/SET-CARDS':
-            // return {...state, cards: action.cards}
         {
             return {
                 ...state,
@@ -178,6 +177,7 @@ export const changeCardsNumberInPackAC = (min: number, max: number) => {
 export const changeSortPacksAC = (sortPacks: string) => {
     return {type: 'main/packs-CHANGE-SORT-PACKS', sortPacks} as const
 }
+
 
 
 export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {

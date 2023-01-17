@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
 import {PacksHeader} from "./paksCommons/packsHeader/packsHeader";
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useEffect, useMemo} from "react";
 import {
     changeSortPacksAC,
@@ -58,7 +58,7 @@ export const Packs = () => {
     const packsCards = useAppSelector(state => state.main.packs)
     const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
     const profileId = useAppSelector(state => state.profile._id)
-
+    const {id_pack} = useParams()
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
     const [searchParams, setSearchParams] = useSearchParams({pageCount: '5'})
@@ -111,6 +111,10 @@ export const Packs = () => {
         navigate(`/packs/${id_pack}`)
     }
 
+    const handleLearnClick = (id_pack: string) => {
+        navigate(`/question/${id_pack}`)
+    }
+
     return (
         <div>
             <PacksHeader/>
@@ -144,14 +148,14 @@ export const Packs = () => {
                                             <div>
                                                 {!isMyPack(row.user_id) && (
                                                     <IconButton disabled={row.cardsCount === 0}>
-                                                        <SchoolOutlined fontSize={'small'}/>
+                                                        <SchoolOutlined  onClick={() => handleLearnClick(row._id)} fontSize={'small'}/>
                                                     </IconButton>
                                                 )}
                                             </div>
                                             {isMyPack(row.user_id) && (
                                                 <>
                                                     <IconButton disabled={row.cardsCount === 0}>
-                                                        <SchoolOutlined fontSize={'small'}/>
+                                                        <SchoolOutlined onClick={() => handleLearnClick(row._id)} fontSize={'small'}/>
                                                     </IconButton>
                                                     <EditPackIcon id_pack={row._id} namePack={row.name}/>
 

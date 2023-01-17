@@ -9,17 +9,11 @@ import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {logOutTC} from "../../redux/auth-reducer";
 import {changeProfileTC} from "../../redux/profile-reducer";
-import ChibaImg from "../../../../flash-cards/src/assets/images/Avatar.jpg"
-import newUserPhoto from "../../../../flash-cards/src/assets/images/newUserPhoto.svg"
 import {BackToCardPacks} from "../../common/BackToCardPacks/BackToCardPacks";
 import {InputTypeFile} from "./InputTypeFile/InputTypeFile";
 
 
 
-
-interface Values {
-    name: string
-}
 
 export const Profile = () => {
     const userName = useAppSelector(state => state.profile.name)
@@ -46,7 +40,7 @@ export const Profile = () => {
     if (!isLoggedIn) {
         return <Navigate to={ROUTS.LOGIN}/>
     }
-    console.log(showEmail)
+
     return (
         <div className={style.wrapper}>
             <BackToCardPacks/>

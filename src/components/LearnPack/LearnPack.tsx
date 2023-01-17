@@ -20,9 +20,6 @@ export const LearnPack = () => {
     const packName = useAppSelector(state => state.cars.packName)
     const grade = useAppSelector(state => state.learnPack.grade)
     const randomCard = useAppSelector(state => state.learnPack.randomCard)
-    const cards = useAppSelector(state => state.main.cards);
-
-    const [card, setCard] = useState<CardType>(getCard(cards));
 
     const setAnswerHandler = () => {
         if (id_pack) dispatch(updateGradeTC(id_pack, randomCard._id, grade))
@@ -33,7 +30,6 @@ export const LearnPack = () => {
         if (id_pack) dispatch(getRandomCardTC(id_pack))
     }, [id_pack])
 
-    if (cards.length === 0) return <Navigate to={ROUTS.CARDS}/>;
 
     return (
         <Grid container justifyContent={'center'}>
@@ -45,10 +41,10 @@ export const LearnPack = () => {
                 <Card sx={{width: 440, minHeight: 200}}>
                     <div className={style.cardQuestion_main}>
                         <div className={style.cardQuestion_question}>
-                            <b>Question:</b> {card.question}
+                            <b>Question:</b> {randomCard.question}
                         </div>
                         <div className={style.cardQuestion_attempt}>
-                            Number of attempts for this question: {card.shots}
+                            Number of attempts for this question: {randomCard.shots}
                         </div>
                         <div className={style.cardQuestion_button}>
                             {!isClickButton && (
@@ -67,7 +63,7 @@ export const LearnPack = () => {
                                     <Grid display="flex" justifyContent="center" alignItems="center">
                                         <div className={style.cardQuestion_main}>
                                             <div className={style.cardAnswer_answer}>
-                                                <b>Answer:</b> {card.answer}
+                                                <b>Answer:</b> {randomCard.answer}
                                             </div>
                                             <div className={style.cardAnswer_rateYourself}>
                                                 <Grades/>

@@ -81,6 +81,10 @@ export const Cards = () => {
         navigate(`/packs/pack/${id_pack}/card/${id_card}`)
     }
 
+    const handleLearnClick = () => {
+        if (id_pack) navigate(`/question/${id_pack}`)
+    }
+
     let URLParams = useMemo(
         () => ({
             cardsPack_id: id_pack ? id_pack : '',
@@ -147,11 +151,9 @@ export const Cards = () => {
                                             )}
                                             {!isMyCard(row.user_id) && (
                                                 <TableCell align="left">
-                                                    <NavLink to={ROUTS.LEARN_PACKS}>
-                                                        <IconButton>
-                                                            <SchoolOutlined fontSize={'small'}/>
-                                                        </IconButton>
-                                                    </NavLink>
+                                                    <IconButton>
+                                                        <SchoolOutlined onClick={handleLearnClick} fontSize={'small'}/>
+                                                    </IconButton>
                                                 </TableCell>
                                             )}
                                         </TableRow>

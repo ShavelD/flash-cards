@@ -1,6 +1,7 @@
 import {NavLink} from "react-router-dom";
 import s from "./RoutesNavLink.module.css"
-import {ROUTS} from "../App";
+import {ROUTS} from "../../App";
+
 
 export const RoutesNavLink = () => {
     return (

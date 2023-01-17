@@ -6,7 +6,6 @@ import {Registration} from "./features/registration/Registration";
 import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
 import {Profile} from "./components/Profile/Profile";
 import {PassRecovery} from "./features/pass-recovery/PassRecovery";
-import {RoutesNavLink} from "./routes/RoutesNavLink";
 import {Header} from "./components/Header/Header";
 import {CircularProgress, Container, LinearProgress} from "@mui/material";
 import {Login} from "./components/Login/Login";
@@ -21,6 +20,7 @@ import {AddNewCard} from "./components/Cards/AddNewCard/AddNewCard";
 import {Cards} from "./components/Cards/Cards";
 import {LearnPack} from "./components/LearnPack/LearnPack";
 import ErrorSnackbar from "./components/ErrorChackbar/ErrorChackbar";
+import {RoutesNavLink} from "./routes/RoutesNavLink/RoutesNavLink";
 
 
 
