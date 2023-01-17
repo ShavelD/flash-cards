@@ -5,6 +5,7 @@ import s from './Header.module.css';
 import {useAppSelector} from "../../hooks/hook";
 import {useNavigate} from "react-router-dom";
 import {HeaderProfile} from "./HeaderProfile/HeaderProfile";
+import defaultAva from "../../assets/images/Avatar.jpg";
 
 
 export const Header = () => {
@@ -32,7 +33,7 @@ export const Header = () => {
             {isLoggedIn ? (
                 <div className={s.userBlock} onClick={onShowAvaHandler}>
                     <div className={s.userName}>{name}</div>
-                    <div className={s.widthImg}><img className={s.widthImg} src={userAvatar}/></div>
+                    <div className={s.widthImg}><img className={s.widthImg} src={userAvatar === undefined ? defaultAva : userAvatar}/></div>
                 </div>
             ) : <button className={s.button} onClick={onClickSignIn}>Sign In</button>}
             {isHidden ? null : <HeaderProfile onHidden={onShowAvaHandler} />}

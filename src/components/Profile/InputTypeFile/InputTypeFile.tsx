@@ -5,6 +5,7 @@ import style from "../Profile.module.css";
 import {useAppDispatch, useAppSelector} from "../../../hooks/hook";
 import { changeProfileTC} from "../../../redux/profile-reducer";
 import {uploadHandler} from "../../../utils/uploadFile";
+import defaultAva from "../../../assets/images/Avatar.jpg"
 
 export const InputTypeFile = () => {
 
@@ -23,7 +24,7 @@ export const InputTypeFile = () => {
     return (
         <div>
             <img
-                src={userAvatar !== null ? userAvatar : ava}
+                src={userAvatar === undefined ? defaultAva : ava}
                 style={{width: '100px'}}
                 alt="ava"
             />
