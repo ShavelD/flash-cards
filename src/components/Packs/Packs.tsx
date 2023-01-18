@@ -138,7 +138,7 @@ export const Packs = () => {
 
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
-                                            <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
+                                            <TableCell id={labelId} scope="row">
                                                 {row.deckCover}
                                             </TableCell>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>

@@ -63,6 +63,7 @@ export type GetPackResponseType = {
     minCardsCount: number
     page: number
     pageCount: number
+    deckCover: string
     token: string
     tokenDeathTime: number
 }
