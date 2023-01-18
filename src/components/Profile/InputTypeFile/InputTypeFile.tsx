@@ -25,7 +25,7 @@ export const InputTypeFile = () => {
         <div>
             <img
                 src={userAvatar === undefined ? defaultAva : ava}
-                style={{width: '100px'}}
+                style={{width: '100px', borderRadius: '12px'}}
                 alt="ava"
             />
             <label className={style.newUserPhoto}>
