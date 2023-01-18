@@ -33,19 +33,19 @@ type ColumnType = {
 }
 
 const columns: ColumnType[] = [
-    {id: 'deckCover', label: 'Photo', minWidth: 100},
+    {id: 'deckCover', label: '', minWidth: 30},
     {id: 'name', label: 'Name', minWidth: 100},
     {id: 'cardsCount', label: 'Cards', minWidth: 100},
     {
-        id: 'updated', label: 'Last Updated', minWidth: 170, align: 'left',
+        id: 'updated', label: 'Last Updated', minWidth: 150, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'user_id', label: 'Created by', minWidth: 170, align: 'left',
+        id: 'user_id', label: 'Created by', minWidth: 150, align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'created', label: 'Action', minWidth: 100, align: 'left',
+        id: 'created', label: 'Action', minWidth: 50, align: 'left',
         format: (value: number) => value.toFixed(2),
     },
 ];
@@ -116,10 +116,6 @@ export const Packs = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
     }
 
-    const convertAva = () => {
-
-    }
-
     return (
         <div>
             <PacksHeader/>
@@ -144,7 +140,8 @@ export const Packs = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
-                                                {row.deckCover === null ? defAva : row.deckCover}
+                                              <img src={row.deckCover ? row.deckCover : defAva} alt='PackCover'
+                                                   style={{height: '70px'}}/>
                                             </TableCell>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
