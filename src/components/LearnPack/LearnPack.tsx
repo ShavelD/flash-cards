@@ -17,9 +17,11 @@ export const LearnPack = () => {
     const dispatch = useAppDispatch()
     const [isClickButton, setIsClickButton] = useState(false)
     const {id_pack} = useParams()
-    const packName = useAppSelector(state => state.cars.packName)
+    const packName = useAppSelector(state => state.learnPack.packName)
     const grade = useAppSelector(state => state.learnPack.grade)
     const randomCard = useAppSelector(state => state.learnPack.randomCard)
+
+    console.log(packName)
 
     const setAnswerHandler = () => {
         if (id_pack) dispatch(updateGradeTC(id_pack, randomCard._id, grade))
