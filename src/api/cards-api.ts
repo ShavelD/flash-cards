@@ -25,7 +25,7 @@ type AddPackModelType = {
 
 type CardsPackType = {
     name: string
-    deckCover?: string
+    deckCover: string
     private: boolean
 }
 

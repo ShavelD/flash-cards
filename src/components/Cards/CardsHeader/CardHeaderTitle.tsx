@@ -12,6 +12,7 @@ export const HeaderTitle = () => {
     const profileId = useAppSelector(state => state.cars.packUserId)
     const myId = useAppSelector(state => state.profile._id)
     const namePacs = useAppSelector(state => state.cars.packName)
+    const photo = useAppSelector(state => state.main.deckCover)
     const navigate = useNavigate()
     const {id_pack} = useParams()
 
@@ -23,6 +24,7 @@ export const HeaderTitle = () => {
         <div className={style.containerHeaderTitle}>
             <div className={style.title}>
                 <div>{namePacs}</div>
+                <div>{photo}</div>
                 {myId === profileId && <MyCardMenu/>}
             </div>
             {myId === profileId ? (

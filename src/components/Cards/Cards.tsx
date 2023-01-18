@@ -56,6 +56,7 @@ export const Cards = () => {
     const profileId = useAppSelector(state => state.profile._id)
     const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
 
+
     const {id_pack} = useParams()
 
     const [order, setOrder] = useState<Order>('asc')

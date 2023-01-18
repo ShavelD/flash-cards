@@ -39,6 +39,7 @@ export type PackType = {
     created: string
     user_name: string
     shots: number
+    deckCover: string
 }
 
 
@@ -46,13 +47,15 @@ type initialStateType = {
     packs: Array<PackType>
     cards: Array<CardType>
     cardPacksTotalCount: number,
-    queryParams: any
+    queryParams: any,
+    deckCover: string
 }
 
 const initialState: initialStateType = {
     packs: [] as MainPackType[],
     cards: [] as MainCardsType[],
     cardPacksTotalCount: 800,
+    deckCover: '',
     queryParams: {
         // packName: null,
         maxCardsCount: 0,
@@ -64,7 +67,7 @@ const initialState: initialStateType = {
     }
 }
 
-export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created' | 'user_name' | 'shots'>
+export type MainPackType = Pick<PackType, '_id' | 'name' | 'user_id' | 'updated' | 'cardsCount' | 'created' | 'user_name' | 'shots' | 'deckCover'>
 export type MainCardsType = Pick<CardType, 'user_id' | 'cardsPack_id' | '_id' | 'question' | 'answer' | 'updated'
     | 'grade' | 'shots' | 'created' | 'questionImg' | 'answerImg' | 'type' | 'rating' | 'more_id' | '__v' | 'answerVideo'
     | 'questionVideo' | 'comments'>
@@ -76,6 +79,7 @@ export type MainActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof changePageCountAC>
     | ReturnType<typeof changeCardsNumberInPackAC>
     | ReturnType<typeof changeSortPacksAC>
+    | ReturnType<typeof getPhotoPacksAC>
 
 
 export const mainReducer = (state: initialStateType = initialState, action: MainActionType): initialStateType => {
@@ -88,7 +92,17 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                     maxCardsCount: state.queryParams.maxCardsCount,
                     minCardsCount: state.queryParams.minCardsCount
                 },
-                packs: action.packs.map(({_id, name, user_id, updated, cardsCount, created, user_name, shots}) => ({
+                packs: action.packs.map(({
+                                             _id,
+                                             name,
+                                             user_id,
+                                             updated,
+                                             cardsCount,
+                                             created,
+                                             user_name,
+                                             shots,
+                                             deckCover
+                                         }) => ({
                         _id,
                         name,
                         cardsCount,
@@ -96,13 +110,13 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
                         user_id,
                         created,
                         user_name,
-                        shots
+                        shots,
+                        deckCover
                     })
                 ),
             }
         }
-        case 'main/SET-CARDS':
-        {
+        case 'main/SET-CARDS': {
             return {
                 ...state,
                 cards: action.cards.map(({
@@ -154,6 +168,8 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
             return {...state, queryParams: {...state.queryParams, minCardsCount: action.min, maxCardsCount: action.max}}
         case 'main/packs-CHANGE-SORT-PACKS':
             return {...state, queryParams: {...state.queryParams, sortPacks: action.sortPacks}}
+        case 'main/packs-GET-PHOTO-PACKS':
+            return {...state, deckCover: action.deckCover}
         default:
             return state
     }
@@ -177,7 +193,9 @@ export const changeCardsNumberInPackAC = (min: number, max: number) => {
 export const changeSortPacksAC = (sortPacks: string) => {
     return {type: 'main/packs-CHANGE-SORT-PACKS', sortPacks} as const
 }
-
+export const getPhotoPacksAC = (deckCover: string) => {
+    return {type: 'main/packs-GET-PHOTO-PACKS', deckCover} as const
+}
 
 
 export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {

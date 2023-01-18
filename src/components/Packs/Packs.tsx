@@ -23,9 +23,8 @@ import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePac
 import {TableRow} from "@mui/material";
 
 
-
 type ColumnType = {
-    id: '_id' | 'name' | 'updated' | 'user_id' | 'cardsCount' | 'created'
+    id: '_id' | 'name' | 'updated' | 'user_id' | 'cardsCount' | 'created' | 'deckCover'
     label: string
     minWidth?: number
     align?: 'left'
@@ -33,6 +32,7 @@ type ColumnType = {
 }
 
 const columns: ColumnType[] = [
+    {id: 'deckCover', label: 'Photo', minWidth: 100},
     {id: 'name', label: 'Name', minWidth: 100},
     {id: 'cardsCount', label: 'Cards', minWidth: 100},
     {
@@ -112,7 +112,7 @@ export const Packs = () => {
     }
 
     const handleLearnClick = (id_pack: string) => {
-        navigate(`/question/${id_pack}`)
+        if (id_pack) navigate(`/question/${id_pack}`)
     }
 
     return (
@@ -139,6 +139,9 @@ export const Packs = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
+                                                {row.deckCover}
+                                            </TableCell>
+                                            <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
                                             </TableCell>
                                             <TableCell align="left">{row.cardsCount}</TableCell>
@@ -148,14 +151,16 @@ export const Packs = () => {
                                             <div>
                                                 {!isMyPack(row.user_id) && (
                                                     <IconButton disabled={row.cardsCount === 0}>
-                                                        <SchoolOutlined  onClick={() => handleLearnClick(row._id)} fontSize={'small'}/>
+                                                        <SchoolOutlined onClick={() => handleLearnClick(row._id)}
+                                                                        fontSize={'small'}/>
                                                     </IconButton>
                                                 )}
                                             </div>
                                             {isMyPack(row.user_id) && (
                                                 <>
                                                     <IconButton disabled={row.cardsCount === 0}>
-                                                        <SchoolOutlined onClick={() => handleLearnClick(row._id)} fontSize={'small'}/>
+                                                        <SchoolOutlined onClick={() => handleLearnClick(row._id)}
+                                                                        fontSize={'small'}/>
                                                     </IconButton>
                                                     <EditPackIcon id_pack={row._id} namePack={row.name}/>
 
