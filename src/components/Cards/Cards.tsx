@@ -78,9 +78,9 @@ export const Cards = () => {
     }
 
     // choose card
-    const handleClick = (id_pack: string, id_card: string) => {
-        navigate(`/packs/pack/${id_pack}/card/${id_card}`)
-    }
+    // const handleClick = (id_pack: string, id_card: string) => {
+    //     navigate(`/packs/pack/${id_pack}/card/${id_card}`)
+    // }
 
     const handleLearnClick = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
@@ -124,7 +124,7 @@ export const Cards = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row"
-                                                       onClick={() => handleClick(row.cardsPack_id, row._id)}
+                                                       // onClick={() => handleClick(row.cardsPack_id, row._id)}
                                             >
                                                 {row.question}
                                             </TableCell>
