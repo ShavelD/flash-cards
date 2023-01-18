@@ -21,6 +21,7 @@ import {SchoolOutlined} from "@mui/icons-material";
 import {DeleteModalIcon} from "../Modals/Delere Pack Modal/DeleteModalIcon/DeleteModalIcon";
 import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePackIcon";
 import {TableRow} from "@mui/material";
+import defAva from "../../assets/images/Avatar.jpg";
 
 
 type ColumnType = {
@@ -115,6 +116,10 @@ export const Packs = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
     }
 
+    const convertAva = () => {
+
+    }
+
     return (
         <div>
             <PacksHeader/>
@@ -139,7 +144,7 @@ export const Packs = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
-                                                {row.deckCover}
+                                                {row.deckCover === null ? defAva : row.deckCover}
                                             </TableCell>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
