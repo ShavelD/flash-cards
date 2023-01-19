@@ -244,10 +244,10 @@ export const addPackTC = (newPacks: any): AppThunk =>
         }
     }
 
-export const updatePackTC = (name: string, _id: string): AppThunk =>
+export const updatePackTC = (name: string, _id: string, deckCover: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
-            await cardsApi.updatePack(name, _id)
+            await cardsApi.updatePack(name, _id, deckCover)
             dispatch(getPacksTC())
         } catch (error) {
             handleServerNetworkError(error, dispatch)

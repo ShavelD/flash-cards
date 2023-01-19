@@ -1,10 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {BasicModal} from "../BasicModals";
 import {updatePackTC} from "../../../redux/main-reducer";
 import {useAppDispatch} from "../../../hooks/hook";
 import {Box, TextField} from "@mui/material";
 import {useFormik} from "formik";
 import style from '../Add New Pack Modal/AddNewPackModal.module.css'
+import {ImageInput} from "../ImageInput/ImageInput";
 
 
 type UpdateNewPackModal = {
@@ -38,14 +39,25 @@ export const UpdateNewPackModal: React.FC<UpdateNewPackModal> = ({open, hide, id
     const formik = useFormik({
         initialValues: {
             namePack:  namePack,
-            isPrivate: false
+            isPrivate: false,
+            deckCover: ''
         },
         validate,
-        onSubmit: (values: { namePack: string; isPrivate: boolean }) => {
-            dispatch(updatePackTC(values.namePack, id_pack ? id_pack : ''))
+        onSubmit: (values: { namePack: string; isPrivate: boolean, deckCover: string }) => {
+            dispatch(updatePackTC(values.namePack, id_pack ? id_pack : '', values.deckCover))
             hide()
         },
     })
+
+    const { values} = { ...formik };
+    const [val, setVal] = useState(values);
+    const [isDirty, setIsDirty] = useState<boolean>(false);
+
+    const changeValue = (value: string): void => {
+        values.deckCover = value;
+        setVal({ ...val, deckCover: value });
+        setIsDirty(true);
+    };
 
     return (
         <>
@@ -58,6 +70,12 @@ export const UpdateNewPackModal: React.FC<UpdateNewPackModal> = ({open, hide, id
                     </div>
                     <hr/>
                     <div className={style.wrapperInput}>
+                        <ImageInput
+                            name="deckCover"
+                            title="Download cover"
+                            value={values.deckCover}
+                            changeValue={changeValue}
+                        />
                         <Box>
                             <TextField sx={{width: '37.4ch'}}
                                        id="input-with-sx" label="Name Pack" variant="standard"

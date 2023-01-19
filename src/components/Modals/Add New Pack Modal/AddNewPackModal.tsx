@@ -1,10 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {BasicModal} from "../BasicModals";
 import {addPackTC} from "../../../redux/main-reducer";
 import {useAppDispatch} from "../../../hooks/hook";
 import style from './AddNewPackModal.module.css'
 import {Box, TextField} from "@mui/material";
 import {useFormik} from "formik";
+import {ReturnComponentType} from "../../../common/Types/ReturnComponentType";
+import {ImageInput} from "../ImageInput/ImageInput";
 
 
 type AddNewPackModalType = {
@@ -14,7 +16,7 @@ type AddNewPackModalType = {
 
 type errorsType = {
     namePack?: string,
-    isPrivate?: boolean
+    isPrivate?: boolean,
 }
 
 const validate = (values: { namePack: string; isPrivate: boolean }) => {
@@ -28,21 +30,36 @@ const validate = (values: { namePack: string; isPrivate: boolean }) => {
 };
 
 
-export const AddNewPackModal: React.FC<AddNewPackModalType> = ({open, hide}) => {
-
-    const dispatch = useAppDispatch()
+export const AddNewPackModal: React.FC<AddNewPackModalType> = ({open, hide}): ReturnComponentType => {
 
     const formik = useFormik({
         initialValues: {
             namePack: '',
-            isPrivate: false
+            isPrivate: false,
+            deckCover: '',
         },
         validate,
-        onSubmit: (values: { namePack: string; isPrivate: boolean }) => {
-            dispatch(addPackTC({cardsPack: {name: values.namePack, private: values.isPrivate}}))
+        onSubmit: (values: { namePack: string; isPrivate: boolean, deckCover: string }) => {
+            dispatch(addPackTC({
+                cardsPack: {
+                    name: values.namePack, private: values.isPrivate,
+                    deckCover: values.deckCover
+                }
+            }))
             hide()
         },
     })
+
+    const {values} = {...formik};
+    const [val, setVal] = useState(values);
+    const [isDirty, setIsDirty] = useState<boolean>(false);
+    const dispatch = useAppDispatch()
+
+    const changeValue = (value: string): void => {
+        values.deckCover = value;
+        setVal({...val, deckCover: value});
+        setIsDirty(true);
+    };
 
     return (
         <>
@@ -55,6 +72,12 @@ export const AddNewPackModal: React.FC<AddNewPackModalType> = ({open, hide}) => 
                     </div>
                     <hr/>
                     <div className={style.wrapperInput}>
+                        <ImageInput
+                            name="deckCover"
+                            title="Download cover"
+                            value={values.deckCover}
+                            changeValue={changeValue}
+                        />
                         <Box>
                             <TextField sx={{width: '37.4ch'}}
                                        id="input-with-sx" label="Name Pack" variant="standard"

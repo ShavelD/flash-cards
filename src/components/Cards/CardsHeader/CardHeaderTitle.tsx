@@ -27,7 +27,7 @@ export const HeaderTitle = () => {
         <div className={style.containerHeaderTitle}>
             <div className={style.title}>
                 <div>{namePacs}</div>
-                <div>{photo === undefined ? defAva : image}</div>
+                <div>{image}</div>
                 {myId === profileId && <MyCardMenu/>}
             </div>
             {myId === profileId ? (

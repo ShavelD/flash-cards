@@ -14,7 +14,8 @@ export const AddCardModal = () => {
         <button onClick={toggle} className={style.addCardModalButton}>
             Add new card
         </button>
-        <CardsModal titleName={'Add new card'} id_pack={id_pack ? id_pack : ''} open={itemModalOpen} hide={toggle}/>
+        <CardsModal titleName={'Add new card'} id_pack={id_pack ? id_pack : ''}
+                    open={itemModalOpen} hide={toggle}/>
         </>
     )
 }

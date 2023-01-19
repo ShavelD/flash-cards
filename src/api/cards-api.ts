@@ -93,8 +93,8 @@ export const cardsApi = {
     getPacks(params?: Partial<GetPackType>) {
         return instance.get<GetPackResponseType>('cards/pack', {params: params})
     },
-    updatePack(name: string, _id: string) {
-        return instance.put('cards/pack', {cardsPack: {name, _id}})
+    updatePack(name: string, _id: string, deckCover: string) {
+        return instance.put('cards/pack', {cardsPack: {name, _id, deckCover}})
     },
     deletePack(id: string) {
         return instance.delete('cards/pack', {params: {id}})

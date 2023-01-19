@@ -46,7 +46,6 @@ const columns: ColumnType[] = [
     },
     {
         id: 'created', label: 'Action', minWidth: 50, align: 'left',
-        format: (value: number) => value.toFixed(2),
     },
 ];
 
@@ -140,8 +139,8 @@ export const Packs = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
-                                              <img src={row.deckCover ? row.deckCover : defAva} alt='PackCover'
-                                                   style={{height: '70px'}}/>
+                                                <img src={row.deckCover ? row.deckCover : defAva} alt='PackCover'
+                                                     style={{height: '70px'}}/>
                                             </TableCell>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
