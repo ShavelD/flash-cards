@@ -13,11 +13,9 @@ export const HeaderTitle = () => {
     const profileId = useAppSelector(state => state.cars.packUserId)
     const myId = useAppSelector(state => state.profile._id)
     const namePacs = useAppSelector(state => state.cars.packName)
-    const photo = useAppSelector(state => state.main.deckCover)
+    const imageCard = useAppSelector(state => state.main.deckCover)
     const navigate = useNavigate()
     const {id_pack} = useParams()
-
-    const [imagePacks, setImagePacks] = useState(photo)
 
     const handleClick = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
@@ -41,7 +39,7 @@ export const HeaderTitle = () => {
                 )}
             </div>
             <div>
-                <img src={imagePacks ? imagePacks : defAva} alt='PackCover' style={{height: '70px', paddingLeft: '10px'}}/>
+                <img src={imageCard ? imageCard : defAva} alt='PackCover' style={{height: '70px', paddingLeft: '10px'}}/>
             </div>
         </div>
     )
