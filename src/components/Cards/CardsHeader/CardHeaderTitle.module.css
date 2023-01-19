@@ -2,14 +2,19 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding-bottom: 15px;
 
+}
+
+.flex {
+    display: inline-block;
+    margin: 10px 5px 5px 5px;
 }
 
 .title {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
     font-family: 'Montserrat';
     font-size: 22px;
     font-weight: 600;

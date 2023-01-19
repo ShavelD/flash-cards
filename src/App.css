@@ -5,6 +5,9 @@
   height: 100vh;
 }
 
+img {
+  border-radius: 18px;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

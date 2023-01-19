@@ -5,7 +5,7 @@ import style from './CardHeaderTitle.module.css'
 import {useAppSelector} from "../../../hooks/hook";
 import {AddCardModal} from '../../Modals/Add Card/AddCard';
 import {MyCardMenu} from "./MyCardMenu/MyCardMenu";
-import { useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import defAva from '../../../assets/images/Avatar.jpg'
 
 
@@ -17,28 +17,32 @@ export const HeaderTitle = () => {
     const navigate = useNavigate()
     const {id_pack} = useParams()
 
-    const [image, setImage] = useState(photo)
+    const [imagePacks, setImagePacks] = useState(photo)
 
     const handleClick = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
     }
 
     return (
-        <div className={style.containerHeaderTitle}>
-            <div className={style.title}>
-                <div>{namePacs}</div>
-                <div>{photo === undefined ? defAva : image}</div>
-                {myId === profileId && <MyCardMenu/>}
+        <div className={style.block}>
+            <div className={style.containerHeaderTitle}>
+                <div className={style.title}>
+                    <div style={{width: '150px'}}>{namePacs}</div>
+                    {myId === profileId && <MyCardMenu/>}
+                </div>
+                {myId === profileId ? (
+                    <AddCardModal/>
+                ) : (
+                    <>
+                        <button onClick={handleClick} className={style.headerTitleButton}>
+                            Learn to pack
+                        </button>
+                    </>
+                )}
             </div>
-            {myId === profileId ? (
-                <AddCardModal/>
-            ) : (
-                <>
-                    <button onClick={handleClick} className={style.headerTitleButton}>
-                        Learn to pack
-                    </button>
-                </>
-            )}
+            <div>
+                <img src={imagePacks ? imagePacks : defAva} alt='PackCover' style={{height: '70px', paddingLeft: '10px'}}/>
+            </div>
         </div>
     )
 }
