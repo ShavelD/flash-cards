@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {Route, Routes, Navigate, useParams} from "react-router-dom";
+import {Route, Routes, Navigate, useParams, useNavigate} from "react-router-dom";
 import {Test} from "./components/Test/Test";
 import {Registration} from "./features/registration/Registration";
 import {CreateNewPassword} from "./features/new-pass/CreateNewPassword";
@@ -21,6 +21,7 @@ import {Cards} from "./components/Cards/Cards";
 import {LearnPack} from "./components/LearnPack/LearnPack";
 import ErrorSnackbar from "./components/ErrorChackbar/ErrorChackbar";
 import {RoutesNavLink} from "./routes/RoutesNavLink/RoutesNavLink";
+import {authReducer} from "./redux/auth-reducer";
 
 
 
@@ -44,7 +45,6 @@ export enum ROUTS {
 function App() {
 
     const { id_pack } = useParams()
-
     const status = useSelector<AppRootStateType, RequestStatusType>((state) => state.app.status)
     const isInitialized = useAppSelector(state => state.app.isInitialized)
 
@@ -79,13 +79,11 @@ function App() {
                 <Route path={ROUTS.EMAIL_CONFIRMATION} element={<EmailConfirmation/>}/>
                 <Route path={ROUTS.PASS_RECOVERY} element={<PassRecovery/>}/>
                 <Route path={ROUTS.NEW_PASS} element={<CreateNewPassword/>}/>
-
                 <Route path={ROUTS.PACKS} element={<Packs/>}/>
                 <Route path={ROUTS.ADD_NEW_PACK} element={<NewPack/>}/>
                 <Route path={ROUTS.CARDS} element={<Cards/>}/>
                 <Route path={ROUTS.ADD_NEW_CARD} element={<AddNewCard id_pack={id_pack ? id_pack : ''}/>}/>
                 <Route path={ROUTS.LEARN_PACKS} element={<LearnPack />} />
-
                 <Route path={ROUTS.TEST_PAGE} element={<Test/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<Navigate to={ROUTS.NOT_FOUND}/>}/>
                 <Route path={ROUTS.NOT_FOUND} element={<h1 style={{textAlign: 'center'}}>404: PAGE NOT FOUND</h1>}/>
