@@ -58,7 +58,7 @@ export const Packs = () => {
     const packsCards = useAppSelector(state => state.main.packs)
     const totalPacksCount = useAppSelector(state => state.main.cardPacksTotalCount)
     const profileId = useAppSelector(state => state.profile._id)
-    const {id_pack} = useParams()
+
     const [order, setOrder] = React.useState<Order>('asc')
     const [orderBy, setOrderBy] = React.useState<keyof MainPackType>('updated')
     const [searchParams, setSearchParams] = useSearchParams({pageCount: '5'})

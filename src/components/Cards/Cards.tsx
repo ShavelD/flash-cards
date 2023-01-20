@@ -84,6 +84,7 @@ export const Cards = () => {
 
     const handleLearnClick = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
+        console.log('RENDER')
     }
 
     let URLParams = useMemo(

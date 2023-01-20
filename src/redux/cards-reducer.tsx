@@ -14,6 +14,7 @@ type initialStateType = {
     packUserId: string,
     sortCards: string,
     packName: string;
+    packDeckCover: string
 }
 const initialState: initialStateType = {
     cardsTotalCount: 0,
@@ -24,6 +25,7 @@ const initialState: initialStateType = {
     packUserId: '',
     sortCards: '0updated',
     packName: '',
+    packDeckCover: ''
 }
 
 
@@ -33,6 +35,7 @@ export type CardsActionsType =
     | ReturnType<typeof changeSortCardsAC>
     | ReturnType<typeof showNamePacsAC>
     | ReturnType<typeof showIdPacsAC>
+    | ReturnType<typeof getPhotoPacksAC>
 
 
 export const cardsReducer = (state: initialStateType = initialState, action: CardsActionsType): initialStateType => {
@@ -47,6 +50,8 @@ export const cardsReducer = (state: initialStateType = initialState, action: Car
             return {...state, packName: action.packName}
         case 'cards/SHOW-ID-PACS':
             return {...state, packUserId: action.packUserId}
+        case 'main/packs-GET-PHOTO-PACKS':
+            return {...state, packDeckCover: action.packDeckCover}
         default:
             return state
     }
@@ -66,6 +71,9 @@ export const showNamePacsAC = (packName: string) => {
 }
 export const showIdPacsAC = (packUserId: string) => {
     return {type: 'cards/SHOW-ID-PACS', packUserId} as const
+}
+export const getPhotoPacksAC = (packDeckCover: string) => {
+    return {type: 'main/packs-GET-PHOTO-PACKS', packDeckCover} as const
 }
 
 

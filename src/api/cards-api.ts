@@ -17,6 +17,7 @@ export type GetPackType = {
     pageCount: number
     user_id: string
     sortPacks: string
+    packDeckCover: string
 }
 
 type AddPackModelType = {
@@ -79,6 +80,7 @@ type GetCardResponseType = {
     sortCards: string
     packName: string
     _id: string
+    packDeckCover: string
 }
 
 export const instance = axios.create({

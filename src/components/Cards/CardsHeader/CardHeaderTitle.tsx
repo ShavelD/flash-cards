@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
-
 import style from './CardHeaderTitle.module.css'
-
 import {useAppSelector} from "../../../hooks/hook";
 import {AddCardModal} from '../../Modals/Add Card/AddCard';
 import {MyCardMenu} from "./MyCardMenu/MyCardMenu";
@@ -13,7 +11,8 @@ export const HeaderTitle = () => {
     const profileId = useAppSelector(state => state.cars.packUserId)
     const myId = useAppSelector(state => state.profile._id)
     const namePacs = useAppSelector(state => state.cars.packName)
-    const imageCard = useAppSelector(state => state.main.deckCover)
+    const imageCard = useAppSelector(state => state.cars.packDeckCover)
+
     const navigate = useNavigate()
     const {id_pack} = useParams()
 

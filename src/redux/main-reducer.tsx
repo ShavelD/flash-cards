@@ -5,7 +5,7 @@ import {
     GetPackType
 } from "../api/cards-api";
 import {setAppStatusAC} from "./app-reducer";
-import {showIdPacsAC, showNamePacsAC} from "./cards-reducer";
+import {getPhotoPacksAC, showIdPacsAC, showNamePacsAC} from "./cards-reducer";
 import {handleServerNetworkError} from "../utils/error-utils";
 
 
@@ -57,13 +57,11 @@ const initialState: initialStateType = {
     cardPacksTotalCount: 800,
     deckCover: '',
     queryParams: {
-        // packName: null,
         maxCardsCount: 0,
         minCardsCount: 0,
         page: 1,
         pageCount: 0,
         sortPacks: '0updated',
-        // user_id: '',
     }
 }
 
@@ -79,7 +77,6 @@ export type MainActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof changePageCountAC>
     | ReturnType<typeof changeCardsNumberInPackAC>
     | ReturnType<typeof changeSortPacksAC>
-    | ReturnType<typeof getPhotoPacksAC>
 
 
 export const mainReducer = (state: initialStateType = initialState, action: MainActionType): initialStateType => {
@@ -168,8 +165,6 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
             return {...state, queryParams: {...state.queryParams, minCardsCount: action.min, maxCardsCount: action.max}}
         case 'main/packs-CHANGE-SORT-PACKS':
             return {...state, queryParams: {...state.queryParams, sortPacks: action.sortPacks}}
-        case 'main/packs-GET-PHOTO-PACKS':
-            return {...state, deckCover: action.deckCover}
         default:
             return state
     }
@@ -193,9 +188,6 @@ export const changeCardsNumberInPackAC = (min: number, max: number) => {
 export const changeSortPacksAC = (sortPacks: string) => {
     return {type: 'main/packs-CHANGE-SORT-PACKS', sortPacks} as const
 }
-export const getPhotoPacksAC = (deckCover: string) => {
-    return {type: 'main/packs-GET-PHOTO-PACKS', deckCover} as const
-}
 
 
 export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
@@ -209,6 +201,7 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
                 pageCount: Number(paramsSearch?.pageCount) || undefined,
                 user_id: paramsSearch?.user_id || undefined,
                 sortPacks: paramsSearch?.sortPacks || undefined,
+                packDeckCover: paramsSearch?.packDeckCover || undefined,
             }
             const res = await cardsApi.getPacks(params)
             dispatch(setPacksAC(res.data.cardPacks))
@@ -225,6 +218,7 @@ export const getCardsTC = (params: GetCardType): AppThunk => {
             dispatch(setCardsAC(res.data.cards))
             dispatch(showIdPacsAC(res.data.packUserId))
             dispatch(showNamePacsAC(res.data.packName))
+            dispatch(getPhotoPacksAC(res.data.packDeckCover))
         } catch (error) {
             handleServerNetworkError(error, dispatch)
         }
