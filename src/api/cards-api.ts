@@ -32,8 +32,8 @@ type CardsPackType = {
 
 export type CreateCardType = {
     cardsPack_id: string
-    question: string
-    answer: string
+    question?: string
+    answer?: string
     grade?: number
     shots?: number
     questionImg?: string
@@ -55,7 +55,14 @@ export type GetCardType = {
     name?: string
 }
 
-export type UpdateCardType = Pick<CardType, '_id' | 'question' | 'answer'>
+//export type UpdateCardType = Pick<CardType, '_id' | 'question' | 'answer' | 'questionImg' | 'answerImg'>
+export type UpdateCardType = {
+    _id: string
+    question?: string
+    answer?: string
+    questionImg?: string
+    answerImg?: string
+}
 
 export type GetPackResponseType = {
     cardPacks: Array<PackType>

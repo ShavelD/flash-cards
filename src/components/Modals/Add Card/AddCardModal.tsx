@@ -9,6 +9,7 @@ import {BasicModal} from "../BasicModals";
 import style from './CardsModal.module.css'
 import {CardType} from "../../../redux/main-reducer";
 import {Title} from "./Title/Title"
+import {ImageInput} from "../ImageInput/ImageInput";
 
 
 export const CardsModal: FC<CardsModalType> = ({
@@ -34,8 +35,8 @@ export const CardsModal: FC<CardsModalType> = ({
         initialValues: {
             question: cardQuestion ? cardQuestion : '',
             answer: cardAnswer ? cardAnswer : '',
-            answerImg: answerImg || '',
-            questionImg: questionImg || '',
+            answerImg: answerImg ? answerImg : '',
+            questionImg: questionImg ? questionImg : '',
         },
         validate: (values: ValuesType) => {
             const errors: FormikErrorType = {}
@@ -57,22 +58,22 @@ export const CardsModal: FC<CardsModalType> = ({
         onSubmit: (values: ValuesType) => {
             if (titleName === 'Add new card' && itemName === 'Text') {
                 dispatch(addCardTC({
-                        cardsPack_id: id_pack,
-                        question: values.question,
-                        answer: values.answer
+                    cardsPack_id: id_pack,
+                    question: values.question,
+                    answer: values.answer
 
-            }))
+                }))
                 hide()
-            // } else if (titleName === 'Add new card' && itemName === 'Image') {
-            //     dispatch(
-            //         addCardTC( {
-            //             cardsPack_id: id_pack,
-            //             answerImg: values.answerImg,
-            //             questionImg: values.questionImg
-            //         })
-            //     )
+            } else if (titleName === 'Add new card' && itemName === 'Image') {
+                dispatch(
+                    addCardTC({
+                        cardsPack_id: id_pack,
+                        answerImg: values.answerImg,
+                        questionImg: values.questionImg
+                    })
+                )
                 hide()
-            } else if (titleName === 'Edit card') {
+            } else if (titleName === 'Edit card' && itemName === 'Text') {
                 dispatch(
                     updateCardTC(id_pack, {
                         _id: id_card ? id_card : '',
@@ -81,19 +82,33 @@ export const CardsModal: FC<CardsModalType> = ({
                     })
                 )
                 hide()
+            } else if (titleName === 'Edit card' && itemName === 'Image') {
+                dispatch(
+                    updateCardTC(id_pack, {
+                        _id: id_card ? id_card : '',
+                        answerImg: values.answerImg,
+                        questionImg: values.questionImg
+                    })
+                )
+                hide()
             }
         },
     })
 
-    const { values} = { ...formik };
+    const {values} = {...formik};
     const [val, setVal] = useState(values);
     const [isDirty, setIsDirty] = useState<boolean>(false);
 
-    // const changeValue = (value: string): void => {
-    //     values.answerImg && value.questionImg = value;
-    //     setVal({ ...val, answerImg: value, questionImg: value });
-    //     setIsDirty(true);
-    // };
+    const changeValueAnswerImg = (value: string): void => {
+        values.answerImg = value;
+        setVal({...val, answerImg: value});
+        setIsDirty(true);
+    };
+    const changeValueQuestionImg = (value: string): void => {
+        values.questionImg = value;
+        setVal({...val, questionImg: value});
+        setIsDirty(true);
+    };
 
     return (
         <>
@@ -115,20 +130,40 @@ export const CardsModal: FC<CardsModalType> = ({
                                 </MenuItem>
                             ))}
                         </Select>
-                        <Box>
-                            <TextField sx={{width: '37.4ch', mt: '20px'}}
-                                       id="input-with-sx" label="Question" variant="standard"
-                                       {...formik.getFieldProps('question')}/>
-                            {formik.touched.question && formik.errors.question ?
-                                <div style={{color: 'red'}}>{formik.errors.question}</div> : null}
-                        </Box>
-                        <Box>
-                            <TextField sx={{width: '37.4ch', mt: '20px'}}
-                                       id="input-with-sx" label="Answer" variant="standard"
-                                       {...formik.getFieldProps('answer')}/>
-                            {formik.touched.answer && formik.errors.answer ?
-                                <div style={{color: 'red'}}>{formik.errors.answer}</div> : null}
-                        </Box>
+                        {itemName === 'Text' ? (
+                            <>
+                                <Box>
+                                    <TextField sx={{width: '37.4ch', mt: '20px'}}
+                                               id="input-with-sx" label="Question" variant="standard"
+                                               {...formik.getFieldProps('question')}/>
+                                    {formik.touched.question && formik.errors.question ?
+                                        <div style={{color: 'red'}}>{formik.errors.question}</div> : null}
+                                </Box>
+                                <Box>
+                                    <TextField sx={{width: '37.4ch', mt: '20px'}}
+                                               id="input-with-sx" label="Answer" variant="standard"
+                                               {...formik.getFieldProps('answer')}/>
+                                    {formik.touched.answer && formik.errors.answer ?
+                                        <div style={{color: 'red'}}>{formik.errors.answer}</div> : null}
+                                </Box>
+                            </>
+                        ) : (
+                            <>
+                                <ImageInput
+                                    name="questionImg"
+                                    title="Download question"
+                                    value={values.questionImg}
+                                    changeValue={changeValueQuestionImg}
+                                />
+                                <ImageInput
+                                    name="answerImg"
+                                    title="Download answer"
+                                    value={values.answerImg}
+                                    changeValue={changeValueAnswerImg}
+                                />
+                            </>
+                        )
+                        }
                         <button type="submit" className={style.buttonSaveAdd}>Save</button>
                     </FormGroup>
                 </form>

@@ -124,12 +124,20 @@ export const Cards = () => {
 
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
-                                            <TableCell id={labelId} scope="row"
-                                                       // onClick={() => handleClick(row.cardsPack_id, row._id)}
-                                            >
-                                                {row.question}
+                                            <TableCell id={labelId} scope="row">
+                                                {row.question ? row.question : row.questionImg && (
+                                                    <img
+                                                        src={row.questionImg}
+                                                        alt="deckCover"
+                                                    />
+                                                )}
                                             </TableCell>
-                                            <TableCell align="left">{row.answer}</TableCell>
+                                            <TableCell align="left">{row.answer ? row.answer : row.answerImg && (
+                                                <img
+                                                    src={row.answerImg}
+                                                    alt="deckCover"
+                                                />
+                                            )}</TableCell>
                                             <TableCell
                                                 align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
                                             <TableCell align="left">{<Rating name="read-only" value={row.grade}
