@@ -140,7 +140,7 @@ export const Packs = () => {
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
                                                 <img src={row.deckCover ? row.deckCover : defAva} alt='PackCover'
-                                                     style={{height: '70px'}}/>
+                                                     style={{height: '60px'}}/>
                                             </TableCell>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}
@@ -149,25 +149,21 @@ export const Packs = () => {
                                             <TableCell
                                                 align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
                                             <TableCell align="left">{row.user_name}</TableCell>
-                                            <div>
-                                                {!isMyPack(row.user_id) && (
-                                                    <IconButton disabled={row.cardsCount === 0}>
-                                                        <SchoolOutlined onClick={() => handleLearnClick(row._id)}
-                                                                        fontSize={'small'}/>
-                                                    </IconButton>
-                                                )}
-                                            </div>
-                                            {isMyPack(row.user_id) && (
-                                                <>
+                                            <TableCell align="left">
+                                            {!isMyPack(row.user_id) ?
+                                                <IconButton disabled={row.cardsCount === 0}>
+                                                    <SchoolOutlined onClick={() => handleLearnClick(row._id)}
+                                                                    fontSize={'small'}/>
+                                                </IconButton>
+                                                : <>
                                                     <IconButton disabled={row.cardsCount === 0}>
                                                         <SchoolOutlined onClick={() => handleLearnClick(row._id)}
                                                                         fontSize={'small'}/>
                                                     </IconButton>
                                                     <EditPackIcon id_pack={row._id} namePack={row.name}/>
-
                                                     <DeleteModalIcon id_pack={row._id} name={row.name}/>
-                                                </>
-                                            )}
+                                                </>}
+                                            </TableCell>
                                         </TableRow>
                                     )
                                 })}
