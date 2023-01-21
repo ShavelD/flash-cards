@@ -146,6 +146,7 @@ export const CardsModal: FC<CardsModalType> = ({
                                     {formik.touched.answer && formik.errors.answer ?
                                         <div style={{color: 'red'}}>{formik.errors.answer}</div> : null}
                                 </Box>
+                                <button type="submit" className={style.buttonSaveAdd}>Save</button>
                             </>
                         ) : (
                             <>
@@ -161,10 +162,11 @@ export const CardsModal: FC<CardsModalType> = ({
                                     value={values.answerImg}
                                     changeValue={changeValueAnswerImg}
                                 />
+                                <button type="submit" className={style.buttonSaveAdd}>Save</button>
                             </>
                         )
                         }
-                        <button type="submit" className={style.buttonSaveAdd}>Save</button>
+
                     </FormGroup>
                 </form>
             </BasicModal>

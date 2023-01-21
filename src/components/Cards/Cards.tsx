@@ -125,18 +125,24 @@ export const Cards = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
-                                                {row.question ? row.question : row.questionImg && (
+                                                {row.questionImg ? (
                                                     <img
                                                         src={row.questionImg}
                                                         alt="deckCover"
+                                                        style={{width: '90px', height: '60px'}}
                                                     />
+                                                ) : (
+                                                    <div>{row.question}</div>
                                                 )}
                                             </TableCell>
-                                            <TableCell align="left">{row.answer ? row.answer : row.answerImg && (
+                                            <TableCell align="left">{row.answerImg ? (
                                                 <img
                                                     src={row.answerImg}
                                                     alt="deckCover"
+                                                    style={{width: '90px', height: '60px'}}
                                                 />
+                                            ) : (
+                                                <div>{row.answer}</div>
                                             )}</TableCell>
                                             <TableCell
                                                 align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>

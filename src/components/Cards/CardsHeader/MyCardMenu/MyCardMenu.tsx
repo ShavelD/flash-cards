@@ -50,11 +50,11 @@ export const MyCardMenu = () => {
                         </ListItemIcon>
                         <ListItemText>Delete</ListItemText>
                     </MenuItem>
-                    <MenuItem className={s.schoolOutlined}  disableRipple>
+                    <MenuItem disableRipple>
                         <ListItemIcon>
-                            <SchoolOutlined onClick={handleLearnClick} fontSize={"small"} className={s.schoolOutlined}/>
+                            <SchoolOutlined onClick={handleLearnClick} fontSize={"small"}  className={s.schoolOutlined}/>
                         </ListItemIcon>
-                        <ListItemText>Learn</ListItemText>
+                        <ListItemText className={s.schoolOutlinedLearn}>Learn</ListItemText>
                     </MenuItem>
                 </Menu>
             </Paper>
