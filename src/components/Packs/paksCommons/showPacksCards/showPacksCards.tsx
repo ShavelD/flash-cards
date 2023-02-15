@@ -14,7 +14,6 @@ export const ShowPacksCards = () => {
 
     const userId = useAppSelector(state => state.profile._id);
     let packsOwnLS;
-    console.log(userId)
 
     if (searchParams.get('user_id') === null) {
         packsOwnLS = packsOwn.ALL;

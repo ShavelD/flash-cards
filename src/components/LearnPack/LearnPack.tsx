@@ -2,15 +2,12 @@ import React, {useEffect, useState} from 'react'
 import {Button, Card} from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Unstable_Grid2'
-import {Navigate, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import style from './LearnPack.module.css'
 import {useAppDispatch, useAppSelector} from "../../hooks/hook";
 import {getRandomCardTC, updateGradeTC} from "../../redux/learnPack-reducer";
 import {BackToCardPacks} from "../../common/BackToCardPacks/BackToCardPacks";
 import {Grades} from "./Grades/Grades";
-import {CardType} from "../../redux/main-reducer";
-import {getCard} from "../../common/utils/getCard";
-import {ROUTS} from "../../App";
 
 
 export const LearnPack = () => {
@@ -21,7 +18,6 @@ export const LearnPack = () => {
     const grade = useAppSelector(state => state.learnPack.grade)
     const randomCard = useAppSelector(state => state.learnPack.randomCard)
 
-    console.log(packName)
 
     const setAnswerHandler = () => {
         if (id_pack) dispatch(updateGradeTC(id_pack, randomCard._id, grade))
@@ -35,7 +31,9 @@ export const LearnPack = () => {
 
     return (
         <Grid container justifyContent={'center'}>
-            <BackToCardPacks/>
+            <div className={style.backToCardPacks}>
+            <BackToCardPacks />
+            </div>
             <Grid display="flex" flexDirection={'column'} justifyContent="center" alignItems="center">
                 <Typography component="legend" variant="h5" sx={{mt: 5, mb: 2}}>
                     Learn {`"${packName}"`}
@@ -43,7 +41,16 @@ export const LearnPack = () => {
                 <Card sx={{width: 440, minHeight: 200}}>
                     <div className={style.cardQuestion_main}>
                         <div className={style.cardQuestion_question}>
-                            <b>Question:</b> {randomCard.question}
+                            <b>Question:</b>
+                            {randomCard.questionImg ? (
+                                <img
+                            src={randomCard.questionImg}
+                            alt="deckCover"
+                            style={{height: '60px', width: '40'}}
+                        />
+                            ) : (
+                                randomCard.question
+                            )}
                         </div>
                         <div className={style.cardQuestion_attempt}>
                             Number of attempts for this question: {randomCard.shots}
@@ -65,7 +72,7 @@ export const LearnPack = () => {
                                     <Grid display="flex" justifyContent="center" alignItems="center">
                                         <div className={style.cardQuestion_main}>
                                             <div className={style.cardAnswer_answer}>
-                                                <b>Answer:</b> {randomCard.answer}
+                                                <b>Answer:</b> {randomCard.answer || randomCard.answerImg}
                                             </div>
                                             <div className={style.cardAnswer_rateYourself}>
                                                 <Grades/>

@@ -8,13 +8,18 @@
     margin-top: 35px;
     margin-bottom: 15px;
 }
+
 .cardQuestion_attempt {
     margin-bottom: 10px;
-
     opacity: 0.5;
 }
+
 .cardQuestion_button {
     margin-bottom: 25px;
+}
+
+.backToCardPacks {
+    margin-top: 24px;
 }
 
 .cardAnswer_answer {

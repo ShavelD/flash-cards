@@ -4,7 +4,7 @@ import style from "./AddNewCard.module.css"
 import {NavLink, useParams} from "react-router-dom";
 import {ROUTS} from "../../../App";
 import {KeyboardBackspace} from "@mui/icons-material";
-import {ChangeEvent, FC, useState} from "react";
+import {FC, useState} from "react";
 import {addCardTC} from "../../../redux/cards-reducer";
 
 type CardsModalType = {

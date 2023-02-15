@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 
 import Button from '@mui/material/Button/Button';
 import FormControl from '@mui/material/FormControl';
@@ -42,13 +42,12 @@ export const ImageInput: React.FC<ImageInputPropsType> = ({
 
     return (
         <FormControl
-            style={{ marginBottom: '30px' }}
             className={style.cover}
             fullWidth
             variant="standard"
         >
             <label htmlFor={name}>
-                <Button variant="contained" component="span" fullWidth className={style.buttonImageInput}>
+                <Button component="span" fullWidth>
                     {title}
                 </Button>
             </label>
@@ -57,9 +56,10 @@ export const ImageInput: React.FC<ImageInputPropsType> = ({
                 name={name}
                 type="file"
                 onChange={uploadHandler}
-                style={{ display: 'none' }}
+                style={{display: 'none'}}
             />
-            {value && !errorSize ? <img className={style.image} src={value} alt="" /> : null}
+            {value && !errorSize ? <img className={style.image} src={value} alt=""/> :
+                <div className={style.questionImg}></div>}
             {errorSize ? <span className={style.error}>{errorSize}</span> : null}
         </FormControl>
     );

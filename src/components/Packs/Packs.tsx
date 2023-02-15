@@ -21,7 +21,7 @@ import {SchoolOutlined} from "@mui/icons-material";
 import {DeleteModalIcon} from "../Modals/Delere Pack Modal/DeleteModalIcon/DeleteModalIcon";
 import {EditPackIcon} from "../Modals/Update Pack Modal/UpdatePackIcon/UpdatePackIcon";
 import {TableRow} from "@mui/material";
-import defAva from "../../assets/images/Avatar.jpg";
+import defAva from "../../assets/images/react-js.jpg";
 
 
 type ColumnType = {
@@ -140,7 +140,7 @@ export const Packs = () => {
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
                                                 <img src={row.deckCover ? row.deckCover : defAva} alt='PackCover'
-                                                     style={{height: '60px'}}/>
+                                                     style={{height: '60px', width: '40'}}/>
                                             </TableCell>
                                             <TableCell id={labelId} scope="row" onClick={() => handleClick(row._id)}>
                                                 {row.name}

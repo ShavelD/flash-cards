@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, useState} from 'react'
+import React, {FC, useState} from 'react'
 
 import {FormGroup, Select, MenuItem, SelectChangeEvent, Box, TextField} from '@mui/material'
 import InputLabel from '@mui/material/InputLabel'
@@ -11,6 +11,12 @@ import {CardType} from "../../../redux/main-reducer";
 import {Title} from "./Title/Title"
 import {ImageInput} from "../ImageInput/ImageInput";
 
+
+const space: React.CSSProperties = {
+    height: '119px',
+    width: '347px',
+
+}
 
 export const CardsModal: FC<CardsModalType> = ({
                                                    titleName,
@@ -149,12 +155,14 @@ export const CardsModal: FC<CardsModalType> = ({
                             </>
                         ) : (
                             <>
+                                <div className={style.questionAnswer}>Question:</div>
                                 <ImageInput
                                     name="questionImg"
                                     title="Download question"
                                     value={values.questionImg}
                                     changeValue={changeValueQuestionImg}
                                 />
+                                <div className={style.questionAnswer}>Answer:</div>
                                 <ImageInput
                                     name="answerImg"
                                     title="Download answer"

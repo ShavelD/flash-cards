@@ -3,9 +3,8 @@
     margin-bottom: 30px;
 }
 
-.navlink {
-    display: flex;
-    color: black;
+.backToCardPacks {
+    margin-top: 24px;
 }
 
 .text {

@@ -68,7 +68,7 @@ function App() {
         <div className="App">
             <ErrorSnackbar/>
             <Header />
-            <RoutesNavLink />
+            {/*<RoutesNavLink />*/}
             {status === 'loading' && <LinearProgress/>}
             <Container fixed>
             <Routes>

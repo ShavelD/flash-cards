@@ -77,11 +77,6 @@ export const Cards = () => {
         return id === profileId
     }
 
-    // choose card
-    // const handleClick = (id_pack: string, id_card: string) => {
-    //     navigate(`/packs/pack/${id_pack}/card/${id_card}`)
-    // }
-
     const handleLearnClick = () => {
         if (id_pack) navigate(`/question/${id_pack}`)
         console.log('RENDER')
@@ -125,19 +120,21 @@ export const Cards = () => {
                                     return (
                                         <TableRow hover tabIndex={-1} key={row._id}>
                                             <TableCell id={labelId} scope="row">
-                                                {row.question ? row.question : row.questionImg && (
+                                                {row.questionImg ?  row.questionImg && (
                                                     <img
                                                         src={row.questionImg}
                                                         alt="deckCover"
+                                                        style={{height: '60px', width: '40'}}
                                                     />
-                                                )}
+                                                ) : row.question}
                                             </TableCell>
-                                            <TableCell align="left">{row.answer ? row.answer : row.answerImg && (
+                                            <TableCell align="left">{row.answerImg ? row.answerImg && (
                                                 <img
                                                     src={row.answerImg}
                                                     alt="deckCover"
+                                                    style={{height: '60px', width: '40'}}
                                                 />
-                                            )}</TableCell>
+                                            ) : row.answer}</TableCell>
                                             <TableCell
                                                 align="left">{new Date(row.updated).toLocaleDateString()}</TableCell>
                                             <TableCell align="left">{<Rating name="read-only" value={row.grade}

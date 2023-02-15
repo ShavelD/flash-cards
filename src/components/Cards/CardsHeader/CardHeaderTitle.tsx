@@ -4,7 +4,7 @@ import {useAppSelector} from "../../../hooks/hook";
 import {AddCardModal} from '../../Modals/Add Card/AddCard';
 import {MyCardMenu} from "./MyCardMenu/MyCardMenu";
 import {useNavigate, useParams} from "react-router-dom";
-import defAva from '../../../assets/images/Avatar.jpg'
+import defAva from '../../../assets/images/react-js.jpg'
 
 
 export const HeaderTitle = () => {
@@ -38,7 +38,7 @@ export const HeaderTitle = () => {
                 )}
             </div>
             <div>
-                <img src={imageCard ? imageCard : defAva} alt='PackCover' style={{height: '70px', paddingLeft: '10px'}}/>
+                <img src={imageCard ? imageCard : defAva} alt='PackCover' style={{height: '107px', paddingLeft: '10px', width: '100px'}}/>
             </div>
         </div>
     )
