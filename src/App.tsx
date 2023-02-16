@@ -72,7 +72,7 @@ function App() {
             {status === 'loading' && <LinearProgress/>}
             <Container fixed>
             <Routes>
-                <Route path={ROUTS.DEFAULT} element={<Profile/>}/>
+                <Route path={ROUTS.DEFAULT} element={<Login/>}/>
                 <Route path={ROUTS.PROFILE} element={<Profile/>}/>
                 <Route path={ROUTS.LOGIN} element={<Login/>}/>
                 <Route path={ROUTS.REGISTRATION} element={<Registration/>}/>

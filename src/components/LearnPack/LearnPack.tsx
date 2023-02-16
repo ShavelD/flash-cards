@@ -72,7 +72,16 @@ export const LearnPack = () => {
                                     <Grid display="flex" justifyContent="center" alignItems="center">
                                         <div className={style.cardQuestion_main}>
                                             <div className={style.cardAnswer_answer}>
-                                                <b>Answer:</b> {randomCard.answer || randomCard.answerImg}
+                                                <b>Answer:</b>
+                                                {randomCard.answerImg ? (
+                                                <img
+                                                    src={randomCard.answerImg}
+                                                    alt="deckCover"
+                                                    style={{height: '60px', width: '40'}}
+                                                />
+                                            ) : (
+                                                randomCard.answer
+                                            )}
                                             </div>
                                             <div className={style.cardAnswer_rateYourself}>
                                                 <Grades/>
