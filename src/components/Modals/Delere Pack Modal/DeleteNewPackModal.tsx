@@ -1,8 +1,10 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {BasicModal} from "../BasicModals";
 import {deletePackTC} from "../../../redux/main-reducer";
-import {useAppDispatch} from "../../../hooks/hook";
+import {useAppDispatch, useAppSelector} from "../../../hooks/hook";
 import style from './DeleteNewPackModall.module.css'
+import {setIsInitializedTC} from "../../../redux/app-reducer";
+
 
 
 
@@ -21,6 +23,7 @@ export const DeleteNewPackModal: React.FC<DeleteNewPackModalType> = ({open, hide
     const deletePack = () => {
         dispatch(deletePackTC(id_pack))
     }
+
 
     return (
         <>

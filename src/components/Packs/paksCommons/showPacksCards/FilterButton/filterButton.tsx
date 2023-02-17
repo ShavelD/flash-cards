@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import style from './filterButton.module.css'
 import {packsOwn} from "../../../../../common/enums/packsOwn";
 
@@ -18,10 +18,6 @@ export const FilterButton: React.FC<PropsType> = ({
                                                       setActiveTitle,
                                                       packsOwnLS,
                                                   }) => {
-
-
-    // const [ active, isActive] = useState(true)
-    // let className = `${active && 'activeButton'} buttonClass`
 
 
     const onMy = style.filterButton + ' ' + (activeTitle === title ? style.active : '')

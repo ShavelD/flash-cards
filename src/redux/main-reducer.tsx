@@ -170,6 +170,7 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
     }
 }
 
+
 export const setPacksAC = (packs: Array<PackType>) => {
     return {type: 'main/SET-PACKS', packs} as const
 }
@@ -210,6 +211,8 @@ export const getPacksTC = (paramsSearch?: Partial<GetPackType>): AppThunk => {
         }
     }
 }
+
+
 
 export const getCardsTC = (params: GetCardType): AppThunk => {
     return async (dispatch: AppDispatch) => {

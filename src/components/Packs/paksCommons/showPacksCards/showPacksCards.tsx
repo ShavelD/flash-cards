@@ -3,7 +3,7 @@ import style from './showPacksCards.module.css'
 import {FilterButton} from "./FilterButton/filterButton";
 import {packsOwn} from "../../../../common/enums/packsOwn";
 import {useSearchParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../../../hooks/hook";
+import {useAppSelector} from "../../../../hooks/hook";
 import {clearURLParams} from "../../../../common/utils/clearURLParams";
 
 
@@ -21,7 +21,7 @@ export const ShowPacksCards = () => {
         packsOwnLS = packsOwn.MY;
     } else packsOwnLS = packsOwn.USER;
 
-    const onClickButton = (buttonName: packsOwn): void => {
+     const onClickButton = (buttonName: packsOwn): void => {
         const queryParams: { user_id?: string } = {};
 
         if (buttonName === packsOwn.MY) {
