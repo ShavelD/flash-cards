@@ -77,6 +77,7 @@ export type MainActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof changePageCountAC>
     | ReturnType<typeof changeCardsNumberInPackAC>
     | ReturnType<typeof changeSortPacksAC>
+    | ReturnType<typeof deleteMyPackAC>
 
 
 export const mainReducer = (state: initialStateType = initialState, action: MainActionType): initialStateType => {
@@ -165,6 +166,8 @@ export const mainReducer = (state: initialStateType = initialState, action: Main
             return {...state, queryParams: {...state.queryParams, minCardsCount: action.min, maxCardsCount: action.max}}
         case 'main/packs-CHANGE-SORT-PACKS':
             return {...state, queryParams: {...state.queryParams, sortPacks: action.sortPacks}}
+        case 'main/packs-DELETE-MY-PACK':
+            return {...state, packs: state.packs.filter(p => p._id !== action.id)}
         default:
             return state
     }
@@ -188,6 +191,9 @@ export const changeCardsNumberInPackAC = (min: number, max: number) => {
 }
 export const changeSortPacksAC = (sortPacks: string) => {
     return {type: 'main/packs-CHANGE-SORT-PACKS', sortPacks} as const
+}
+export const deleteMyPackAC = (id: string) => {
+    return {type: 'main/packs-DELETE-MY-PACK', id} as const
 }
 
 
@@ -255,7 +261,7 @@ export const deletePackTC = (pack_id: string): AppThunk =>
     async (dispatch: AppDispatch) => {
         try {
             await cardsApi.deletePack(pack_id)
-            dispatch(getPacksTC())
+            dispatch(deleteMyPackAC(pack_id))
         } catch (error) {
             handleServerNetworkError(error, dispatch)
         }
